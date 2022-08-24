@@ -1,0 +1,2 @@
+class TopPagesController < ApplicationController
+end
