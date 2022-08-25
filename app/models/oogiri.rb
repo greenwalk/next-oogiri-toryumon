@@ -1,0 +1,2 @@
+class Oogiri < ApplicationRecord
+end
