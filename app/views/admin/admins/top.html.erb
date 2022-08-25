@@ -1,1 +1,17 @@
-test
+<div class="bg-warning card col-sm-6 mx-auto">
+    <div class="card-body">
+      <h3 class="text-center mt-1 mb-4">管理者ページ</h3>
+
+      <%= form_with model: @field, url: fields_path, local: true do |f| %>
+
+        <div class="form-group">
+          <%= f.label :text_theme, "お題を作る" %><br />
+          <%= f.text_field :text_theme, autofocus: true %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "生成", class: "btn btn-sm bg-dark text-white"  %>
+        </div>
+      <% end %>
+    </div>
+</div>
