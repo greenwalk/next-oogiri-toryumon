@@ -4,12 +4,52 @@
     <title>NextOogiriToryumon</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&display=swap');
+  </style>
   <body>
+  <header class="sticky-top">
+    <nav class="mb-2 navbar navbar-expand-lg navbar-dark bg-dark">
+      <a>
+        <%= link_to '大喜利登竜門', root_path, class: "text-white", data: {"turbolinks" => false} %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to '投稿フォーム', new_post_path %>
+            </li>
+            <li class="nav-item">
+              <%= link_to '投稿一覧', posts_path %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'ランキング', ranks_rank_path %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "新規登録", new_user_registration_path, class: "text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログイン", new_user_session_path, class: "text-white" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+  </header>
     <%= yield %>
   </body>
 </html>
