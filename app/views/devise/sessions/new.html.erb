@@ -1,0 +1,29 @@
+<div class="main">
+  <div class="inner">
+    <div class="user__form__wrapper">
+      <h2 class="field-heading">ユーザーログイン</h2>
+      <%= form_with model: @user, url: user_session_path, local: true do |f| %>
+
+        <div class="attention__sentence">
+          <p>初めて『投句るうむ』をご利用の方は必ず、<%= link_to "ルール", rule_fields_path, class: :attention__link %>をご一読ください</p>
+        </div>
+
+        <%= render 'shared/error_messages', model: f.object %>
+
+        <div class="field">
+          <%= f.label :email, "メールアドレス" %><br />
+          <%= f.email_field :email, id:"user_email", autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password, "パスワード（英数字組み合わせで8文字以上）" %><br />
+          <%= f.password_field :password, id:"user_password", autocomplete: "current-password" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "ログイン", class: :form__btn %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
