@@ -46,6 +46,11 @@
               <%= link_to "ログイン", new_user_session_path, class: "text-white" %>
             </li>
           <% end %>
+          <% if current_user.id == 1 %>
+            <li class="nav-item mb-1">
+              <%= link_to '管理者ページ', admin_top_path, class: "text-white" %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </nav>
