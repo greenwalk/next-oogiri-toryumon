@@ -1,4 +1,6 @@
 class Field < ApplicationRecord
+  has_many :oogiris
+
   validates :status, presence: true
   validates :text_theme, presence: true
 
