@@ -27,7 +27,7 @@
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <li class="nav-item mb-1">
-              <%= link_to '投稿フォーム', "#", class: "text-white" %>
+              <%= link_to '会場', new_field_oogiri_path(field_id: @now_field.id), class: "text-white" %>
             </li>
             <li class="nav-item mb-1">
               <%= link_to 'お題一覧', fields_path, class: "text-white" %>
