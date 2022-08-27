@@ -1,0 +1,28 @@
+<div class="mt-2 card col-sm-6 mx-auto">
+  <div class="card-body">
+    <h3 class="text-center mt-1 mb-4 text-dark">現在のお題</h3>
+    <div class="text-dark"><%= @field.text_theme %></div>
+  </div>
+  <div class="card-body">
+    <h3 class="text-center mt-1 mb-4 text-dark">現在の回答</h3>
+    <div class="p-2 table-secondary text-dark"><%= @oogiri.content %></div>
+  </div>
+  <div class="card-body">
+    <%= form_with(model: [@field, @oogiri], local: true) do |f| %>
+
+      <div class="form-group">
+        <%= f.label :content, "回答フォーム" %><br />
+        <%= f.text_field :content, autofocus: true %>
+      </div>
+
+      <div class="d-flex">
+        <div class="actions">
+          <%= f.submit "変更", class: "btn btn-sm bg-dark text-white" %>
+        </div>
+        <div class="ml-4 actions">
+          <%= link_to "リセット", field_oogiri_path(field_id: @field.id, id: @oogiri.id), class: "btn btn-sm btn-danger", method: :delete %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
