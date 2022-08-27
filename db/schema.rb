@@ -10,13 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_25_133034) do
+ActiveRecord::Schema.define(version: 2022_08_25_144523) do
 
   create_table "fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "text_theme", default: "", comment: "文字お題"
     t.integer "status", default: 0, comment: "お題ステータス"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "oogiris", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "content", limit: 200, default: "", null: false, comment: "回答"
+    t.integer "point", default: 0, null: false, comment: "得点"
+    t.integer "score", default: 0, null: false, comment: "スコア"
+    t.integer "get_rank", default: 0, null: false, comment: "順位"
+    t.bigint "user_id", null: false
+    t.bigint "field_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["field_id"], name: "index_oogiris_on_field_id"
+    t.index ["user_id"], name: "index_oogiris_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -32,4 +45,6 @@ ActiveRecord::Schema.define(version: 2022_08_25_133034) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "oogiris", "fields"
+  add_foreign_key "oogiris", "users"
 end
