@@ -1,17 +1,27 @@
 <div class="bg-warning card col-sm-6 mx-auto">
-    <div class="card-body">
-      <h3 class="text-center mt-1 mb-4">管理者ページ</h3>
+  <div class="card-body">
+    <h3 class="text-center mt-1 mb-4">管理者ページ</h3>
 
-      <%= form_with model: @field, url: fields_path, local: true do |f| %>
+    <%= form_with model: @field, url: fields_path, local: true do |f| %>
 
-        <div class="form-group">
-          <%= f.label :text_theme, "お題を作る" %><br />
-          <%= f.text_field :text_theme, autofocus: true %>
-        </div>
+      <div class="form-group">
+        <%= f.label :text_theme, "お題を作る" %><br />
+        <%= f.text_field :text_theme, autofocus: true %>
+      </div>
 
-        <div class="actions">
-          <%= f.submit "生成", class: "btn btn-sm bg-dark text-white"  %>
-        </div>
-      <% end %>
-    </div>
+      <div class="actions">
+        <%= f.submit "生成", class: "btn btn-sm bg-dark text-white"  %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="bg-warning card col-sm-6 mx-auto mt-2">
+  <div class="card-body">
+    <h3 class="text-center mt-1 mb-0 text-dark">現在のお題</h3>
+    <p class="text-danger text-center"><%= @now_field.status  %></p>
+    <div class="text-dark"><%= @now_field.text_theme %></div>
+  </div>
+  <div>
+    <%= link_to "切替", field_path(id: @now_field.id), class: "center-block w-50 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
+  </div>
 </div>
