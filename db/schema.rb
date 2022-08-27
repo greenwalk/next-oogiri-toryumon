@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_25_144523) do
+ActiveRecord::Schema.define(version: 2022_08_27_060000) do
 
   create_table "fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "text_theme", default: "", comment: "文字お題"
@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(version: 2022_08_25_144523) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "votes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "vote_point", default: 0, null: false, comment: "点数"
+    t.bigint "user_id", null: false
+    t.bigint "oogiri_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["oogiri_id"], name: "index_votes_on_oogiri_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "oogiris", "fields"
   add_foreign_key "oogiris", "users"
+  add_foreign_key "votes", "oogiris"
+  add_foreign_key "votes", "users"
 end
