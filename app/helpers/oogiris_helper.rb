@@ -1,0 +1,2 @@
+module OogirisHelper
+end
