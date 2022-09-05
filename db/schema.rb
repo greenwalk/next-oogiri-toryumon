@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_28_050758) do
+ActiveRecord::Schema.define(version: 2022_09_05_135330) do
 
   create_table "fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "text_theme", default: "", comment: "文字お題"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 2022_08_28_050758) do
     t.bigint "oogiri_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "field_id", null: false
+    t.index ["field_id"], name: "index_votes_on_field_id"
     t.index ["oogiri_id"], name: "index_votes_on_oogiri_id"
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
