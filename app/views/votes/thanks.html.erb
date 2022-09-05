@@ -1,0 +1,48 @@
+<div class="my-2 card col-sm-6 mx-auto">
+  <div class="card-body">
+    <h3 class="text-center mt-1 mb-4 text-dark">投票完了</h3>
+    <p>あなたの投票</p>
+    <div>
+      <h3 class="text-center bg-secondary">4点</h3>
+      <% if @votes.where(vote_point: 4).present? %>
+        <% @votes.where(vote_point: 4).each do |vote| %>
+          <p class="mb-2"><%= vote.oogiri.content %></p>
+        <% end %>
+      <% else %>
+        <p class="text-center mb-2">なし</p>
+      <% end %>
+    </div>
+    <h3 class="text-center bg-secondary">3点</h3>
+    <% if @votes.where(vote_point: 3).present? %>
+      <% @votes.where(vote_point: 3).each do |vote| %>
+        <p class="mb-2"><%= vote.oogiri.content %></p>
+      <% end %>
+    <% else %>
+      <p class="text-center mb-2">なし</p>
+    <% end %>
+    <h3 class="text-center bg-secondary">2点</h3>
+    <% if @votes.where(vote_point: 2).present? %>
+      <% @votes.where(vote_point: 2).each do |vote| %>
+        <p class="mb-2"><%= vote.oogiri.content %></p>
+      <% end %>
+    <% else %>
+      <p class="text-center mb-2">なし</p>
+    <% end %>
+    <h3 class="text-center bg-secondary">1点</h3>
+    <% if @votes.where(vote_point: 1).present? %>
+      <% @votes.where(vote_point: 1).each do |vote| %>
+        <p class="mb-2"><%= vote.oogiri.content %></p>
+      <% end %>
+    <% else %>
+      <p class="text-center mb-2">なし</p>
+    <% end %>
+    <h3 class="text-center bg-secondary">0点</h3>
+    <% if @votes.where(vote_point: 0).present? %>
+      <% @votes.where(vote_point: 0).each do |vote| %>
+        <p class="mb-2"><%= vote.oogiri.content %></p>
+      <% end %>
+    <% else %>
+      <p class="text-center mb-2">なし</p>
+    <% end %>
+  </div>
+</div>

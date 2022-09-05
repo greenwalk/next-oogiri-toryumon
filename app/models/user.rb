@@ -3,4 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  has_many :oogiris
+  has_many :votes
+
+  def already_voted?(oogiri)
+    votes.exists?(oogiri_id: oogiri.id)
+  end
 end

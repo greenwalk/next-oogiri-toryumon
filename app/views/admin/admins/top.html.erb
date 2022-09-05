@@ -21,7 +21,7 @@
     <p class="text-danger text-center"><%= @now_field.status  %></p>
     <div class="text-dark"><%= @now_field.text_theme %></div>
   </div>
-  <div>
-    <%= link_to "切替", field_path(id: @now_field.id), class: "center-block w-50 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
+  <div class="text-center">
+    <%= link_to "切替", field_path(id: @now_field.id), class: "w-50 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
   </div>
 </div>
