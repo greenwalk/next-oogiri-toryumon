@@ -1,11 +1,11 @@
 class VotesController < ApplicationController
-  before_action :set_oogiris, only: [:new, :create]
+  before_action :set_oogiris, only: [:new, :create, :thanks]
   def new
-    @form = Form::VoteCollection.new(current_user, @oogiris, {})
+    @form = Form::VoteCollection.new(current_user, @oogiris, @now_field, {})
   end
 
   def create
-    @form = Form::VoteCollection.new(current_user, @oogiris, vote_collection_params)
+    @form = Form::VoteCollection.new(current_user, @oogiris, @now_field, vote_collection_params)
     if @form.save
       redirect_to vote_thanks_path, notice: "商品を登録しました"
     else
@@ -15,6 +15,7 @@ class VotesController < ApplicationController
   end
 
   def thanks
+    @votes = Vote.where(user_id: current_user.id)
   end
 
   private
