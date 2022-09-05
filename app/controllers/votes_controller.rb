@@ -15,7 +15,8 @@ class VotesController < ApplicationController
   end
 
   def thanks
-    @votes = Vote.where(user_id: current_user.id)
+    @votes = Vote.where(user_id: current_user.id, field_id: @now_field.id)
+
   end
 
   private
