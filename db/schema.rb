@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_27_060000) do
+ActiveRecord::Schema.define(version: 2022_08_28_050758) do
 
   create_table "fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "text_theme", default: "", comment: "文字お題"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2022_08_27_060000) do
   end
 
   create_table "votes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "vote_point", default: 0, null: false, comment: "点数"
+    t.integer "vote_point", null: false, comment: "点数"
     t.bigint "user_id", null: false
     t.bigint "oogiri_id", null: false
     t.datetime "created_at", precision: 6, null: false
