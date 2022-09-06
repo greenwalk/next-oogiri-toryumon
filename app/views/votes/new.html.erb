@@ -10,8 +10,12 @@
       <div class="card-body p-2">
         <div class="form-group text-secondary d-flex">
           <div class="d-flex form-check pt-1 ml-3">
-            <%= f.label :vote_point, "0点", class: "form-check-label" %>
-            <%= f.radio_button :vote_point, 0, class: "form-check-input" %>
+            <%= f.label :vote_point, "-2点", class: "form-check-label" %>
+            <%= f.radio_button :vote_point, -2, class: "form-check-input" %>
+          </div>
+          <div class="d-flex form-check pt-1 ml-3">
+            <%= f.label :vote_point, "-1点", class: "form-check-label" %>
+            <%= f.radio_button :vote_point, -1, class: "form-check-input" %>
           </div>
           <div class="d-flex form-check pt-1 ml-3">
             <%= f.label :vote_point, "1点", class: "form-check-label" %>
@@ -24,10 +28,6 @@
           <div class="d-flex form-check pt-1 ml-3">
             <%= f.label :vote_point, "3点", class: "form-check-label" %>
             <%= f.radio_button :vote_point, 3, class: "form-check-input" %>
-          </div>
-          <div class="d-flex form-check pt-1 ml-3">
-            <%= f.label :vote_point, "4点", class: "form-check-label" %>
-            <%= f.radio_button :vote_point, 4, class: "form-check-input" %>
           </div>
         </div>
         <div class="p-2 table-secondary text-dark"><%= f.object.oogiri.content %></div>
