@@ -1,28 +1,47 @@
-<div class="mt-2 card col-sm-6 mx-auto">
+<div class="position-sticky mb-2 card col-sm-6 mx-auto" style="position: sticky; top: 56px; z-index: 100;">
   <div class="card-body">
-    <h3 class="text-center mt-1 mb-4 text-dark">現在のお題</h3>
-    <div class="text-dark"><%= @field.text_theme %></div>
+    <div class="text-center mb-2 text-dark"><%= "お題" %></div>
+    <div class="text-dark text-center table-secondary p-2"><%= @field.text_theme %></div>
   </div>
-  <div class="card-body">
-    <h3 class="text-center mt-1 mb-4 text-dark">現在の回答</h3>
+</div>
+<div class="col-sm-6 mx-auto px-4">
+  <div class="mt-3 mb-1"><%= "回答プレビュー" %></div>
+  <div class="card-body p-2 shadow-sm border mb-3">
+    <div class="form-group text-muted d-flex small">
+      <div class="d-flex form-check pt-1 ml-3">
+        <input type="radio" name="-2点" value="" class="form-check-input">-2点
+      </div>
+      <div class="d-flex form-check pt-1 ml-3">
+        <input type="radio" name="-1点" value="" class="form-check-input">-1点
+      </div>
+      <div class="d-flex form-check pt-1 ml-3">
+        <input type="radio" name="1点" value="" class="form-check-input">1点
+      </div>
+      <div class="d-flex form-check pt-1 ml-3">
+        <input type="radio" name="2点" value="" class="form-check-input">2点
+      </div>
+      <div class="d-flex form-check pt-1 ml-3">
+        <input type="radio" name="3点" value="" class="form-check-input">3点
+      </div>
+    </div>
     <div class="p-2 table-secondary text-dark"><%= @oogiri.content %></div>
   </div>
-  <div class="card-body">
-    <%= form_with(model: [@field, @oogiri], local: true) do |f| %>
+</div>
+<div class="card-body">
+  <%= form_with(model: [@field, @oogiri], local: true) do |f| %>
 
-      <div class="form-group">
-        <%= f.label :content, "回答フォーム" %><br />
-        <%= f.text_field :content, autofocus: true %>
-      </div>
+    <div class="form-group">
+      <%= f.label :content, "回答フォーム" %><br />
+      <%= f.text_area :content, autofocus: true, class: "col-sm-12 px-1", rows: 4 %>
+    </div>
 
-      <div class="d-flex">
-        <div class="actions">
-          <%= f.submit "変更", class: "btn btn-sm bg-dark text-white" %>
-        </div>
-        <div class="ml-4 actions">
-          <%= link_to "リセット", field_oogiri_path(field_id: @field.id, id: @oogiri.id), class: "btn btn-sm btn-danger", method: :delete %>
-        </div>
+    <div class="d-flex">
+      <div class="actions">
+        <%= f.submit "変更", class: "btn btn-sm bg-dark text-white" %>
       </div>
-    <% end %>
-  </div>
+      <div class="ml-4 actions">
+        <%= link_to "リセット", field_oogiri_path(field_id: @field.id, id: @oogiri.id), class: "btn btn-sm btn-danger", method: :delete %>
+      </div>
+    </div>
+  <% end %>
 </div>
