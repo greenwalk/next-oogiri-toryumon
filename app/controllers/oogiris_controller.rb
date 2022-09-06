@@ -1,7 +1,12 @@
 class OogirisController < ApplicationController
   before_action :set_oogiri, only: [:edit, :update, :destroy]
-  before_action :set_field, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_field, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :dont_look_result, only: :index
+  before_action :dont_create_oogiri, only: [:new, :edit]
 
+  def index
+    @oogiris = @field.oogiris.includes(:votes).sort { |a, b| b.votes.sum(:vote_point) <=> a.votes.sum(:vote_point) }
+  end
   def new
     # 俳句を既に投稿している場合は、俳句編集ページへ移動。していない場合は、投稿ページへ移動
     if Oogiri.exists?(user_id: current_user.id, field_id: @field.id)
@@ -48,5 +53,13 @@ class OogirisController < ApplicationController
 
   def set_field
     @field = Field.find(params[:field_id])
+  end
+
+  def dont_look_result
+    redirect_to root_path unless @field.status_finished?
+  end
+
+  def dont_create_oogiri
+    redirect_to root_path unless @field.status_posting?
   end
 end

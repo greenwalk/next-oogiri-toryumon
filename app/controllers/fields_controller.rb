@@ -1,6 +1,7 @@
 class FieldsController < ApplicationController
   before_action :set_field, only: [:update]
   def index
+    @fields = Field.where(status: "finished")
   end
 
   def create
@@ -13,9 +14,9 @@ class FieldsController < ApplicationController
   end
 
   def update
-    if @field.status == "posting"
+    if @field.status_posting?
       next_status = "voting"
-    elsif @field.status == "voting"
+    elsif @field.status_voting?
       next_status = "finished"
     else
       next_status = "posting"

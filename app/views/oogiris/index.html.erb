@@ -1,0 +1,27 @@
+<div class="mb-2 card col-sm-6 mx-auto">
+  <div class="card-body small">
+    <div class="text-center mb-2 text-dark"><%= "お題" %></div>
+    <div class="text-dark text-center table-secondary p-2"><%= @field.text_theme %></div>
+  </div>
+</div>
+<div class="col-sm-6 mx-auto small">
+  <% @oogiris.each_with_index do |oogiri, i| %>
+    <div class="d-flex align-items-center p-1 shadow-sm border my-2">
+      <div class="d-flex text-nowrap">
+        <div class="mr-2"><%= "#{i + 1}位" %></div>
+        <div><%= "#{oogiri.votes.sum(:vote_point)}点" %></div>
+      </div>
+      <div class="ml-3 float-left">
+        <div class="d-flex small align-top">
+          <div class="d-flex small mr-1">
+            <% [3, 2, 1, -1, -2].each do |v| %>
+              <div class="bg-white border mr-1"><%= "#{v}点 #{oogiri.votes.where(vote_point: v).length}" %></div>
+            <% end %>
+          </div>
+          <%= link_to oogiri.user.name, "#", class: "text-left small text-secondary" %>
+        </div>
+        <div class="p-1 align-items-center text-left table-secondary my-2"><%= oogiri.content %></div>
+      </div>
+    </div>
+  <% end %>
+</div>
