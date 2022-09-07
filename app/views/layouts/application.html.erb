@@ -26,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1 mr-2">
               <% if @now_field.status_posting? %>
                 <%= link_to '会場', new_field_oogiri_path(field_id: @now_field.id), class: "text-white" %>
               <% elsif @now_field.status_voting? %>
@@ -35,13 +35,13 @@
                 <%= link_to '会場', field_oogiris_path(@now_field), class: "text-white" %>
               <% end %>
             </li>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1 mr-2">
               <%= link_to 'お題一覧', fields_path, class: "text-white" %>
             </li>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1 mr-2">
               <%= link_to 'ランキング', "#", class: "text-white" %>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mr-2">
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-white" %>
             </li>
             <% if current_user.id == 1 %>
@@ -50,7 +50,7 @@
               </li>
             <% end %>
           <% else %>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1 mr-2">
               <%= link_to "新規登録", new_user_registration_path, class: "text-white" %>
             </li>
             <li class="nav-item">
