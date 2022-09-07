@@ -4,6 +4,7 @@
     <div class="text-dark text-center table-secondary p-2"><%= @field.text_theme %></div>
   </div>
 </div>
+
 <div class="col-sm-6 mx-auto small">
   <% @oogiris.each_with_index do |oogiri, i| %>
     <div class="d-flex align-items-center p-1 shadow-sm border my-2">
@@ -20,7 +21,9 @@
           </div>
           <%= link_to oogiri.user.name, "#", class: "text-left small text-secondary" %>
         </div>
-        <div class="p-1 table-secondary my-2 row"><%= oogiri.content %></div>
+        <%= link_to(field_oogiri_path(oogiri.field, oogiri)) do %>
+          <div class="p-1 table-secondary my-2 row text-dark"><%= oogiri.content %></div>
+        <% end %>
       </div>
     </div>
   <% end %>

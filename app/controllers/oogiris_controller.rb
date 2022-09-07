@@ -1,6 +1,6 @@
 class OogirisController < ApplicationController
-  before_action :set_oogiri, only: [:edit, :update, :destroy]
-  before_action :set_field, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_oogiri, only: [:edit, :update, :show, :destroy]
+  before_action :set_field, only: [:index, :new, :create, :edit, :update, :show, :destroy]
   before_action :dont_look_result, only: :index
   before_action :dont_create_oogiri, only: [:new, :edit]
 
@@ -35,6 +35,11 @@ class OogirisController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def show
+    @comment = Comment.new
+    @comments = Comment.where(oogiri_id: @oogiri.id)
   end
 
   def destroy
