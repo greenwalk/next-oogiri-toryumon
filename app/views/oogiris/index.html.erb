@@ -11,8 +11,8 @@
         <div class="mr-2"><%= "#{i + 1}位" %></div>
         <div><%= "#{oogiri.votes.sum(:vote_point)}点" %></div>
       </div>
-      <div class="ml-3 float-left">
-        <div class="d-flex small align-top">
+      <div class="ml-3 container-fluid">
+        <div class="d-flex small align-top row">
           <div class="d-flex small mr-1">
             <% [3, 2, 1, -1, -2].each do |v| %>
               <div class="bg-white border mr-1"><%= "#{v}点 #{oogiri.votes.where(vote_point: v).length}" %></div>
@@ -20,7 +20,7 @@
           </div>
           <%= link_to oogiri.user.name, "#", class: "text-left small text-secondary" %>
         </div>
-        <div class="p-1 align-items-center text-left table-secondary my-2"><%= oogiri.content %></div>
+        <div class="p-1 table-secondary my-2 row"><%= oogiri.content %></div>
       </div>
     </div>
   <% end %>
