@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_07_034202) do
+ActiveRecord::Schema.define(version: 2022_09_07_110505) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2022_09_07_034202) do
   end
 
   create_table "oogiris", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "content", limit: 200, default: "", null: false, comment: "回答"
+    t.string "content", limit: 200, null: false, comment: "回答"
     t.integer "point", default: 0, null: false, comment: "得点"
     t.integer "score", default: 0, null: false, comment: "スコア"
     t.integer "get_rank", default: 0, null: false, comment: "順位"
