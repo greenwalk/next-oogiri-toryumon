@@ -30,7 +30,9 @@
             <%= f.radio_button :vote_point, 3, class: "form-check-input" %>
           </div>
         </div>
-        <div class="p-2 table-secondary text-dark"><%= f.object.oogiri.content %></div>
+        <%= link_to(field_oogiri_path(f.object.oogiri.field, f.object.oogiri)) do %>
+          <div class="p-2 table-secondary text-dark"><%= f.object.oogiri.content %></div>
+        <% end %>
       </div>
     <% end %>
     <div class="text-center">
