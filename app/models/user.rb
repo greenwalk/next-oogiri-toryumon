@@ -5,8 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :oogiris
   has_many :votes
+  has_many :comments
 
-  def already_voted?(oogiri)
-    votes.exists?(oogiri_id: oogiri.id)
-  end
+  validates :name, presence: true
 end
