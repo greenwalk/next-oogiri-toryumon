@@ -8,4 +8,8 @@ class User < ApplicationRecord
   has_many :comments
 
   validates :name, presence: true
+
+  def admin_user?
+    id == 1
+  end
 end
