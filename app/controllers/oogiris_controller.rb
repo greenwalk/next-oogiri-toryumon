@@ -3,6 +3,7 @@ class OogirisController < ApplicationController
   before_action :set_field, only: [:index, :new, :create, :edit, :update, :show, :destroy]
   before_action :dont_look_result, only: :index
   before_action :dont_create_oogiri, only: [:new, :edit]
+  before_action :dont_look_oogiri, only: [:show]
 
   def index
     @oogiris = @field.oogiris.includes(:votes).sort { |a, b| b.votes.sum(:vote_point) <=> a.votes.sum(:vote_point) }
@@ -66,5 +67,9 @@ class OogirisController < ApplicationController
 
   def dont_create_oogiri
     redirect_to root_path unless @field.status_posting?
+  end
+
+  def dont_look_oogiri
+    redirect_to new_field_oogiri_path(@field) if @field.status_posting?
   end
 end
