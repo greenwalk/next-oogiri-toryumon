@@ -1,4 +1,5 @@
 class FieldsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update]
   before_action :set_field, only: [:update]
   def index
     @fields = Field.where(status: "finished")

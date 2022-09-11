@@ -1,4 +1,5 @@
 class OogirisController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_oogiri, only: [:edit, :update, :show, :destroy]
   before_action :set_field, only: [:index, :new, :create, :edit, :update, :show, :destroy]
   before_action :dont_look_result, only: :index
