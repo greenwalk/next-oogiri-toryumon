@@ -2,6 +2,11 @@ class Form::VoteCollection < Form::Base
   attr_accessor :user, :oogiris, :field
   attr_accessor :votes
 
+  validates :user, presence: true
+  validates :oogiris, presence: true
+  validates :field, presence: true
+  validates :votes, presence: true
+
   def initialize(user, oogiris, field, attributes = {})
     @user = user
     @oogiris = oogiris
@@ -12,12 +17,19 @@ class Form::VoteCollection < Form::Base
 
   # 上でsuper attributesとしているので必要
   def votes_attributes=(attributes)
-    self.votes = attributes.values.zip(@oogiris).map { |v, o| Vote.new(user_id: user.id, oogiri_id: o.id, field_id: field.id, vote_point: v[:vote_point]) }
+    begin
+      self.votes = @oogiris.zip(attributes.values).map { |o, v| Vote.new(user_id: user.id, oogiri_id: o.id, field_id: field.id, vote_point: v[:vote_point]) }
+    rescue
+      errors.add("全ての", '回答に投票してください')
+      return @form = false
+    end
   end
 
   def save
+    return if invalid?
+
     Vote.transaction do
-      self.votes.map(&:save!)
+      return false unless self.votes.map(&:save)
     end
     return true
   rescue => e

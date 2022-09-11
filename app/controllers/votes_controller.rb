@@ -11,11 +11,18 @@ class VotesController < ApplicationController
     # newでランダムに並び替えた@oogirisをその順番のまま取得する
     ids = session[:ids]
     @oogiris = Oogiri.where(id: ids).order("FIELD(id, #{ids.join(',')})")
+    if params[:form_vote_collection].nil?
+      @form = Form::VoteCollection.new(current_user, @oogiris, @now_field, {})
+      @form.errors.add("全ての", "回答に投票してください")
+      render :new and return
+    end
     @form = Form::VoteCollection.new(current_user, @oogiris, @now_field, vote_collection_params)
+    unless @form.votes.first.vote_point
+      render :new and return
+    end
     if @form.save
-      redirect_to vote_thanks_path, notice: "商品を登録しました"
+      redirect_to vote_thanks_path
     else
-      flash.now[:alert] = "商品登録に失敗しました"
       render :new
     end
   end
@@ -26,8 +33,7 @@ class VotesController < ApplicationController
 
   private
   def vote_collection_params
-    params.require(:form_vote_collection)
-          .permit(votes_attributes: [:vote_point])
+    params.require(:form_vote_collection).permit(votes_attributes: [:vote_point])
   end
 
   def set_oogiris
