@@ -5,7 +5,7 @@
   </div>
 </div>
 <div class="col-sm-6 mx-auto px-4">
-  <div class="mt-3 mb-1"><%= "回答プレビュー" %></div>
+  <div class="mt-3 mb-1 small"><%= "回答プレビュー" %></div>
   <div class="card-body p-2 shadow-sm border mb-3">
     <div class="form-group text-muted d-flex small">
       <div class="d-flex form-check pt-1 ml-3">
@@ -30,7 +30,9 @@
 <div class="card-body">
   <%= form_with(model: [@field, @oogiri], local: true) do |f| %>
 
-    <div class="form-group">
+    <%= render 'shared/error_messages', model: f.object %>
+
+    <div class="form-group small">
       <%= f.label :content, "回答フォーム" %><br />
       <%= f.text_area :content, autofocus: true, class: "col-sm-12 px-1", rows: 4 %>
     </div>

@@ -4,9 +4,11 @@
 
     <%= form_with model: @field, url: fields_path, local: true do |f| %>
 
+      <%= render 'shared/error_messages', model: f.object %>
+
       <div class="form-group">
         <%= f.label :text_theme, "お題を作る" %><br />
-        <%= f.text_area :text_theme, autofocus: true, class: "px-1 col-sm-12", rows: 3 %>
+        <%= f.text_area :text_theme, autofocus: true, required: true, class: "px-1 col-sm-12", rows: 3 %>
       </div>
 
       <div class="actions">

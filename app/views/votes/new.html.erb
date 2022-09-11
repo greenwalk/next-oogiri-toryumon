@@ -6,6 +6,7 @@
 </div>
 <div class="col-sm-6 mx-auto px-4">
   <%= form_with model:@form, url: votes_path, method: :post, local: true do |form| %>
+    <%= render 'shared/error_messages', model: form.object %>
     <%= form.fields_for :votes do |f| %>
       <div class="card-body p-2 shadow-sm border my-3">
         <div class="form-group text-muted d-flex small">
@@ -36,7 +37,7 @@
       </div>
     <% end %>
     <div class="text-center">
-      <%= form.submit "投票", class: "btn btn-cv bg-secondary text-white mb-2" %>
+      <%= form.submit "投票", class: "btn btn-cv bg-primary text-white mb-2" %>
     </div>
   <% end %>
 </div>
