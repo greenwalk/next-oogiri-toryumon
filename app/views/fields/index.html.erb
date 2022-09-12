@@ -1,10 +1,27 @@
 <div class="mt-3 col-sm-6 mx-auto">
-  <%= link_to(field_oogiris_path(@now_field), class: "") do %>
-    <div class="card-body shadow-sm border">
-      <div class="text-center mb-2 text-dark">現在のお題</div>
-      <div class="text-dark text-center table-secondary p-2"><%= @now_field.text_theme %></div>
-    </div>
+  <% if @now_field.status_posting? %>
+    <%= link_to(new_field_oogiri_path(field_id: @now_field.id), class: "") do %>
+      <div class="card-body shadow-sm border">
+        <div class="text-center mb-2 text-dark">現在のお題</div>
+        <div class="text-dark text-center table-secondary p-2"><%= @now_field.text_theme %></div>
+      </div>
+    <% end %>
+  <% elsif @now_field.status_voting? %>
+    <%= link_to(new_vote_path, class: "") do %>
+      <div class="card-body shadow-sm border">
+        <div class="text-center mb-2 text-dark">現在のお題</div>
+        <div class="text-dark text-center table-secondary p-2"><%= @now_field.text_theme %></div>
+      </div>
+    <% end %>
+  <% elsif @now_field.status_finished? %>
+    <%= link_to(field_oogiris_path(@now_field), class: "") do %>
+      <div class="card-body shadow-sm border">
+        <div class="text-center mb-2 text-dark">現在のお題</div>
+        <div class="text-dark text-center table-secondary p-2"><%= @now_field.text_theme %></div>
+      </div>
+    <% end %>
   <% end %>
+
 
   <% @fields.each do |field| %>
     <%= link_to(field_oogiris_path(field), class: "") do %>
