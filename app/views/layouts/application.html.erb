@@ -54,7 +54,7 @@
               <i class="fa-solid fa-right-from-bracket text-white mr-1"></i>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-white" %>
             </li>
-            <% if current_user.id == 1 %>
+            <% if current_user.id == 4 %>
               <li class="nav-item mt-1 align-items-center">
                 <i class="fa-regular fa-eye-slash text-white mr-1"></i>
                 <%= link_to '管理者ページ', admin_top_path, class: "text-white" %>
