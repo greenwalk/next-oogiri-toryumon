@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_oogiri, only: [:create, :destroy]
   def create
     @comment = Comment.new(comment_params)

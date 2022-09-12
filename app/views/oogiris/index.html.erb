@@ -8,7 +8,14 @@
 <div class="col-sm-6 mx-auto small">
   <% @oogiris.each_with_index do |oogiri, i| %>
     <div class="d-flex align-items-center p-1 shadow-sm border my-2">
-      <div class="d-flex text-nowrap">
+      <div class="d-flex text-nowrap align-items-center">
+        <% if i <= 2 %>
+          <i class="fa-solid fa-fire-flame-curved mr-2 text-danger"></i>
+        <% elsif i > 3 && oogiri.votes.sum(:vote_point) < 0 %>
+          <i class="fa-solid fa-skull mr-2 text-dark small"></i>
+        <% else %>
+          <i class="fa-solid fa-circle-dot mr-2 text-success small"></i>
+        <% end %>
         <div class="mr-2"><%= "#{i + 1}位" %></div>
         <div><%= "#{oogiri.votes.sum(:vote_point)}点" %></div>
       </div>

@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_oogiris, only: [:new, :thanks]
   before_action :dont_vote, only: [:new, :thanks]
 
