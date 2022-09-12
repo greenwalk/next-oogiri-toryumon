@@ -1,13 +1,13 @@
 class OogirisController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
-  before_action :set_oogiri, only: [:edit, :update, :show, :destroy]
-  before_action :set_field, only: [:index, :new, :create, :edit, :update, :show, :destroy]
-  before_action :dont_look_result, only: :index
+  before_action :authenticate_user!, except: [:index, :vote_show]
+  before_action :set_oogiri, only: [:edit, :update, :show, :vote_show, :destroy]
+  before_action :set_field, only: [:index, :new, :create, :edit, :update, :show, :vote_show, :destroy]
+  before_action :dont_look_result, only: [:index, :vote_show]
   before_action :dont_create_oogiri, only: [:new, :edit]
   before_action :dont_look_oogiri, only: [:show]
 
   def index
-    @oogiris = @field.oogiris.includes(:votes).sort { |a, b| b.votes.sum(:vote_point) <=> a.votes.sum(:vote_point) }
+    @oogiris = @field.oogiris.order(point: :desc)
   end
   def new
     # 俳句を既に投稿している場合は、俳句編集ページへ移動。していない場合は、投稿ページへ移動
@@ -42,6 +42,10 @@ class OogirisController < ApplicationController
   def show
     @comment = Comment.new
     @comments = Comment.where(oogiri_id: @oogiri.id)
+  end
+
+  def vote_show
+
   end
 
   def destroy
