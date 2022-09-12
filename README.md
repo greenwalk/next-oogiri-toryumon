@@ -75,7 +75,7 @@ URL:
 - has_many :haikus
 - belongs_to :theme
 
-## haikusテーブル
+## oogirisテーブル
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | content            | string     | null: false                    |
