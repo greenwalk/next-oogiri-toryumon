@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :oogiri_start])
   end
   def set_now_field
-    @now_field = Field.order(created_at: :desc).first
+    @now_field = Field&.order(created_at: :desc)&.first
   end
 end
