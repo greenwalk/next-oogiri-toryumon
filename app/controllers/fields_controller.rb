@@ -26,6 +26,7 @@ class FieldsController < ApplicationController
       if @field.status_finished?
         update_point(@field.oogiris)
         update_score(@field.oogiris)
+        update_get_rank(@field.oogiris)
         update_rate(@field.oogiris)
       end
       redirect_to admin_top_path
@@ -54,6 +55,11 @@ class FieldsController < ApplicationController
     std = Math.sqrt(arr1.sum / oogiris.length)
     #配列の要素を偏差値に変換して返す。
     oogiris.map{|oogiri| oogiri.update(score: ((oogiri.point - avg) * 10 / std).round(2))}
+  end
+
+  def update_get_rank(oogiris)
+    @oogiris = oogiris.includes(:votes).sort { |a, b| b.votes.sum(:vote_point) <=> a.votes.sum(:vote_point) }
+    @oogiris.map.with_index(1){ |oogiri, i| oogiri.update(get_rank: i)}
   end
 
   def update_rate(oogiris)

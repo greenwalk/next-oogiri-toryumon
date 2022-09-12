@@ -26,7 +26,7 @@
         <div class="d-flex small align-top row">
           <div class="d-flex small mr-1">
             <% [3, 2, 1, -1, -2].each do |v| %>
-              <div class="bg-white border mr-1 text-dark px-1"><%= "#{@oogiri.votes.where(vote_point: v).length}" %></div>
+              <div class="bg-white border mr-1"><%= "#{v}点 #{@oogiri.votes.where(vote_point: v).length}" %></div>
             <% end %>
           </div>
           <%= link_to @oogiri.user.name, "#", class: "text-left small text-secondary" %>
@@ -38,35 +38,16 @@
 </div>
 <hr class="mb-0">
 <div class="card-body py-2">
-  <div class="small"><%= "コメント一覧" %></div>
-  <% @comments.each do |comment| %>
-    <% if @field.status_finished? || comment.user == current_user %>
-      <div class="d-flex small mb-1">
-        <div class="align-items-center text-nowrap"><%= link_to "#{comment.user.name}:", "#", class: "text-muted" %></div>
-        <div class="px-1"><%= comment.content %></div>
-        <% if comment.user == current_user %>
-          <%= link_to(field_oogiri_comment_path(@field, @oogiri, comment), method: :delete, class: "ml-auto") do %>
-            <div><i class="fa-solid fa-trash text-danger"></i></div>
-          <% end %>
-        <% end %>
-      </div>
+  <div class="mb-2"><%= "投票一覧" %></div>
+  <% [3, 2, 1, -1, -2].each do |point| %>
+    <div class="text-center table-dark"><%= "#{point}点" %></div>
+    <% if @oogiri.votes.where(vote_point: point).present? %>
+      <% @oogiri.votes.where(vote_point: point).each do |vote| %>
+        <div class="ml-2 align-items-center text-nowrap"><%= link_to "・#{vote.user.name}", "#", class: "text-muted" %></div>
+      <% end %>
+    <% else %>
+      <p class="text-center mb-2 text-muted mb-4"></p>
     <% end %>
   <% end %>
 </div>
-<% if @comments.where(user_id: current_user.id).blank? %>
-  <div class="card-body py-0 text-center text-muted small">
-    <%= "コメントはありません" %>
-  </div>
-<% end %>
 <hr class="mb-0">
-<div class="card-body">
-  <%= form_with(model: [@field, @oogiri, @comment], local: true) do |f| %>
-    <div class="form-group small">
-      <%= f.label :content, "コメントする" %><br />
-      <%= f.text_area :content, autofocus: true, class: "col-sm-12 px-1", rows: 4 %>
-    </div>
-    <div class="actions">
-      <%= f.submit "送信", class: "btn btn-sm bg-dark text-white" %>
-    </div>
-  <% end %>
-</div>

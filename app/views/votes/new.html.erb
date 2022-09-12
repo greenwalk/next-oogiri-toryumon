@@ -41,3 +41,29 @@
     </div>
   <% end %>
 </div>
+
+<div class="mt-3 col-sm-6 mx-auto small table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th nowrap class="text-center">順位</th>
+      <th nowrap class="text-center">得点</th>
+      <th nowrap class="text-center">名前</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @now_field.oogiris.includes(:votes).sort { |a, b| b.votes.sum(:vote_point) <=> a.votes.sum(:vote_point) }.each_with_index do |oogiri, i| %>
+      <tr>
+        <% if i < 3 %>
+          <td nowrap class="text-center text-danger"><%= i + 1 %></td>
+          <td nowrap class="text-center text-danger"><%= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>
+        <% else %>
+          <td nowrap class="text-center"><%= i + 1 %></td>
+          <td nowrap class="text-center"><%= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>
+        <% end %>
+        <td nowrap class="text-center"><%= oogiri.user.name %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
