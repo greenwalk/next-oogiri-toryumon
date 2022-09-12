@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :votes, only:[:new, :create]
   get '/vote/thanks', to: 'votes#thanks'
   get '/admin/top', to: 'admin/admins#top'
+  get '/ranking', to: 'top_pages#ranking'
 end
