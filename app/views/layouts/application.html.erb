@@ -16,32 +16,35 @@
       @import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&display=swap');
   </style>
   <body>
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <header class="sticky-top" style="color: #000000;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000000;">
+      <%= image_tag "toryumon_logo.png", style: "height: 50px;" %>
       <a>
-        <%= link_to '大喜利登竜門', root_path, class: "ml-5 text-white", data: {"turbolinks" => false} %>
+        <%= link_to '大喜利登竜門', root_path, class: "mr-4 text-white", data: {"turbolinks" => false} %>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse pt-2" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <li class="d-flex nav-item mb-1 mr-2 align-items-center">
-              <% if @now_field.status_posting? %>
-                <i class="fa-regular fa-lightbulb text-white mr-2"></i>
-                <%= link_to '会場(投稿)', new_field_oogiri_path(field_id: @now_field.id), class: "text-white" %>
-              <% elsif @now_field.status_voting? %>
-                <i class="fa-solid fa-check-to-slot text-white mr-2"></i>
-                <%= link_to '会場(投票)', new_vote_path, class: "text-white" %>
-              <% elsif @now_field.status_finished? %>
-                <i class="fa-solid fa-flag-checkered text-white mr-2"></i>
-                <%= link_to '会場(結果)', field_oogiris_path(@now_field), class: "text-white" %>
+              <% if @now_field.present? %>
+                <% if @now_field.status_posting? %>
+                  <i class="fa-regular fa-lightbulb text-white mr-2"></i>
+                  <%= link_to '会場(投稿)', new_field_oogiri_path(field_id: @now_field.id), class: "text-white" %>
+                <% elsif @now_field.status_voting? %>
+                  <i class="fa-solid fa-check-to-slot text-white mr-2"></i>
+                  <%= link_to '会場(投票)', new_vote_path, class: "text-white" %>
+                <% elsif @now_field.status_finished? %>
+                  <i class="fa-solid fa-flag-checkered text-white mr-2"></i>
+                  <%= link_to '会場(結果)', field_oogiris_path(@now_field), class: "text-white" %>
+                <% end %>
               <% end %>
             </li>
             <li class="nav-item mb-1 mr-2 align-items-center">
               <i class="fa-regular fa-rectangle-list text-white mr-1"></i>
-              <%= link_to 'お題一覧', fields_path, class: "text-white" %>
+              <%= link_to '過去のお題', fields_path, class: "text-white" %>
             </li>
             <li class="nav-item mb-1 mr-2 align-items-center">
               <i class="fa-solid fa-ranking-star text-white mr-1"></i>
