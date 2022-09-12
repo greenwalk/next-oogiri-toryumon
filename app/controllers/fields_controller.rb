@@ -23,6 +23,11 @@ class FieldsController < ApplicationController
       next_status = "posting"
     end
     if @field.update(status: next_status)
+      if @field.status_finished?
+        update_point(@field.oogiris)
+        update_score(@field.oogiris)
+        update_rate(@field.oogiris)
+      end
       redirect_to admin_top_path
     else
       render "admin/admins/top"
@@ -36,5 +41,61 @@ class FieldsController < ApplicationController
 
   def set_field
     @field = Field.find(params[:id])
+  end
+
+  def update_point(oogiris)
+    oogiris.map{|oogiri| oogiri.update(point: oogiri.votes.sum(:vote_point))}
+  end
+
+  def update_score(oogiris)
+    #標準偏差stdを求める。
+    avg = oogiris.sum(:point) / oogiris.length
+    arr1 = oogiris.pluck(:point).map{|x| (x - avg) ** 2}
+    std = Math.sqrt(arr1.sum / oogiris.length)
+    #配列の要素を偏差値に変換して返す。
+    oogiris.map{|oogiri| oogiri.update(score: ((oogiri.point - avg) * 10 / std).round(2))}
+  end
+
+  def update_rate(oogiris)
+    #rateの偏差値を求める
+    user_rates = []
+    oogiris.each do |oogiri|
+      user_rates << oogiri.user.rate
+    end
+    avg = user_rates.inject(:+) / oogiris.length
+    arr1 = user_rates.map{|x| (x - avg) ** 2}
+    std = Math.sqrt(arr1.sum / oogiris.length)
+    oogiris.each do |oogiri|
+      rate_dev = ((oogiri.user.rate - avg) * 10 / std + 50).round(2)
+      if rate_dev >= 60
+        if oogiri.score >= 0
+          true_score = oogiri.score * 0.6
+        else
+          true_score = oogiri.score * 1.2
+        end
+      elsif rate_dev >= 50
+        if oogiri.score >= 0
+          true_score = oogiri.score * 0.8
+        else
+          true_score = oogiri.score
+        end
+      elsif rate_dev >= 40
+        if oogiri.score >= 0
+          true_score = oogiri.score
+        else
+          true_score = oogiri.score * 0.8
+        end
+      else
+        if oogiri.score >= 0
+          true_score = oogiri.score * 1.2
+        else
+          true_score = oogiri.score * 0.6
+        end
+      end
+      if oogiri.user.max_rate < oogiri.user.rate + true_score
+        oogiri.user.update(max_rate: oogiri.user.rate + true_score)
+      end
+      oogiri.user.update(rate: oogiri.user.rate + true_score)
+    end
   end
 end
