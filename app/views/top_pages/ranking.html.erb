@@ -1,0 +1,44 @@
+<div class="mt-3 col-sm-6 mx-auto small table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th nowrap class="text-center">ランク</th>
+      <th nowrap class="text-center">クラス</th>
+      <th nowrap class="text-center">レート</th>
+      <th nowrap class="text-center">名前</th>
+      <th nowrap class="text-center">最高レート</th>
+    </tr>
+    </thead>
+  <tbody>
+  <% @users.each_with_index do |user, i| %>
+    <tr>
+      <td nowrap class="text-center"><%= i + 1 %></td>
+      <% if user.rate >= 1800 %>
+        <td class="text-center"><i class="fa-solid fa-meteor" style="color: #FF6600;"></i></td>
+      <% elsif user.rate >= 1750 %>
+        <td class="text-center"><i class="fa-solid fa-bolt-lightning text-warning"></i></td>
+      <% elsif user.rate >= 1700 %>
+        <td class="text-center"><i class="fa-solid fa-hurricane" style="color: #3300FF;"></i></td>
+      <% elsif user.rate >= 1650 %>
+        <td class="text-center"><i class="fa-solid fa-fire" style="color: #FF0000;"></i></td>
+      <% elsif user.rate >= 1600 %>
+        <td class="text-center"><i class="fa-solid fa-hammer" style="color: #000066;"></i></td>
+      <% elsif user.rate >= 1550 %>
+        <td class="text-center"><i class="fa-solid fa-heart" style="color: #CC3366;"></i></td>
+      <% elsif user.rate >= 1450 %>
+        <td class="text-center"><i class="fa-solid fa-seedling" style="color: #66CC00;"></i></td>
+      <% elsif user.rate >= 1400 %>
+        <td class="text-center"><i class="fa-solid fa-virus-covid" style="color: #006600;"></i></td>
+      <% elsif user.rate >= 1350 %>
+        <td class="text-center"><i class="fa-solid fa-bug text-muted"></i></td>
+      <% else %>
+        <td class="text-center"><i class="fa-solid fa-poop" style="color: #996633;"></i></td>
+      <% end %>
+      <td nowrap class="text-center"><%= user.rate %></td>
+      <td nowrap class="text-center"><%= user.name %></td>
+      <td nowrap class="text-center"><%= user.max_rate %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+</div>
