@@ -10,26 +10,49 @@
     <%= form.fields_for :votes do |f| %>
       <div class="card-body p-2 shadow-sm border my-3">
         <div class="form-group text-muted d-flex small">
-          <div class="d-flex form-check pt-1 ml-3">
-            <%= f.label :vote_point, "-2点", class: "form-check-label" %>
-            <%= f.radio_button :vote_point, -2, class: "form-check-input" %>
-          </div>
-          <div class="d-flex form-check pt-1 ml-3">
-            <%= f.label :vote_point, "-1点", class: "form-check-label" %>
-            <%= f.radio_button :vote_point, -1, class: "form-check-input" %>
-          </div>
-          <div class="d-flex form-check pt-1 ml-3">
-            <%= f.label :vote_point, "1点", class: "form-check-label" %>
-            <%= f.radio_button :vote_point, 1, class: "form-check-input" %>
-          </div>
-          <div class="d-flex form-check pt-1 ml-3">
-            <%= f.label :vote_point, "2点", class: "form-check-label" %>
-            <%= f.radio_button :vote_point, 2, class: "form-check-input" %>
-          </div>
-          <div class="d-flex form-check pt-1 ml-3">
-            <%= f.label :vote_point, "3点", class: "form-check-label" %>
-            <%= f.radio_button :vote_point, 3, class: "form-check-input" %>
-          </div>
+          <% if f.object.oogiri.user == current_user %>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "-2点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, -2, class: "form-check-input", disabled: true %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "-1点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, -1, class: "form-check-input", disabled: true %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "1点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 1, class: "form-check-input", disabled: true %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "2点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 2, class: "form-check-input", checked: true %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "3点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 3, class: "form-check-input", disabled: true %>
+            </div>
+          <% else %>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "-2点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, -2, class: "form-check-input" %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "-1点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, -1, class: "form-check-input" %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "1点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 1, class: "form-check-input" %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "2点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 2, class: "form-check-input" %>
+            </div>
+            <div class="d-flex form-check pt-1 ml-3">
+              <%= f.label :vote_point, "3点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 3, class: "form-check-input" %>
+            </div>
+          <% end %>
         </div>
         <%= link_to(field_oogiri_path(f.object.oogiri.field, f.object.oogiri)) do %>
           <div class="p-2 table-secondary text-dark"><%= f.object.oogiri.content %></div>
