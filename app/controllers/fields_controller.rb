@@ -82,7 +82,6 @@ class FieldsController < ApplicationController
       else
         rate_dev = ((oogiri.user.rate - avg) * 10 / std + 50).round(2)
       end
-      binding.pry
       if rate_dev >= 60
         if oogiri.score >= 0
           true_score = oogiri.score * 0.6
