@@ -62,6 +62,14 @@
             <% end %>
           <% else %>
             <li class="nav-item mb-1 mr-2 align-items-center">
+              <i class="fa-regular fa-rectangle-list text-white mr-1"></i>
+              <%= link_to '過去のお題', fields_path, class: "text-white" %>
+            </li>
+            <li class="nav-item mb-1 mr-2 align-items-center">
+              <i class="fa-solid fa-ranking-star text-white mr-1"></i>
+              <%= link_to 'ランキング', ranking_path, class: "text-white" %>
+            </li>
+            <li class="nav-item mb-1 mr-2 align-items-center">
               <i class="fa-solid fa-user-plus text-white mr-1"></i>
               <%= link_to "新規登録", new_user_registration_path, class: "text-white" %>
             </li>
