@@ -18,7 +18,7 @@
 
       <div class="form-group">
         <%= f.label :oogiri_start, "大喜利を始めた年" %><br />
-        <%= f.date_select :oogiri_start, use_month_numbers: true, discard_day: true, discard_month: true, id:"user_start_year" %>
+        <%= f.date_select :oogiri_start, use_month_numbers: true, discard_day: true, discard_month: true, start_year: 2012, end_year: Date.today.year, id:"user_start_year" %>
         <p class="mt-1 p-1 table-secondary">
           後から変更できません
         </p>

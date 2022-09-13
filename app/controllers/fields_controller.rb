@@ -54,7 +54,11 @@ class FieldsController < ApplicationController
     arr1 = oogiris.pluck(:point).map{|x| (x - avg) ** 2}
     std = Math.sqrt(arr1.sum / oogiris.length)
     #配列の要素を偏差値に変換して返す。
-    oogiris.map{|oogiri| oogiri.update(score: ((oogiri.point - avg) * 10 / std).round(2))}
+    if std == 0
+      oogiris.map{|oogiri| oogiri.update(score: 0)}
+    else
+      oogiris.map{|oogiri| oogiri.update(score: ((oogiri.point - avg) * 10 / std).round(2))}
+    end
   end
 
   def update_get_rank(oogiris)
@@ -72,7 +76,12 @@ class FieldsController < ApplicationController
     arr1 = user_rates.map{|x| (x - avg) ** 2}
     std = Math.sqrt(arr1.sum / oogiris.length)
     oogiris.each do |oogiri|
-      rate_dev = ((oogiri.user.rate - avg) * 10 / std + 50).round(2)
+      # レートの偏差値
+      if std == 0
+        rate_dev = 50
+      else
+        rate_dev = ((oogiri.user.rate - avg) * 10 / std + 50).round(2)
+      end
       if rate_dev >= 60
         if oogiri.score >= 0
           true_score = oogiri.score * 0.6
