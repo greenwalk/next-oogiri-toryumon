@@ -1,9 +1,7 @@
 <% require'date' %>
 <div class="card-body col-sm-6 mx-auto">
-    <div class="text-center mt-1 mb-4">
-      ユーザー新規登録
-      <hr> 
-    </div>
+  <div class="text-center mb-2 text-dark small">新規登録</div>
+  <hr class="my-2 w-25">
 
     <%= form_with model: @user, url: user_registration_path , local: true do |f| %>
 

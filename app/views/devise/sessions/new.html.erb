@@ -1,8 +1,6 @@
 <div class="mt-2 card-body col-sm-6 mx-auto">
-    <div class="text-center mt-1 mb-4">
-      ログイン
-      <hr>
-    </div>
+  <div class="text-center mb-2 text-dark small">ログイン</div>
+  <hr class="my-2 w-25">
 
     <%= form_with model: @user, url: user_session_path, local: true do |f| %>
 
