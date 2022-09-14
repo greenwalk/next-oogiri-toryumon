@@ -42,7 +42,7 @@
         <%= f.submit "変更", class: "btn btn-sm bg-dark text-white" %>
       </div>
       <div class="ml-4 actions">
-        <%= link_to "リセット", field_oogiri_path(field_id: @field.id, id: @oogiri.id), class: "btn btn-sm btn-danger", method: :delete %>
+        <%= link_to "リセット", field_oogiri_path(field_id: @field.id, id: @oogiri.id), class: "btn btn-sm btn-danger nowrap", method: :delete %>
       </div>
     </div>
   <% end %>
