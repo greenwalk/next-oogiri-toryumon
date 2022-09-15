@@ -5,4 +5,7 @@ class TopPagesController < ApplicationController
   def ranking
     @users = User.order(rate: :desc)
   end
+
+  def privacy_policy
+  end
 end
