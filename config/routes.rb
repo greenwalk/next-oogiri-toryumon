@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   get '/vote/thanks', to: 'votes#thanks'
   get '/admin/top', to: 'admin/admins#top'
   get '/ranking', to: 'top_pages#ranking'
+  
   get '/privacy_policy', to: 'top_pages#privacy_policy'
 end
