@@ -40,6 +40,9 @@
       <div class="form-group small">
         <%= f.label :password_confirmation, "パスワード再入力" %><br />
         <%= f.password_field :password_confirmation, id:"user_password_confirmation", autocomplete: "new-password", placeholder: "6文字以上", class: "col-sm-12 px-1" %>
+        <div class="table-danger p-2 mt-1">
+          パスワードは再発行できないため、必ず忘れないように保管してください。
+        </div>
       </div>
 
       <div class="actions">

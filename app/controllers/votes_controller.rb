@@ -35,6 +35,9 @@ class VotesController < ApplicationController
   end
 
   def thanks
+    unless already_voted?(@now_field)
+      redirect_to new_vote_path
+    end
     @votes = Vote.where(user_id: current_user.id, field_id: @now_field.id)
   end
 

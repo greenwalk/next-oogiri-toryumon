@@ -16,8 +16,8 @@
               <%= f.radio_button :vote_point, -2, class: "form-check-input", disabled: true %>
             </div>
             <div class="d-flex form-check pt-1 ml-3">
-              <%= f.label :vote_point, "-1点", class: "form-check-label" %>
-              <%= f.radio_button :vote_point, -1, class: "form-check-input", disabled: true %>
+              <%= f.label :vote_point, "0点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 0, class: "form-check-input", disabled: true %>
             </div>
             <div class="d-flex form-check pt-1 ml-3">
               <%= f.label :vote_point, "1点", class: "form-check-label" %>
@@ -37,8 +37,8 @@
               <%= f.radio_button :vote_point, -2, class: "form-check-input" %>
             </div>
             <div class="d-flex form-check pt-1 ml-3">
-              <%= f.label :vote_point, "-1点", class: "form-check-label" %>
-              <%= f.radio_button :vote_point, -1, class: "form-check-input" %>
+              <%= f.label :vote_point, "0点", class: "form-check-label" %>
+              <%= f.radio_button :vote_point, 0, class: "form-check-input", checked: true %>
             </div>
             <div class="d-flex form-check pt-1 ml-3">
               <%= f.label :vote_point, "1点", class: "form-check-label" %>
@@ -54,14 +54,20 @@
             </div>
           <% end %>
         </div>
-        <%= link_to(field_oogiri_path(f.object.oogiri.field, f.object.oogiri)) do %>
+        <%= link_to(field_oogiri_path(f.object.oogiri.field, f.object.oogiri), target: :_blank, rel: "noopener noreferrer") do %>
           <div class="p-2 table-secondary text-dark"><%= f.object.oogiri.content %></div>
         <% end %>
       </div>
     <% end %>
-    <div class="text-center">
-      <%= form.submit "投票", class: "btn btn-cv bg-primary text-white mb-2" %>
-    </div>
+    <% if @now_field.votes.pluck(:user_id).include?(current_user&.id) %>
+      <div class="text-center">
+        <%= link_to "投票確認", vote_thanks_path, class: "btn btn-cv bg-primary text-white mb-2" %>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <%= form.submit "投票", class: "btn btn-cv bg-primary text-white mb-2" %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
@@ -70,7 +76,7 @@
     <thead>
     <tr>
       <th nowrap class="text-center">順位</th>
-      <th nowrap class="text-center">得点</th>
+<!--      <th nowrap class="text-center">得点</th>-->
       <th nowrap class="text-center">名前</th>
     </tr>
     </thead>
@@ -79,10 +85,10 @@
       <tr>
         <% if i < 3 %>
           <td nowrap class="text-center text-danger"><%= i + 1 %></td>
-          <td nowrap class="text-center text-danger"><%= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>
+<!--          <td nowrap class="text-center text-danger"><%#= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
         <% else %>
           <td nowrap class="text-center"><%= i + 1 %></td>
-          <td nowrap class="text-center"><%= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>
+<!--          <td nowrap class="text-center"><%#= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
         <% end %>
         <td nowrap class="text-center"><%= oogiri.user.name %></td>
       </tr>
