@@ -21,7 +21,7 @@
       </div>
       <div class="ml-3 container-fluid">
         <div class="d-flex small align-top row">
-          <%= link_to("/fields/#{oogiri.field.id}/oogiri/#{oogiri.id}/votes") do %>
+          <%= link_to("/fields/#{oogiri.field.id}/oogiri/#{oogiri.id}/votes", target: :_blank, rel: "noopener noreferrer") do %>
             <div class="d-flex small mr-1">
               <% [3, 2, 1, -1, -2].each do |v| %>
                 <div class="bg-white border mr-1 text-dark px-1"><%= "#{oogiri.votes.where(vote_point: v).length}" %></div>
@@ -30,7 +30,7 @@
           <% end %>
           <%= link_to oogiri.user.name, "#", class: "text-left small text-secondary" %>
         </div>
-        <%= link_to(field_oogiri_path(oogiri.field, oogiri)) do %>
+        <%= link_to(field_oogiri_path(oogiri.field, oogiri), target: :_blank, rel: "noopener noreferrer") do %>
           <div class="p-1 table-secondary my-2 row text-dark"><%= oogiri.content %></div>
         <% end %>
       </div>
