@@ -6,6 +6,7 @@ class VotesController < ApplicationController
   def new
     session[:ids] = @oogiris.pluck(:id)
     @form = Form::VoteCollection.new(current_user, @oogiris, @now_field, {})
+    @votes = Vote&.where(field_id: @now_field.id)&.select(:user_id).distinct
   end
 
   def create
