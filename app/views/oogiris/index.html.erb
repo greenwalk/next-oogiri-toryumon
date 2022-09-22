@@ -45,19 +45,15 @@
   <% end %>
 </div>
 
-<div class="position-sticky mb-2 card col-sm-6 mx-auto" style="position: sticky; top: 56px; z-index: 100;">
-  <div class="card-body">
-    <div class="text-center mb-2 text-dark"><%= "投稿者一覧" %></div>
-    <div class="text-dark text-center table-secondary p-2">
-      <% @oogiris.each_with_index do |oogiri, i| %>
-        <% if i == 0 %>
-          <%= link_to "#{oogiri.user.name}", "#", class: "text-muted" %>
-        <% else %>
-          <%= " / " %><%= link_to "#{oogiri.user.name}", "#", class: "text-muted" %>
-        <% end %>
+<div class="col-sm-6 mx-auto">
+  <div class="card-body p-2 shadow-sm border my-2 small text-muted">
+    <div class="text-center mb-2 text-dark"><%= "投票者一覧" %></div>
+    <div class="table-secondary p-2">
+      <% @oogiris.each do |oogiri| %>
+        <%= link_to "#{oogiri.user.name}", "#", class: "text-muted" %><%= " ," %>
       <% end %>
       <hr class="my-1">
-      <div class="text-center small"><%= "以上#{@oogiris.length}名の皆様、ご投稿ありがとうございました" %></div>
+      <div class="text-center"><%= "#{@oogiris.length}人" %></div>
     </div>
   </div>
 </div>
