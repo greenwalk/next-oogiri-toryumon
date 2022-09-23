@@ -25,7 +25,7 @@
       <% if @field.status_finished? %>
         <div class="d-flex small align-top row">
           <div class="d-flex small mr-1">
-            <% [3, 2, 1, -1, -2].each do |v| %>
+            <% [3, 2, 1, 0, -2].each do |v| %>
               <div class="bg-white border mr-1"><%= "#{v}点 #{@oogiri.votes.where(vote_point: v).length}" %></div>
             <% end %>
           </div>
@@ -39,14 +39,20 @@
 <hr class="mb-0">
 <div class="card-body py-2">
   <div class="mb-2"><%= "投票一覧" %></div>
-  <% [3, 2, 1, -1, -2].each do |point| %>
+  <% [3, 2, 1, 0, -2].each do |point| %>
     <div class="text-center table-dark"><%= "#{point}点" %></div>
     <% if @oogiri.votes.where(vote_point: point).present? %>
-      <% @oogiri.votes.where(vote_point: point).each do |vote| %>
-        <div class="ml-2 align-items-center text-nowrap"><%= link_to "・#{vote.user.name}", "#", class: "text-muted" %></div>
+      <div class="ml-2 align-items-center text-nowrap">
+      <% @oogiri.votes.where(vote_point: point).each_with_index do |vote, i| %>
+        <% if i == 0 %>
+          <%= link_to "#{vote.user.name}", "#", class: "text-muted" %>
+        <% else %>
+          <%= " / " %><%= link_to "#{vote.user.name}", "#", class: "text-muted" %>
+        <% end %>
       <% end %>
+      </div>
     <% else %>
-      <p class="text-center mb-2 text-muted mb-4"></p>
+      <p class="text-center text-muted mb-4"></p>
     <% end %>
   <% end %>
 </div>

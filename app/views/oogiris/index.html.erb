@@ -20,10 +20,15 @@
         <div><%= "#{oogiri.point}点" %></div>
       </div>
       <div class="ml-3 container-fluid">
-        <div class="d-flex small align-top row">
+        <div class="d-flex small row align-items-center">
+          <% if oogiri.comments.present? %>
+            <i class="fa-regular fa-comment text-primary mr-1"></i>
+          <% else %>
+            <i class="fa-regular fa-comment text-muted mr-1"></i>
+          <% end %>
           <%= link_to("/fields/#{oogiri.field.id}/oogiri/#{oogiri.id}/votes", target: :_blank, rel: "noopener noreferrer") do %>
             <div class="d-flex small mr-1">
-              <% [3, 2, 1, -1, -2].each do |v| %>
+              <% [3, 2, 1, 0, -2].each do |v| %>
                 <div class="bg-white border mr-1 text-dark px-1"><%= "#{oogiri.votes.where(vote_point: v).length}" %></div>
               <% end %>
             </div>
@@ -36,4 +41,17 @@
       </div>
     </div>
   <% end %>
+</div>
+
+<div class="col-sm-6 mx-auto">
+  <div class="card-body p-2 shadow-sm border my-2 small text-muted">
+    <div class="text-center mb-2 text-dark"><%= "投票者一覧" %></div>
+    <div class="table-secondary p-2">
+      <% @oogiris.each do |oogiri| %>
+        <%= link_to "#{oogiri.user.name}", "#", class: "text-muted" %><%= " ," %>
+      <% end %>
+      <hr class="my-1">
+      <div class="text-center"><%= "#{@oogiris.length}人" %></div>
+    </div>
+  </div>
 </div>

@@ -8,9 +8,11 @@ class OogirisController < ApplicationController
 
   def index
     @oogiris = @field.oogiris.order(point: :desc)
+    @comments = Comment.all
   end
+
   def new
-    # 俳句を既に投稿している場合は、俳句編集ページへ移動。していない場合は、投稿ページへ移動
+    # 大喜利を既に投稿している場合は、大喜利編集ページへ移動。していない場合は、投稿ページへ移動
     if Oogiri.exists?(user_id: current_user.id, field_id: @field.id)
       @oogiri = Oogiri.where(user: current_user, field: @field).last
       redirect_to edit_field_oogiri_path(field_id: @field.id, id: @oogiri.id)

@@ -1,10 +1,11 @@
-<div class="position-sticky mb-2 card col-sm-6 mx-auto" style="position: sticky; top: 56px; z-index: 100;">
+<div class="position-sticky mb-2 card col-sm-6 mx-auto" style="top: 56px; z-index: 100;">
   <div class="card-body">
     <div class="text-center mb-2 text-dark"><%= "お題" %></div>
     <div class="text-dark text-center table-secondary p-2"><%= @now_field.text_theme %></div>
   </div>
 </div>
 <div class="col-sm-6 mx-auto px-4">
+  <div class="text-center mb-2 text-dark"><%= "回答一覧" %></div>
   <%= form_with model:@form, url: votes_path, method: :post, local: true do |form| %>
     <%= render 'shared/error_messages', model: form.object %>
     <%= form.fields_for :votes do |f| %>
@@ -69,6 +70,19 @@
       </div>
     <% end %>
   <% end %>
+</div>
+
+<div class="col-sm-6 mx-auto px-4">
+  <div class="card-body p-2 shadow-sm border my-3 small text-muted">
+    <div class="text-center mb-2 text-dark"><%= "投票者" %></div>
+    <div class="table-secondary p-2">
+      <% @votes.each_with_index do |vote, i| %>
+        <%= link_to "#{vote.user.name}", "#", class: "text-muted" %><%= " ," %>
+      <% end %>
+      <hr class="my-1">
+      <div class="text-center"><%= "#{@votes.length}人" %></div>
+    </div>
+  </div>
 </div>
 
 <div class="mt-3 col-sm-6 mx-auto small table-responsive">
