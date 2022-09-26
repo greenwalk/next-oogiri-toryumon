@@ -1,5 +1,5 @@
 <% if model.errors.any? %>
-  <div class="table-danger p-2">
+  <div class="table-danger p-2 small">
     <ul class="list-unstyled">
       <% model.errors.full_messages.each do |message| %>
         <li class='my-0'><%= message %></li>
