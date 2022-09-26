@@ -9,6 +9,7 @@ class OogirisController < ApplicationController
   def index
     @oogiris = @field.oogiris.order(point: :desc)
     @comments = Comment.all
+    @votes = Vote&.where(field_id: @field.id)&.select(:user_id).distinct
   end
 
   def new

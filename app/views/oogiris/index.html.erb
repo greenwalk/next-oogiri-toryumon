@@ -45,13 +45,13 @@
 
 <div class="col-sm-6 mx-auto">
   <div class="card-body p-2 shadow-sm border my-2 small text-muted">
-    <div class="text-center mb-2 text-dark"><%= "投票者一覧" %></div>
+    <div class="text-center mb-2 text-dark"><%= "投票者" %></div>
     <div class="table-secondary p-2">
-      <% @oogiris.each do |oogiri| %>
-        <%= link_to "#{oogiri.user.name}", "#", class: "text-muted" %><%= " ," %>
+      <% @votes.each do |vote| %>
+        <%= link_to "#{vote.user.name}", "#", class: "text-muted" %><%= " ," %>
       <% end %>
       <hr class="my-1">
-      <div class="text-center"><%= "#{@oogiris.length}人" %></div>
+      <div class="text-center"><%= "#{@votes.length}人" %></div>
     </div>
   </div>
 </div>
