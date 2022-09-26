@@ -1,12 +1,14 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_oogiri, only: [:create, :destroy]
+  before_action :set_field, only: [:create, :destroy]
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
       redirect_to field_oogiri_path(@oogiri.field, @oogiri)
     else
-      render :oogiris/show
+      @comments = Comment.where(oogiri_id: @oogiri.id)
+      render "oogiris/show"
     end
   end
 
@@ -23,5 +25,9 @@ class CommentsController < ApplicationController
 
   def set_oogiri
     @oogiri = Oogiri.find(params[:oogiri_id])
+  end
+
+  def set_field
+    @field = Field.find(params[:field_id])
   end
 end
