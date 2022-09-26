@@ -61,6 +61,7 @@
 <hr class="mb-0">
 <div class="card-body">
   <%= form_with(model: [@field, @oogiri, @comment], local: true) do |f| %>
+    <%= render 'shared/error_messages', model: f.object %>
     <div class="form-group small">
       <%= f.label :content, "コメントする" %><br />
       <%= f.text_area :content, autofocus: true, class: "col-sm-12 px-1", rows: 4 %>
