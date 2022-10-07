@@ -1,32 +1,95 @@
-<div class="bg-warning card col-sm-6 mx-auto">
-  <div class="card-body">
-    <h3 class="text-center mt-1 mb-4">管理者ページ</h3>
+<h3 class="text-center mt-1 mb-4">管理者ページ</h3>
+<ul class="nav nav-tabs justify-content-around" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a href="#create_field" class="nav-link active" data-toggle="tab" aria-selected="true">お題作成</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a href="#current_field" class="nav-link" data-toggle="tab" aria-selected="false">現在のお題</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a href="#field_log" class="nav-link" data-toggle="tab" aria-selected="false">過去のお題</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a href="#user_list" class="nav-link" data-toggle="tab" aria-selected="false">ユーザー一覧</a>
+  </li>
+</ul>
 
-    <%= form_with model: @field, url: fields_path, local: true do |f| %>
-
-      <%= render 'shared/error_messages', model: f.object %>
-
-      <div class="form-group">
-        <%= f.label :text_theme, "お題を作る" %><br />
-        <%= f.text_area :text_theme, autofocus: true, required: true, class: "px-1 col-sm-12", rows: 3 %>
+<div class="tab-content">
+  <div id="create_field" class="tab-pane active">
+    <div class="col-sm-6 my-3 mx-auto">
+      <%= form_with model: @field, url: fields_path, local: true do |f| %>
+        <%= render 'shared/error_messages', model: f.object %>
+        <div class="form-group">
+          <%= f.text_area :text_theme, autofocus: true, required: true, class: "px-1 col-sm-12", rows: 3 %>
+        </div>
+        <div class="actions text-center">
+          <%= f.submit "生成", class: "btn btn-sm bg-dark text-white" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div id="current_field" class="tab-pane">
+    <% if @now_field.present? %>
+    <div class="col-sm-6 my-3 mx-auto">
+      <div class="text-dark text-center my-2"><%= @now_field.text_theme %></div>
+      <div class="text-danger text-center small"><%= "ステータス：" + @now_field.status %></div>
+      <div class="text-center my-2">
+        <%= link_to "切替", field_path(id: @now_field.id), class: "w-25 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
       </div>
-
-      <div class="actions">
-        <%= f.submit "生成", class: "btn btn-sm bg-dark text-white"  %>
-      </div>
+    </div>
     <% end %>
   </div>
-</div>
-
-<% if @now_field.present? %>
-  <div class="bg-warning card col-sm-6 mx-auto mt-2">
-    <div class="card-body">
-      <h3 class="text-center mt-1 mb-0 text-dark">現在のお題</h3>
-      <p class="text-danger text-center"><%= @now_field.status  %></p>
-      <div class="text-dark"><%= @now_field.text_theme %></div>
-    </div>
-    <div class="text-center">
-      <%= link_to "切替", field_path(id: @now_field.id), class: "w-50 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
+  <div id="field_log" class="tab-pane">
+    <div class="col-sm-6 my-3 mx-auto">
+      <div class="small table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th nowrap class="text-center">お題</th>
+            <th nowrap class="text-center">1位の回答</th>
+            <th nowrap class="text-center">マイナスの回答</th>
+          </tr>
+          </thead>
+        <tbody>
+        <% @fields_finished.each do |field| %>
+          <tr>
+            <td nowrap class="text-center"><%= field.text_theme %></td>
+            <td nowrap class="text-center"><%= field.oogiris.find_by(field_id: field.id, get_rank: 1).content %></td>
+            <td nowrap class="text-center">
+              <% field.oogiris.where("field_id = ? and point < ?", field.id, 0).each do |oogiri_minus| %>
+                <%= oogiri_minus.content %>
+                <br>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+        </table>
+      </div>
     </div>
   </div>
-<% end %>
+  <div id="user_list" class="tab-pane">
+    <div class="col-sm-6 my-3 mx-auto">
+    </div>
+    <div class="col-sm-6 mx-auto small table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th nowrap class="text-center">名前</th>
+          <th nowrap class="text-center">レート</th>
+          <th nowrap class="text-center">最高レート</th>
+        </tr>
+        </thead>
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td nowrap class="text-center"><%= user.name %></td>
+          <td nowrap class="text-center"><%= user.rate %></td>
+          <td nowrap class="text-center"><%= user.max_rate %></td>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
