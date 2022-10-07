@@ -72,19 +72,15 @@
   <% end %>
 </div>
 
-<div class="position-sticky mb-2 card col-sm-6 mx-auto" style="top: 56px; z-index: 100;">
-  <div class="card-body">
-    <div class="text-center mb-2 text-dark"><%= "投票者一覧" %></div>
-    <div class="text-dark text-center table-secondary p-2">
+<div class="col-sm-6 mx-auto px-4">
+  <div class="card-body p-2 shadow-sm border my-3 small text-muted">
+    <div class="text-center mb-2 text-dark"><%= "投票者" %></div>
+    <div class="table-secondary p-2">
       <% @votes.each_with_index do |vote, i| %>
-        <% if i == 0 %>
-          <%= link_to "#{vote.user.name}", "#", class: "text-muted" %>
-        <% else %>
-          <%= " / " %><%= link_to "#{vote.user.name}", "#", class: "text-muted" %>
-        <% end %>
+        <%= link_to "#{vote.user.name}", "#", class: "text-muted" %><%= " ," %>
       <% end %>
       <hr class="my-1">
-      <div class="text-center small"><%= "#{@votes.length}名が投票しています" %><br>ご協力ありがとうございます</div>
+      <div class="text-center"><%= "#{@votes.length}人" %></div>
     </div>
   </div>
 </div>

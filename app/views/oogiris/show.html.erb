@@ -53,7 +53,7 @@
     <% end %>
   <% end %>
 </div>
-<% if @comments.where(user_id: current_user.id).blank? %>
+<% if (@field.status_voting? && @comments.where(user_id: current_user.id).blank?) || (@field.status_finished? && @oogiri.comments.blank?) %>
   <div class="card-body py-0 text-center text-muted small">
     <%= "コメントはありません" %>
   </div>
@@ -61,6 +61,7 @@
 <hr class="mb-0">
 <div class="card-body">
   <%= form_with(model: [@field, @oogiri, @comment], local: true) do |f| %>
+    <%= render 'shared/error_messages', model: f.object %>
     <div class="form-group small">
       <%= f.label :content, "コメントする" %><br />
       <%= f.text_area :content, autofocus: true, class: "col-sm-12 px-1", rows: 4 %>

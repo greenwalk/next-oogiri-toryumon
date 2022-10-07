@@ -1,8 +1,7 @@
-<div class="my-2 card col-sm-6 mx-auto">
-  <div class="card-body">
+<div class="my-2 col-sm-6 mx-auto">
+  <div class="card-body border shadow">
     <div class="text-center mb-2 text-dark">投票完了</div>
-    <hr class="mt-2 mb-4 w-50">
-    <div class="mb-2">あなたの投票</div>
+    <hr class="mt-2 mb-4 w-25">
     <% [3, 2, 1, 0, -2].each do |point| %>
       <div class="text-center table-dark"><%= "#{point}点" %></div>
       <% if @votes.where(vote_point: point).present? %>
@@ -13,10 +12,10 @@
         <p class="text-center text-muted mb-4"></p>
       <% end %>
     <% end %>
-    </div>
     <div class="justify-content-center d-flex text-center">
       <%= link_to "投票ページ", new_vote_path, class: "border w-40 mt-2 btn btn-sm btn-light" %>
       <%= link_to "TOPページ", root_path, class: "border ml-3 w-40 mt-2 btn btn-sm btn-light" %>
+    </div>
     </div>
   </div>
 </div>
