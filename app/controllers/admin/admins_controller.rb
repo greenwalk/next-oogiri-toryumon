@@ -2,7 +2,13 @@ class Admin::AdminsController < ApplicationController
   before_action :only_admin_user
 
   def top
+    # お題作成用
     @field = Field.new
+    # 過去のお題用
+    @first_oogiris = Oogiri.includes(:field).where(get_rank: 1)
+    @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0)
+    # ユーザー一覧用
+    @users = User.order(created_at: :asc)
   end
 
   private
