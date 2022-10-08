@@ -7,7 +7,7 @@ class OogirisController < ApplicationController
   before_action :dont_look_oogiri, only: [:show]
 
   def index
-    @oogiris = @field.oogiris.order(point: :desc)
+    @oogiris = @field.oogiris.order(get_rank: :asc)
     @comments = Comment.all
     @votes = Vote&.where(field_id: @field.id)&.select(:user_id).distinct
   end
