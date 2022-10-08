@@ -42,6 +42,7 @@ class FieldsController < ApplicationController
         update_score(@field.oogiris)
         update_get_rank(@field.oogiris)
         update_rate(@field.oogiris)
+        update_rate_class(@field.oogiris)
       end
       redirect_to admin_top_path
     else
@@ -138,5 +139,34 @@ class FieldsController < ApplicationController
       end
       oogiri.user.update(rate: oogiri.user.rate + true_score)
     end
+  end
+
+  def update_rate_class(oogiris)
+    oogiris.each do |oogiri|
+      user = oogiri.user
+      case user.rate
+      when 1800..1000000
+        user.update!(rate_class: "<i class='fa-solid fa-meteor' style='color: #FF6600;'></i>")
+      when 1750..1799
+        user.update!(rate_class: "<i class='fa-solid fa-bolt-lightning text-warning'></i>")
+      when 1700..1749
+        user.update!(rate_class: "<i class='fa-solid fa-hurricane' style='color: #3300FF;'></i>")
+      when 1650..1699
+        user.update!(rate_class: "<i class='fa-solid fa-fire' style='color: #FF0000;'></i>")
+      when 1600..1649
+        user.update!(rate_class: "<i class='fa-solid fa-hammer' style='color: #000066;'></i>")
+      when 1550..1599
+        user.update!(rate_class: "<i class='fa-solid fa-heart' style='color: #CC3366;'></i>")
+      when 1450..1549
+        user.update!(rate_class: "<i class='fa-solid fa-seedling' style='color: #66CC00;'></i>")
+      when 1400..1449
+        user.update!(rate_class: "<i class='fa-solid fa-bug text-muted'></i>")
+      when 1350..1399
+        user.update!(rate_class: "<i class='fa-solid fa-virus-covid' style='color: #006600;'></i>")
+      else
+        user.update!(rate_class: "<i class='fa-solid fa-poop' style='color: #996633;'></i>")
+      end
+    end
+
   end
 end
