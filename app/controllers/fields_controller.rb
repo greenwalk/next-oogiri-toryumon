@@ -5,6 +5,9 @@ class FieldsController < ApplicationController
     @fields = Field.where(status: "finished")
   end
 
+  def now_field_index
+  end
+
   def create
     @field = Field.new(field_params)
     if @field.save
