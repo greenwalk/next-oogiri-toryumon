@@ -1,5 +1,5 @@
 class FieldsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update]
+  before_action :authenticate_user!, only: [:now_field_index, :create, :update]
   before_action :set_field, only: [:update]
   helper_method :posted_another_field?
   helper_method :already_voted?
