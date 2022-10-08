@@ -5,7 +5,7 @@ class FieldsController < ApplicationController
   helper_method :already_voted?
   helper_method :check_oogiris_num
   def index
-    @fields = Field.where(status: "finished")
+    @fields = Field.where(status: "finished").order(created_at: :desc)
   end
 
   def now_field_index
