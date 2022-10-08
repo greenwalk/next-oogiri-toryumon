@@ -11,7 +11,7 @@ class FieldsController < ApplicationController
   def now_field_index
     dw = ["日", "月", "火", "水", "木", "金", "土"]
     # 次の土曜日の21:59が表示されるように分岐
-    date = if Date.today.strftime('%a') == "Sat" && [*0..2200].include?(Time.now.strftime('%H%M').to_i)
+    date = if Date.today.strftime('%a') == "Sat" && [*0..2200].include?(Time.zone.now.strftime('%H%M').to_i)
                   Date.yesterday.next_occurring(:saturday)
                 else
                   Date.today.next_occurring(:saturday)
