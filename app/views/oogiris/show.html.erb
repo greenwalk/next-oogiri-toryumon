@@ -15,7 +15,7 @@
         <% elsif @oogiri.get_rank > 3 && @oogiri.point < 0 %>
           <i class="fa-solid fa-skull mr-1 text-dark small"></i>
         <% else %>
-          <i class="fa-solid fa-circle-dot mr-1 text-success small"></i>
+          <i class="fa-solid fa-circle-dot mr-1 text-light small"></i>
         <% end %>
         <div class="mr-1"><%= "#{@oogiri.get_rank}位" %></div>
         <div><%= "#{@oogiri.point}点" %></div>
@@ -26,7 +26,7 @@
         <div class="d-flex small align-top row">
           <div class="d-flex small mr-1">
             <% [3, 2, 1, 0, -2].each do |v| %>
-              <div class="bg-white border mr-1 text-dark px-1"><%= "#{@oogiri.votes.where(vote_point: v).length}" %></div>
+              <div class="border <%= 'table-secondary' if v == -2 %> mr-1 text-dark px-1"><%= "#{@oogiri.votes.where(vote_point: v).length}" %></div>
             <% end %>
           </div>
           <%= link_to @oogiri.user.name, "#", class: "text-left small text-secondary" %>
