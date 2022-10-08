@@ -1,11 +1,22 @@
 class FieldsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update]
   before_action :set_field, only: [:update]
+  helper_method :posted_another_field?
+  helper_method :already_voted?
+  helper_method :check_oogiris_num
   def index
     @fields = Field.where(status: "finished")
   end
 
   def now_field_index
+    dw = ["日", "月", "火", "水", "木", "金", "土"]
+    # 次の土曜日の21:59が表示されるように分岐
+    date = if Date.today.strftime('%a') == "Sat" && [*0..2200].include?(Time.now.strftime('%H%M').to_i)
+                  Date.yesterday.next_occurring(:saturday)
+                else
+                  Date.today.next_occurring(:saturday)
+                end
+    @deadline = date.strftime("%m/%d(#{dw[date.wday]}) 22:00")
   end
 
   def create
@@ -45,6 +56,18 @@ class FieldsController < ApplicationController
 
   def set_field
     @field = Field.find(params[:id])
+  end
+
+  def already_voted?(field)
+    field.votes.pluck(:user_id).include?(current_user&.id)
+  end
+
+  def posted_another_field?(field)
+    Field.includes(:oogiris).where.not(id: field.id).where(created_at: field.created_at.all_day, oogiris: {user_id: current_user.id}).present?
+  end
+
+  def check_oogiris_num(field)
+    field.oogiris.length < 15 || field.oogiris.where(user_id: current_user.id).present?
   end
 
   def update_point(oogiris)
