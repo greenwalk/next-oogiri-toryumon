@@ -1,12 +1,12 @@
 <div class="position-sticky mb-2 card col-sm-6 mx-auto" style="top: 56px; z-index: 100;">
   <div class="card-body">
     <div class="text-center mb-2 text-dark"><%= "お題" %></div>
-    <div class="text-dark text-center table-secondary p-2"><%= @now_field.text_theme %></div>
+    <div class="text-dark text-center table-secondary p-2"><%= @field.text_theme %></div>
   </div>
 </div>
 <div class="col-sm-6 mx-auto px-4">
   <div class="text-center mb-2 text-dark"><%= "回答一覧" %></div>
-  <%= form_with model:@form, url: votes_path, method: :post, local: true do |form| %>
+  <%= form_with model:@form, url: field_votes_path(@field.id), method: :post, local: true do |form| %>
     <%= render 'shared/error_messages', model: form.object %>
     <%= form.fields_for :votes do |f| %>
       <div class="card-body p-2 shadow-sm border my-3">
@@ -60,9 +60,9 @@
         <% end %>
       </div>
     <% end %>
-    <% if @now_field.votes.pluck(:user_id).include?(current_user&.id) %>
+    <% if @field.votes.pluck(:user_id).include?(current_user&.id) %>
       <div class="text-center">
-        <%= link_to "投票確認", vote_thanks_path, class: "btn btn-cv bg-primary text-white mb-2" %>
+        <%= link_to "投票確認", field_vote_thanks_path(@field.id), class: "btn btn-cv bg-primary text-white mb-2" %>
       </div>
     <% else %>
       <div class="text-center">
@@ -95,14 +95,14 @@
     </tr>
     </thead>
     <tbody>
-    <% @now_field.oogiris.includes(:votes).sort { |a, b| b.votes.sum(:vote_point) <=> a.votes.sum(:vote_point) }.each_with_index do |oogiri, i| %>
+    <% @field.oogiris.includes(:votes).sort { |a, b| b.votes.sum(:vote_point) <=> a.votes.sum(:vote_point) }.each_with_index do |oogiri, i| %>
       <tr>
         <% if i < 3 %>
           <td nowrap class="text-center text-danger"><%= i + 1 %></td>
-<!--          <td nowrap class="text-center text-danger"><%#= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
+<!--          <td nowrap class="text-center text-danger"><%#= @field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
         <% else %>
           <td nowrap class="text-center"><%= i + 1 %></td>
-<!--          <td nowrap class="text-center"><%#= @now_field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
+<!--          <td nowrap class="text-center"><%#= @field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
         <% end %>
         <td nowrap class="text-center"><%= oogiri.user.name %></td>
       </tr>

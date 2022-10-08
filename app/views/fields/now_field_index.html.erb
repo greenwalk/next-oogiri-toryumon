@@ -12,7 +12,7 @@
     <div class="card-body shadow-sm border">
       <div class="text-center mb-2 text-dark"><%= "現在のお題（#{@field_status}）" %></div>
       <% @now_fields.each do |field| %>
-        <%= link_to(new_field_vote_path(field.id), class: "") do %>
+        <%= link_to(new_field_vote_path(field), class: "") do %>
           <div class="mt-2 text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
         <% end %>
       <% end %>
@@ -26,15 +26,5 @@
         <% end %>
       <% end %>
     </div>
-  <% end %>
-
-
-  <% @fields.each do |field| %>
-    <%= link_to(field_oogiris_path(field), class: "") do %>
-      <div class="card-body shadow-sm border mt-3">
-        <div class="text-center mb-2 text-dark">お題</div>
-        <div class="text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
-      </div>
-    <% end %>
   <% end %>
 </div>
