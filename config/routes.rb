@@ -2,13 +2,14 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'top_pages#top_page'
   resources :fields, only:[:index, :create, :update] do
+    resources :votes, only:[:new, :create]
+    get 'vote/thanks', to: 'votes#thanks'
     resources :oogiris, only:[:index, :new, :create, :edit, :update, :show, :destroy] do
       resources :comments, only:[:create, :destroy]
     end
     get '/oogiri/:id/votes', to: 'oogiris#vote_show'
   end
-  resources :votes, only:[:new, :create]
-  get '/vote/thanks', to: 'votes#thanks'
+  get 'fields/now_field', to: 'fields#now_field_index'
   get '/admin/top', to: 'admin/admins#top'
   get '/ranking', to: 'top_pages#ranking'
   get '/privacy_policy', to: 'top_pages#privacy_policy'
