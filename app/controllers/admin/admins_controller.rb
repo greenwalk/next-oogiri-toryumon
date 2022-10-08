@@ -5,7 +5,8 @@ class Admin::AdminsController < ApplicationController
     # お題作成用
     @field = Field.new
     # 過去のお題用
-    @fields_finished = Field.where(status: "finished")
+    @first_oogiris = Oogiri.includes(:field).where(get_rank: 1)
+    @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0)
     # ユーザー一覧用
     @users = User.order(created_at: :asc)
   end
