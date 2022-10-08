@@ -32,7 +32,8 @@
           <%= link_to @oogiri.user.name, "#", class: "text-left small text-secondary" %>
         </div>
       <% end %>
-      <div class="p-1 table-secondary my-2 row"><%= @oogiri.content %></div>
+      <hr class="my-1 row">
+      <div class="p-1 my-2 row"><%= @oogiri.content %></div>
     </div>
   </div>
 </div>
@@ -57,3 +58,6 @@
   <% end %>
 </div>
 <hr class="mb-0">
+<div class="text-center">
+  <%= link_to "コメント欄へ", field_oogiri_path(@field, @oogiri), class: "py-1 mt-3 btn btn-outline-dark text-nowrap" %>
+</div>
