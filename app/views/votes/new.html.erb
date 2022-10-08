@@ -1,5 +1,5 @@
-<div class="position-sticky mb-2 card col-sm-6 mx-auto" style="top: 56px; z-index: 100;">
-  <div class="card-body">
+<div class="position-sticky mb-2 card-body col-sm-6 mx-auto bg-white border-bottom" style="top: 56px; z-index: 100;">
+  <div class="">
     <div class="text-center mb-2 text-dark"><%= "お題" %></div>
     <div class="text-dark text-center table-secondary p-2"><%= @field.text_theme %></div>
   </div>
@@ -10,7 +10,7 @@
     <%= render 'shared/error_messages', model: form.object %>
     <%= form.fields_for :votes do |f| %>
       <div class="card-body p-2 shadow-sm border my-3">
-        <div class="form-group text-muted d-flex small">
+        <div class="form-group text-muted d-flex small mb-2">
           <% if f.object.oogiri.user == current_user %>
             <div class="d-flex form-check pt-1 ml-3">
               <%= f.label :vote_point, "-2点", class: "form-check-label" %>
@@ -55,18 +55,19 @@
             </div>
           <% end %>
         </div>
+        <hr class="my-0">
         <%= link_to(field_oogiri_path(f.object.oogiri.field, f.object.oogiri), target: :_blank, rel: "noopener noreferrer") do %>
-          <div class="p-2 table-secondary text-dark"><%= f.object.oogiri.content %></div>
+          <div class="px-2 pt-2 text-dark"><%= f.object.oogiri.content %></div>
         <% end %>
       </div>
     <% end %>
     <% if @field.votes.pluck(:user_id).include?(current_user&.id) %>
       <div class="text-center">
-        <%= link_to "投票確認", field_vote_thanks_path(@field.id), class: "btn btn-cv bg-primary text-white mb-2" %>
+        <%= link_to "投票確認", field_vote_thanks_path(@field.id), class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
       </div>
     <% else %>
       <div class="text-center">
-        <%= form.submit "投票", class: "btn btn-cv bg-primary text-white mb-2" %>
+        <%= form.submit "投票確定", class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
       </div>
     <% end %>
   <% end %>
