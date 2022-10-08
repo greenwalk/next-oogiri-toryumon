@@ -29,18 +29,8 @@
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <li class="d-flex nav-item mb-1 mr-2 align-items-center">
-              <% if @now_field.present? %>
-                <% if @now_field.status_posting? %>
-                  <i class="fa-regular fa-lightbulb text-white mr-2"></i>
-                  <%= link_to '会場(投稿)', new_field_oogiri_path(field_id: @now_field.id), class: "text-white" %>
-                <% elsif @now_field.status_voting? %>
-                  <i class="fa-solid fa-check-to-slot text-white mr-2"></i>
-                  <%= link_to '会場(投票)', new_vote_path, class: "text-white" %>
-                <% elsif @now_field.status_finished? %>
-                  <i class="fa-solid fa-flag text-white mr-2"></i>
-                  <%= link_to '会場(結果)', field_oogiris_path(@now_field), class: "text-white" %>
-                <% end %>
-              <% end %>
+              <i class="fa-regular fa-lightbulb text-white mr-2"></i>
+              <%= link_to "会場(#{@field_status})", fields_now_field_path, class: "text-white" %>
             </li>
             <li class="nav-item mb-1 mr-2 align-items-center">
               <i class="fa-regular fa-rectangle-list text-white mr-1"></i>
@@ -54,7 +44,7 @@
               <i class="fa-solid fa-right-from-bracket text-white mr-1"></i>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-white" %>
             </li>
-            <% if current_user.id == 4 %>
+            <% if current_user&.admin_user? %>
               <li class="nav-item mt-1 align-items-center">
                 <i class="fa-regular fa-eye-slash text-white mr-1"></i>
                 <%= link_to '管理者ページ', admin_top_path, class: "text-white" %>

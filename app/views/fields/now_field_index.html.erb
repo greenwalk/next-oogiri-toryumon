@@ -1,0 +1,68 @@
+<div class="card-body text-center mt-1">
+  <div class="text-center mb-2 text-dark small"><%= "現在のお題（#{@field_status}）" %></div>
+  <hr class="mt-2 mb-0 w-25">
+</div>
+
+<div class="mt-3 col-sm-6 mx-auto">
+  <% if @field_status == "投稿" %>
+    <div class="card-body shadow mb-4">
+      <div class="text-dark table-danger p-2 small">
+        どちらか１つのお題に投稿できます。<br>
+        投稿数の上限は１つのお題につき１５回答です。
+      </div>
+    </div>
+    <% @now_fields.each do |field| %>
+      <div class="mb-3 card-body shadow-sm border">
+        <div class="mb-3 small d-flex justify-content-between">
+          <div class="text-danger"><%= "切替予定: #{@deadline}" %></div>
+          <div class=""><%= "投稿数: #{field.oogiris.length}/15" %></div>
+        </div>
+        <div class="mt-2 text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
+        <div class="text-center">
+          <% if posted_another_field?(field) %>
+            <%= link_to "他のお題に投稿済み", new_field_oogiri_path(field_id: field.id), class: "py-1 disabled mt-3 btn btn-outline-dark text-nowrap" %>
+          <% elsif check_oogiris_num(field) %>
+            <%= link_to "投稿会場", new_field_oogiri_path(field_id: field.id), class: "py-1 mt-3 btn btn-outline-dark text-nowrap" %>
+          <% else %>
+            <%= link_to "締め切り", new_field_oogiri_path(field_id: field.id), class: "py-1 disabled mt-3 btn btn-outline-dark text-nowrap" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% elsif @field_status == "投票" %>
+    <% @now_fields.each do |field| %>
+      <div class="mb-3 card-body shadow-sm border">
+        <div class="mb-2 small d-flex justify-content-between">
+          <% if already_voted?(field) %>
+            <div class="">投票: 済</div>
+          <% else %>
+            <div class="">投票: <span class="text-muted">未済</span></div>
+          <% end %>
+          <div class="text-danger"><%= "切替予定: #{@deadline}" %></div>
+
+        </div>
+        <div class="mt-2 text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
+        <div class="text-center">
+          <%= link_to "投票会場", new_field_vote_path(field), class: "py-1 mt-3 btn btn-outline-dark text-nowrap" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <% @now_fields.each do |field| %>
+      <div class="mb-3 card-body shadow-sm border">
+        <div class="mb-2 small d-flex justify-content-between">
+          <div class="text-danger"><%= "切替予定: #{@deadline}" %></div>
+          <% if already_voted?(field) %>
+            <div class="">投票: 済</div>
+          <% else %>
+            <div class="">投票: 未済</div>
+          <% end %>
+        </div>
+        <div class="text-center mb-2 text-dark"><%= "最新のお題（#{@field_status}）" %></div>
+        <%= link_to(field_oogiris_path(field), class: "") do %>
+          <div class="mt-2 text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
