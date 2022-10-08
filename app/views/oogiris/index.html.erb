@@ -35,8 +35,9 @@
           <% end %>
           <%= link_to oogiri.user.name, "#", class: "text-left small text-secondary" %>
         </div>
+        <hr class="my-1 row">
         <%= link_to(field_oogiri_path(oogiri.field, oogiri), target: :_blank, rel: "noopener noreferrer") do %>
-          <div class="p-1 table-secondary my-2 row text-dark"><%= oogiri.content %></div>
+          <div class="p-1 my-0 row text-dark"><%= oogiri.content %></div>
         <% end %>
       </div>
     </div>
