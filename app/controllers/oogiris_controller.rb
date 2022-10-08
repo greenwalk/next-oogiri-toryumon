@@ -3,7 +3,7 @@ class OogirisController < ApplicationController
   before_action :set_field, only: [:index, :new, :create, :edit, :update, :show, :vote_show, :destroy]
   before_action :set_oogiri, only: [:edit, :update, :show, :vote_show, :destroy]
   before_action :dont_look_result, only: [:index, :vote_show]
-  before_action :dont_create_oogiri, only: [:new, :edit]
+  before_action :dont_create_oogiri,:check_oogiris_num, only: [:new, :edit]
   before_action :dont_look_oogiri, only: [:show]
 
   def index
@@ -75,6 +75,10 @@ class OogirisController < ApplicationController
 
   def dont_create_oogiri
     redirect_to root_path unless @field.status_posting?
+  end
+
+  def check_oogiris_num
+    redirect_to root_path if @field.oogiris.length >= 15 && @field.oogiris.where(user_id: current_user.id).empty?
   end
 
   def dont_look_oogiri
