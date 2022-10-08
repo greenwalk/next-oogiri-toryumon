@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
                   elsif @field_status == "投票"
                     Field.status_voting
                   else
-                    Field.status_finished.limit(2)
+                    Field.status_finished.order(created_at: :desc).limit(2)
                   end
   end
 
