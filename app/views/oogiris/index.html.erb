@@ -33,7 +33,12 @@
               <% end %>
             </div>
           <% end %>
-          <%= link_to oogiri.user.name, "#", class: "text-left small text-secondary" %>
+          <%= link_to("#", class: "text-left small text-secondary") do %>
+            <div class="d-flex">
+              <div><%= oogiri.user.rate_class.html_safe if oogiri.user.rate >= 1550 %></div>
+              <div><%= oogiri.user.name %></div>
+            </div>
+          <% end %>
         </div>
         <hr class="my-1 row">
         <%= link_to(field_oogiri_path(oogiri.field, oogiri), target: :_blank, rel: "noopener noreferrer") do %>

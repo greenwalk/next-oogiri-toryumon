@@ -29,7 +29,12 @@
               <div class="border <%= 'table-secondary' if v == -2 %> mr-1 text-dark px-1"><%= @oogiri.votes.where(vote_point: v).length  %></div>
             <% end %>
           </div>
-          <%= link_to @oogiri.user.name, "#", class: "text-left small text-secondary" %>
+          <%= link_to("#", class: "text-left small text-secondary") do %>
+            <div class="d-flex">
+              <div><%= @oogiri.user.rate_class.html_safe if @oogiri.user.rate >= 1550 %></div>
+              <div><%= @oogiri.user.name %></div>
+            </div>
+          <% end %>
         </div>
       <% end %>
       <hr class="my-1 row">
@@ -43,12 +48,19 @@
   <% [3, 2, 1, 0, -2].each do |point| %>
     <div class="text-center table-dark"><%= "#{point}点" %></div>
     <% if @oogiri.votes.where(vote_point: point).present? %>
-      <div class="ml-2 align-items-center my-1">
+      <div class="ml-2 align-items-center my-1 small">
       <% @oogiri.votes.where(vote_point: point).each_with_index do |vote, i| %>
         <% if i == 0 %>
-          <%= link_to "#{vote.user.name}", "#", class: "text-muted" %>
+          <%= link_to("#", class: "d-inline text-muted") do %>
+              <span><%= vote.user.rate_class.html_safe if vote.user.rate >= 1550 %></span>
+              <span class=""><%= vote.user.name %></span>
+          <% end %>
         <% else %>
-          <%= " / " %><%= link_to "#{vote.user.name}", "#", class: "text-muted" %>
+            <span class=""><%= "/" %></span>
+            <%= link_to("#", class: "d-inline text-muted") do %>
+              <span><%= vote.user.rate_class.html_safe if vote.user.rate >= 1550 %></span>
+              <span class=""><%= vote.user.name %></span>
+            <% end %>
         <% end %>
       <% end %>
       </div>

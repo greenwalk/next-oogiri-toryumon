@@ -29,7 +29,12 @@
               <div class="border <%= 'table-secondary' if v == -2 %> mr-1 text-dark px-1"><%= "#{@oogiri.votes.where(vote_point: v).length}" %></div>
             <% end %>
           </div>
-          <%= link_to @oogiri.user.name, "#", class: "text-left small text-secondary" %>
+          <%= link_to("#", class: "text-left small text-secondary") do %>
+            <div class="d-flex">
+              <div><%= @oogiri.user.rate_class.html_safe if @oogiri.user.rate >= 1550 %></div>
+              <div><%= @oogiri.user.name %></div>
+            </div>
+          <% end %>
         </div>
       <% end %>
       <hr class="my-1 row">
@@ -43,7 +48,14 @@
   <% @comments.each do |comment| %>
     <% if @field.status_finished? || comment.user == current_user %>
       <div class="d-flex small mb-1">
-        <div class="align-items-center text-nowrap"><%= link_to "#{comment.user.name}:", "#", class: "text-muted" %></div>
+        <div class="align-items-center text-nowrap">
+          <%= link_to("#", class: "text-muted") do %>
+            <div class="d-flex">
+              <div><%= comment.user.rate_class.html_safe if comment.user.rate >= 1550 %></div>
+              <div><%= "#{comment.user.name}:" %></div>
+            </div>
+          <% end %>
+        </div>
         <div class="px-1"><%= comment.content %></div>
         <% if comment.user == current_user %>
           <%= link_to(field_oogiri_comment_path(@field, @oogiri, comment), method: :delete, class: "ml-auto") do %>
