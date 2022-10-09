@@ -19,7 +19,7 @@
       <td nowrap class="text-center"><%= i + 1 %></td>
       <td class="text-center"><%= user.rate_class.html_safe %></td>
       <td nowrap class="text-center"><%= user.rate %></td>
-      <td nowrap class="text-center"><%= user.name %></td>
+      <td nowrap class="text-center"><%= link_to user.name, user_path(user) %></td>
       <td nowrap class="text-center"><%= user.max_rate %></td>
     </tr>
   <% end %>
