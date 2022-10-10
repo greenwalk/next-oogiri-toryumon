@@ -7,7 +7,11 @@
       <table class="table table-bordered table-striped">
         <tr>
           <th nowrap class="p-2 text-center">ランク</th>
-          <th nowrap class="p-2 text-center"><span class="<%= 'text-danger' if @user_rank <= 3 %>"><%= @user_rank %></span><%= "/#{@users.length} 位" %></th>
+          <% if @user_rank == "-" %>
+            <th nowrap class="p-2 text-center"><span class=""><%= @user_rank %></span><%= "/#{@users.length} 位" %></th>
+          <% else %>
+            <th nowrap class="p-2 text-center"><span class="<%= 'text-danger' if @user_rank <= 3 %>"><%= @user_rank %></span><%= "/#{@users.length} 位" %></th>
+          <% end %>
         </tr>
         <tr>
           <th nowrap class="text-center">レート</th>
@@ -33,8 +37,8 @@
       <div>アクティビティ</div>
       <table class="table table-bordered mb-2">
         <tr>
-          <th nowrap class="p-2 text-center w-50">大喜利を始めた時期</th>
-          <th nowrap class="p-2 text-center"><%= @user.oogiri_start.strftime('%Y年%m月') %></th>
+          <th nowrap class="p-2 text-center w-50">大喜利を始めた年</th>
+          <th nowrap class="p-2 text-center"><%= @user.oogiri_start.strftime('%Y年') %></th>
         </tr>
       </table>
       <table class="table table-bordered table-striped">

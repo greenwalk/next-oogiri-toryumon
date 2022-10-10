@@ -4,7 +4,11 @@ class UsersController < ApplicationController
     @users = User.eager_load(:oogiris).where.not(oogiris: {id: nil}).order(rate: :desc)
     @user = User.includes(:oogiris, :votes, :comments).find(params[:id])
     # ユーザーのrate順位(=ランク)
-    @user_rank = @users.index(@user) + 1
+    @user_rank = if @users.index(@user).present?
+                   @users.index(@user) + 1
+                 else
+                   "-"
+                 end
     # 終了したお題を日付ごとにグループ化して取得(分母に使用するため)
     @fields = Field.group("DATE_FORMAT(created_at,'%Y-%m-%d')").status_finished
     @fields_num = @fields.length
