@@ -78,7 +78,7 @@ class OogirisController < ApplicationController
   end
 
   def check_oogiris_num
-    redirect_to root_path if @field.oogiris.length >= 15 && @field.oogiris.where(user_id: current_user.id).empty?
+    redirect_to root_path if @field.oogiris.length >= @limit_num && @field.oogiris.where(user_id: current_user.id).empty?
   end
 
   def dont_look_oogiri

@@ -33,7 +33,7 @@
               <% end %>
             </div>
           <% end %>
-          <%= link_to("#", class: "text-left small text-secondary") do %>
+          <%= link_to(user_path(oogiri.user), class: "text-left small text-secondary") do %>
             <div class="d-flex">
               <div><%= oogiri.user.rate_class.html_safe if oogiri.user.rate >= 1550 %></div>
               <div><%= oogiri.user.name %></div>
@@ -54,7 +54,7 @@
     <div class="text-center mb-2 text-dark"><%= "投票者" %></div>
     <div class="table-secondary p-2">
       <% @votes.each do |vote| %>
-        <%= link_to "#{vote.user.name}", "#", class: "text-muted" %><%= " ," %>
+        <%= link_to "#{vote.user.name}", user_path(vote.user), class: "text-muted" %><%= " ," %>
       <% end %>
       <hr class="my-1">
       <div class="text-center"><%= "#{@votes.length}人" %></div>

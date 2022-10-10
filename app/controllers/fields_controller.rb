@@ -68,7 +68,7 @@ class FieldsController < ApplicationController
   end
 
   def check_oogiris_num(field)
-    field.oogiris.length < 15 || field.oogiris.where(user_id: current_user.id).present?
+    field.oogiris.length < @limit_num || field.oogiris.where(user_id: current_user.id).present?
   end
 
   def update_point(oogiris)

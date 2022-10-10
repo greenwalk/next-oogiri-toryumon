@@ -23,13 +23,18 @@
     <% end %>
     <div class="container-fluid">
       <% if @field.status_finished? %>
-        <div class="d-flex small align-top row">
+        <div class="d-flex small align-items-center row">
+          <% if @oogiri.comments.present? %>
+            <i class="fa-regular fa-comment text-primary mr-1"></i>
+          <% else %>
+            <i class="fa-regular fa-comment text-muted mr-1"></i>
+          <% end %>
           <div class="d-flex small mr-1">
             <% [3, 2, 1, 0, -2].each do |v| %>
               <div class="border <%= 'table-secondary' if v == -2 %> mr-1 text-dark px-1"><%= @oogiri.votes.where(vote_point: v).length  %></div>
             <% end %>
           </div>
-          <%= link_to("#", class: "text-left small text-secondary") do %>
+          <%= link_to(user_path(@oogiri.user), class: "text-left small text-secondary") do %>
             <div class="d-flex">
               <div><%= @oogiri.user.rate_class.html_safe if @oogiri.user.rate >= 1550 %></div>
               <div><%= @oogiri.user.name %></div>
@@ -51,13 +56,13 @@
       <div class="ml-2 align-items-center my-1 small">
       <% @oogiri.votes.where(vote_point: point).each_with_index do |vote, i| %>
         <% if i == 0 %>
-          <%= link_to("#", class: "d-inline text-muted") do %>
+          <%= link_to(user_path(vote.user), class: "d-inline text-muted") do %>
               <span><%= vote.user.rate_class.html_safe if vote.user.rate >= 1550 %></span>
               <span class=""><%= vote.user.name %></span>
           <% end %>
         <% else %>
             <span class=""><%= "/" %></span>
-            <%= link_to("#", class: "d-inline text-muted") do %>
+            <%= link_to(user_path(vote.user), class: "d-inline text-muted") do %>
               <span><%= vote.user.rate_class.html_safe if vote.user.rate >= 1550 %></span>
               <span class=""><%= vote.user.name %></span>
             <% end %>

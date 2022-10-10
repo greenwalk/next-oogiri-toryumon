@@ -78,7 +78,7 @@
     <div class="text-center mb-2 text-dark"><%= "投票者" %></div>
     <div class="table-secondary p-2">
       <% @votes.each_with_index do |vote, i| %>
-        <%= link_to "#{vote.user.name}", "#", class: "text-muted" %><%= " ," %>
+        <%= link_to "#{vote.user.name}", user_path(vote.user), class: "text-muted" %><%= " ," %>
       <% end %>
       <hr class="my-1">
       <div class="text-center"><%= "#{@votes.length}人" %></div>
