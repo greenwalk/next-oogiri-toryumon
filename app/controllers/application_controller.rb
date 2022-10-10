@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :field_status_check
   before_action :set_now_field
+  before_action :set_participating_limit
 
   private
   def configure_permitted_parameters
@@ -25,5 +26,9 @@ class ApplicationController < ActionController::Base
     else
       @field_status = "結果"
     end
+  end
+
+  def set_participating_limit
+    @limit_num = 25
   end
 end

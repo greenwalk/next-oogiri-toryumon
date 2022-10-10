@@ -8,14 +8,14 @@
     <div class="card-body shadow mb-4">
       <div class="text-dark table-danger p-2 small">
         どちらか１つのお題に投稿できます。<br>
-        参加者の上限は１つのお題につき１５人です。
+        参加者の上限は１つのお題につき <%= @limit_num %> 人です。
       </div>
     </div>
     <% @now_fields.each do |field| %>
       <div class="mb-3 card-body shadow-sm border">
         <div class="mb-3 small d-flex justify-content-between">
           <div class="text-danger"><%= "切替予定: #{@deadline}" %></div>
-          <div class=""><%= "投稿数: #{field.oogiris.length}/15" %></div>
+          <div class=""><%= "投稿数: #{field.oogiris.length}/#{@limit_num}" %></div>
         </div>
         <div class="mt-2 text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
         <div class="text-center">
