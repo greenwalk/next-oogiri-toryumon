@@ -35,8 +35,18 @@
     <div id="current_field" class="tab-pane">
       <% @two_fields.each do |field| %>
         <div class="col-sm-6 my-3 mx-auto card-body border shadow-sm">
-          <div class="text-dark text-center my-2"><%= "#{field.id}: " %><%= field.text_theme %></div>
+          <div class="text-dark text-center"><%= link_to "#{field.id}: #{field.text_theme}", fields_now_field_path %></div>
           <div class="text-danger text-center small"><%= "ステータス: #{field.status}" %></div>
+          <div class="small mt-2 table-secondary">
+            <div class="text-center text-dark"><%= "投票者" %></div>
+            <div class="table-secondary p-2">
+              <% field.oogiris.each do |oogiri| %>
+                <%= oogiri.user.name %><%= " ," %>
+              <% end %>
+              <hr class="my-1">
+              <div class="text-center"><%= "#{field.oogiris.length}/#{@limit_num}" %></div>
+            </div>
+          </div>
           <div class="text-center my-2">
             <%= link_to "切替", field_path(id: field.id), class: "w-25 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
           </div>
