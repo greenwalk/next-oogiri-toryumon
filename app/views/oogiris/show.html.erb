@@ -29,7 +29,7 @@
               <div class="border <%= 'table-secondary' if v == -2 %> mr-1 text-dark px-1"><%= "#{@oogiri.votes.where(vote_point: v).length}" %></div>
             <% end %>
           </div>
-          <%= link_to("#", class: "text-left small text-secondary") do %>
+          <%= link_to(user_path(@oogiri.user), class: "text-left small text-secondary") do %>
             <div class="d-flex">
               <div><%= @oogiri.user.rate_class.html_safe if @oogiri.user.rate >= 1550 %></div>
               <div><%= @oogiri.user.name %></div>
@@ -49,7 +49,7 @@
     <% if @field.status_finished? || comment.user == current_user %>
       <div class="d-flex small mb-1">
         <div class="align-items-center text-nowrap">
-          <%= link_to("#", class: "text-muted") do %>
+          <%= link_to(user_path(comment.user), class: "text-muted") do %>
             <div class="d-flex">
               <div><%= comment.user.rate_class.html_safe if comment.user.rate >= 1550 %></div>
               <div><%= "#{comment.user.name}:" %></div>
