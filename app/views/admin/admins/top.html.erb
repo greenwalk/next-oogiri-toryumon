@@ -47,24 +47,22 @@
       <div class="col-sm-6 my-3 mx-auto">
         <div class="small table-responsive">
           <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-              <th nowrap class="text-center">名前</th>
-              <th nowrap class="text-center">お題</th>
-              <th nowrap class="text-center">回答</th>
-              <th nowrap class="text-center">得点</th>
-            </tr>
-            </thead>
-            <tbody>
             <% @first_oogiris.each do |oogiri| %>
-              <tr>
-                <td nowrap class="text-center"><%= oogiri.user.name %></td>
-                <td nowrap class="text-center"><%= oogiri.field.text_theme %></td>
-                <td nowrap class="text-center"><%= link_to oogiri.content, field_oogiri_path(oogiri.field, oogiri) %></td>
-                <td nowrap class="text-center"><%= oogiri.point %></td>
-              </tr>
+              <table class="table table-bordered table-striped small shadow-sm">
+                <tr>
+                  <th nowrap class="text-center w-25">名前</th>
+                  <th class="text-center"><%= link_to oogiri.user.name, user_path(oogiri.user) %></th>
+                </tr>
+                <tr>
+                  <th nowrap class="text-center w-25">お題</th>
+                  <th class="text-center"><%= oogiri.field.text_theme %></th>
+                </tr>
+                <tr>
+                  <th nowrap class="text-center w-25">回答</th>
+                  <th class="text-center"><%= oogiri.content %></th>
+                </tr>
+              </table>
             <% end %>
-            </tbody>
           </table>
         </div>
       </div>
@@ -73,24 +71,24 @@
       <div class="col-sm-6 my-3 mx-auto">
         <div class="small table-responsive">
           <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-              <th nowrap class="text-center">名前</th>
-              <th nowrap class="text-center">お題</th>
-              <th nowrap class="text-center">回答</th>
-              <th nowrap class="text-center">得点</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @minus_oogiris.each do |oogiri| %>
-              <tr>
-                <td nowrap class="text-center"><%= oogiri.user.name %></td>
-                <td nowrap class="text-center"><%= oogiri.field.text_theme %></td>
-                <td nowrap class="text-center"><%= link_to oogiri.content, field_oogiri_path(oogiri.field, oogiri) %></td>
-                <td nowrap class="text-center"><%= oogiri.point %></td>
-              </tr>
-            <% end %>
-            </tbody>
+            <table class="table table-bordered table-striped">
+              <% @minus_oogiris.each do |oogiri| %>
+                <table class="table table-bordered table-striped small shadow-sm">
+                  <tr>
+                    <th nowrap class="text-center w-25">名前</th>
+                    <th class="text-center"><%= link_to oogiri.user.name, user_path(oogiri.user) %></th>
+                  </tr>
+                  <tr>
+                    <th nowrap class="text-center w-25">お題</th>
+                    <th class="text-center"><%= oogiri.field.text_theme %></th>
+                  </tr>
+                  <tr>
+                    <th nowrap class="text-center w-25">回答</th>
+                    <th class="text-center"><%= oogiri.content %></th>
+                  </tr>
+                </table>
+              <% end %>
+            </table>
           </table>
         </div>
       </div>
@@ -102,15 +100,17 @@
         <table class="table table-bordered table-striped">
           <thead>
           <tr>
+            <th nowrap class="text-center">No.</th>
             <th nowrap class="text-center">名前</th>
             <th nowrap class="text-center">レート</th>
             <th nowrap class="text-center">最高レート</th>
           </tr>
           </thead>
           <tbody>
-          <% @users.each do |user| %>
+          <% @users.each_with_index do |user, i| %>
             <tr>
-              <td nowrap class="text-center"><%= user.name %></td>
+              <td nowrap class="text-center"><%= @users.length - i %></td>
+              <td class="text-center"><%= user.name %></td>
               <td nowrap class="text-center"><%= user.rate %></td>
               <td nowrap class="text-center"><%= user.max_rate %></td>
             </tr>

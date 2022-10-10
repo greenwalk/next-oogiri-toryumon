@@ -10,7 +10,7 @@ class Admin::AdminsController < ApplicationController
     @first_oogiris = Oogiri.includes(:field).where(get_rank: 1)
     @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0)
     # ユーザー一覧用
-    @users = User.order(created_at: :asc)
+    @users = User.order(created_at: :desc)
   end
 
   private
