@@ -60,6 +60,9 @@
     <li class="nav-item" role="presentation">
       <a href="#user_comments" class="nav-link" data-toggle="tab" aria-selected="false">コメント集</a>
     </li>
+    <li class="nav-item" role="presentation">
+      <a href="#received_comments" class="nav-link" data-toggle="tab" aria-selected="false">貰ったコメント</a>
+    </li>
   </ul>
   <div class="tab-content mt-3">
     <div id="user_oogiris" class="tab-pane active">
@@ -116,6 +119,24 @@
           </tr>
           <tr>
             <th nowrap class="text-center w-25">コメント</th>
+            <th class="text-center"><%= link_to comment.content, field_oogiri_path(comment.oogiri.field, comment.oogiri) %></th>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+    <div id="received_comments" class="tab-pane">
+      <% @received_comments.each do |comment| %>
+        <table class="table table-bordered table-striped small shadow-sm">
+          <tr>
+            <th nowrap class="text-center w-25">お題</th>
+            <th class="text-center"><%= comment.oogiri.field.text_theme.truncate(20) %></th>
+          </tr>
+          <tr>
+            <th nowrap class="text-center w-25">回答</th>
+            <th class="text-center"><%= comment.oogiri.content.truncate(20) %></th>
+          </tr>
+          <tr>
+            <th nowrap class="text-center w-25"><span><%= comment.user.rate_class.html_safe %></span><%= comment.user.name %></th>
             <th class="text-center"><%= link_to comment.content, field_oogiri_path(comment.oogiri.field, comment.oogiri) %></th>
           </tr>
         </table>
