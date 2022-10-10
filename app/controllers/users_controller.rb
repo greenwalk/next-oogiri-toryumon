@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
     # 対象のユーザーを取得
-    @users = User.order(rate: :desc)
+    @users = User.eager_load(:oogiris).where.not(oogiris: {id: nil}).order(rate: :desc)
     @user = User.includes(:oogiris, :votes, :comments).find(params[:id])
     # ユーザーのrate順位(=ランク)
     @user_rank = @users.index(@user) + 1

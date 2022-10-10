@@ -3,7 +3,7 @@ class TopPagesController < ApplicationController
   end
 
   def ranking
-    @users = User.order(rate: :desc)
+    @users = User.eager_load(:oogiris).where.not(oogiris: {id: nil}).order(rate: :desc)
   end
 
   def privacy_policy
