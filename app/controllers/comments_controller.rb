@@ -2,6 +2,10 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_oogiri, only: [:create, :destroy]
   before_action :set_field, only: [:create, :destroy]
+
+  def index
+    @comments = Comment.includes(:user, oogiri: :field).where(oogiris: {fields: {status: :finished}}).order(created_at: :desc)
+  end
   def create
     @comment = Comment.new(comment_params)
     if @comment.save

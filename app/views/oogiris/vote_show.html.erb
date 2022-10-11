@@ -10,9 +10,9 @@
   <div class="d-flex align-items-center p-1 shadow-sm border mb-2">
     <% if @field.status_finished? %>
       <div class="d-flex text-nowrap ml-2 mr-3 align-items-center">
-        <% if @oogiri.get_rank <= 3 %>
+        <% if @oogiri.get_rank == 1 %>
           <i class="fa-solid fa-fire-flame-curved mr-1 text-danger"></i>
-        <% elsif @oogiri.get_rank > 3 && @oogiri.point < 0 %>
+        <% elsif @oogiri.get_rank > 1 && @oogiri.point < 0 %>
           <i class="fa-solid fa-skull mr-1 text-dark small"></i>
         <% else %>
           <i class="fa-solid fa-circle-dot mr-1 text-light small"></i>

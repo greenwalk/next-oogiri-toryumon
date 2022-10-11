@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
     get '/oogiri/:id/votes', to: 'oogiris#vote_show'
   end
+  resources :comments, only:[:index]
   get 'fields/now_field', to: 'fields#now_field_index'
   get '/admin/top', to: 'admin/admins#top'
   get '/ranking', to: 'top_pages#ranking'
