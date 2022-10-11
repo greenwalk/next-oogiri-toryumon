@@ -32,9 +32,20 @@
               <i class="fa-regular fa-lightbulb text-white mr-2"></i>
               <%= link_to "会場(#{@field_status})", fields_now_field_path, class: "text-white" %>
             </li>
-            <li class="nav-item mb-1 mr-2 align-items-center">
-              <i class="fa-regular fa-rectangle-list text-white mr-1"></i>
-              <%= link_to '過去のお題', fields_path, class: "text-white" %>
+            <li class="nav-item mb-1 mr-2 align-items-center dropdown">
+              <a class="nav-link dropdown-toggle text-white py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa-solid fa-folder-open text-white mr-1"></i>アーカイブ
+              </a>
+              <div class="dropdown-menu py-0" aria-labelledby="navbarDropdown" style="background-color:#000000;">
+                <div class="dropdown-item text-white py-0">
+                  <i class="fa-regular fa-rectangle-list text-white mr-1"></i>
+                  <%= link_to '過去のお題', fields_path, class: "text-white py-0", style: "background-color:#000000;" %>
+                </div>
+                <div class="dropdown-item text-white py-0">
+                  <i class="fa-regular fa-comment text-white mr-1"></i>
+                  <%= link_to '過去のコメント', comments_path, class: "text-white py-0", style: "background-color:#000000;" %>
+                </div>
+              </div>
             </li>
             <li class="nav-item mb-1 mr-2 align-items-center">
               <i class="fa-solid fa-ranking-star text-white mr-1"></i>
