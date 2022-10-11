@@ -115,7 +115,7 @@
         <table class="table table-bordered table-striped small shadow-sm">
           <tr>
             <th nowrap class="text-center w-25">お題</th>
-            <th class="text-center"><%= comment.oogiri.field.text_theme %></th>
+            <th class="text-center"><%= link_to comment.oogiri.field.text_theme, field_oogiris_path(comment.oogiri.field), class: "text-dark" %></th>
           </tr>
           <tr>
             <th nowrap class="text-center w-25">回答</th>
@@ -137,11 +137,11 @@
           </tr>
           <tr>
             <th nowrap class="text-center w-25">回答</th>
-            <th class="text-center"><%= comment.oogiri.content %></th>
+            <th class=""><%= link_to comment.oogiri.content, field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark" %></th>
           </tr>
           <tr>
-            <th nowrap class="text-center w-25"><span><%= comment.user.rate_class.html_safe %></span><%= comment.user.name %></th>
-            <th class="text-center"><%= link_to comment.content, field_oogiri_path(comment.oogiri.field, comment.oogiri) %></th>
+            <th nowrap class="text-center w-25"><span><%= comment.user.rate_class.html_safe %></span><%= link_to comment.user.name, user_path(comment.user), class: "text-dark" %></th>
+            <th class=""><%= link_to comment.content, field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark" %></th>
           </tr>
         </table>
       <% end %>
