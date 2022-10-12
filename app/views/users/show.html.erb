@@ -133,7 +133,7 @@
         <table class="table table-bordered table-striped small shadow-sm">
           <tr>
             <th nowrap class="text-center w-25">お題</th>
-            <th class="text-center"><%= comment.oogiri.field.text_theme %></th>
+            <th class="text-center"><%= link_to comment.oogiri.field.text_theme, field_oogiris_path(comment.oogiri.field), class: "text-dark" %></th>
           </tr>
           <tr>
             <th nowrap class="text-center w-25">回答</th>
