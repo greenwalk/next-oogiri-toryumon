@@ -8,4 +8,8 @@ class TopPagesController < ApplicationController
 
   def privacy_policy
   end
+
+  def minus_oogiris
+    @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0)
+  end
 end

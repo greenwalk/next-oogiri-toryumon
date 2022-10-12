@@ -1,6 +1,6 @@
 <%= image_tag "dark_main_img.jpg", class: "w-100 shadow-sm" %>
 <div class="my-3 col-sm-6 mx-auto">
-  <div class="card-body shadow">
+  <div class="card-body shadow bg-white">
     <div class="text-center mb-2 text-dark small">ルール</div>
     <hr class="mt-2 mb-4 w-25">
     <div class="text-dark table-secondary p-2 small">
@@ -45,6 +45,9 @@
       <i class="fa-solid fa-seedling mr-1" style="color: #000000;"></i><span style="color: #000000;">クラス</span><br>
       クラスは、レートに応じて変わる大まかな階級です。<br>
       レートの閾値を超えることでクラスが変動します。<br>
+    </div>
+    <div class="bg-white">
+      <div class="bg-white text-nowrap" style="height: 1px; width: 1px"><%= link_to ".", minus_oogiris_path, class: "text-white text-nowrap", style: "font-size: 1px; height: 1px;" %></div>
     </div>
   </div>
 </div>

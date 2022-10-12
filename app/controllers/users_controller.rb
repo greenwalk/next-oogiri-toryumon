@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @votes = Vote.group(:user_id, :field_id)
     @user_votes_num = @votes.where(user_id: @user.id).length
     # ユーザーのコメントを取得
-    @user_comments = Comment.includes(oogiri: :field).where(user_id: @user.id).order(created_at: :desc)
+    @user_comments = Comment.includes(oogiri: [:field, :user]).where(oogiris: {fields: {status: :finished}}).where(user_id: @user.id).order(created_at: :desc)
     @received_comments = Comment.includes(oogiri: [:user, :field]).where(oogiris: {fields: {status: :finished}}).where.not(user_id: @user.id).where(oogiris: {user_id: @user.id}).order(created_at: :desc)
   end
 end
