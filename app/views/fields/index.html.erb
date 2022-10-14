@@ -1,22 +1,12 @@
 <div class="mt-3 col-sm-6 mx-auto">
   <div class="text-center mb-2 text-dark">過去のお題</div>
   <hr class="mt-2 mb-4 w-25">
-
   <% @fields.each_with_index do |field, i| %>
-    <% if i <= 1 %>
-      <%= link_to(field_oogiris_path(field), class: "") do %>
-        <div class="card-body shadow-sm border border-danger mb-3">
-          <div class="text-center mb-2 text-dark">お題（最新）</div>
-          <div class="text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
-        </div>
-      <% end %>
-    <% else %>
-      <%= link_to(field_oogiris_path(field), class: "") do %>
-        <div class="card-body shadow-sm border mb-3">
-          <div class="text-center mb-2 text-dark">お題</div>
-          <div class="text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
-        </div>
-      <% end %>
+    <%= link_to(field_oogiris_path(field), class: "") do %>
+      <div class="card-body shadow-sm border mb-3">
+        <div class="text-center mb-2 text-dark">お題</div>
+        <div class="text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
+      </div>
     <% end %>
   <% end %>
 </div>
