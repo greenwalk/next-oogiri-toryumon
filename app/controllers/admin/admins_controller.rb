@@ -4,8 +4,6 @@ class Admin::AdminsController < ApplicationController
   def top
     # お題作成用
     @field = Field.new
-    # 現在のお題
-    @two_fields = Field.order(created_at: :desc).limit(2)
     # 過去のお題用
     @first_oogiris = Oogiri.includes(:field).where(get_rank: 1)
     @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0)
