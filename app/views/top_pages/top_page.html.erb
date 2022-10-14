@@ -1,5 +1,15 @@
 <%= image_tag "dark_main_img.jpg", class: "w-100 shadow-sm" %>
 <div class="my-3 col-sm-6 mx-auto">
+  <div class="card-body shadow bg-white mb-4">
+    <div class="text-center mb-2 text-dark small">最新の結果</div>
+    <hr class="mt-2 mb-4 w-25">
+    <% @finished_fields.each do |field| %>
+      <div class="mb-3 card-body border">
+        <div class="mt-2 text-dark text-center table-secondary p-2"><%= link_to field.text_theme, field_oogiris_path(field), class: "text-dark" %></div>
+      </div>
+    <% end %>
+  </div>
+
   <div class="card-body shadow bg-white">
     <div class="text-center mb-2 text-dark small">ルール</div>
     <hr class="mt-2 mb-4 w-25">
@@ -15,15 +25,15 @@
       </p>
       <p>
         <i class="fa-solid fa-lightbulb mr-1" style="color: #000000;"></i><span style="color: #000000;">投稿</span><br>
-        投稿期間中は、現在のお題に対して回答することができます。<br>
+        投稿期間中のお題では、回答を投稿することができます。<br>
         回答を変更したい場合は『変更』をすることができ、取り消したい場合は『リセット』が可能です。
       </p>
       <p>
         <i class="fa-solid fa-check-to-slot mr-1" style="color: #000000;"></i><span style="color: #000000;">投票</span><br>
-        投票期間中は、投稿期間中に投稿された回答に投票することができます。<br>
+        投票期間中のお題では、そのお題の投稿期間中に投稿された回答に投票することができます。<br>
         投票できる点数は <b>3, 2, 1, 0, -2</b> のいずれかです。<br>
         全ての回答に投票する必要があります。<br>
-        自分の回答がある場合、自動的に2点が選択されるため、それが投票ボーナス点と考えていただいて構いません。
+        自分の回答がある場合、自動的に2点が選択されるため、それが投票ボーナス点となります。
       </p>
       <p>
         <i class="fa-solid fa-flag mr-1" style="color: #000000;"></i><span style="color: #000000;">結果</span><br>
@@ -40,7 +50,14 @@
         <i class="fa-solid fa-chart-line mr-1" style="color: #000000;"></i><span style="color: #000000;">レート</span><br>
         レートは、大喜利の結果に応じて変動する成績を示す数値です。<br>
         結果確定時にレートが増減します。<br>
+        ランキングページやユーザーページから確認が可能です。<br>
         計算式の考え方はシンプルで、レートの高い人はレートが上がりづらく下がりやすい。低い人は、上がりやすく下がりづらいようになっています。<br>
+      </p>
+      <p>
+        <i class="fa-solid fa-ranking-star mr-1" style="color: #000000;"></i><span style="color: #000000;">ランキング</span><br>
+        ランキングページでは、レートが高い順にユーザーが表示されます。<br>
+        クラスや最高レートなども一覧することができます。<br>
+        投稿を行ったことのあるユーザーのみが、ランキングページに表示されます。
       </p>
       <i class="fa-solid fa-seedling mr-1" style="color: #000000;"></i><span style="color: #000000;">クラス</span><br>
       クラスは、レートに応じて変わる大まかな階級です。<br>
