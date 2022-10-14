@@ -5,7 +5,7 @@ class FieldsController < ApplicationController
   helper_method :already_voted?
   helper_method :check_oogiris_num
   def index
-    @fields = Field.where(status: "finished").order(created_at: :desc)
+    @fields = Field.status_finished.order(created_at: :desc)
   end
 
   def now_field_index
@@ -22,7 +22,7 @@ class FieldsController < ApplicationController
   def create
     @field = Field.new(field_params)
     if @field.save
-      redirect_to fields_path
+      redirect_to admin_top_path
     else
       render "admin/admins/top"
     end

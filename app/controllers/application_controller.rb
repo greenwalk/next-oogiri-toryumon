@@ -9,13 +9,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :oogiri_start])
   end
   def set_now_field
-    @now_fields = if @field_status == "投稿"
-                    Field.status_posting
-                  elsif @field_status == "投票"
-                    Field.status_voting
-                  else
-                    Field.status_finished.order(created_at: :desc).limit(2)
-                  end
+    @voting_fields = Field.status_voting
+    @posting_fields = Field.status_posting
+    @finished_fields = Field.status_finished.order(created_at: :desc).limit(2)
   end
 
   def field_status_check

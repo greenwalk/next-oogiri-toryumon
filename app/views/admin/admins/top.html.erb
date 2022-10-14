@@ -33,26 +33,59 @@
       </div>
     </div>
     <div id="current_field" class="tab-pane">
-      <% @two_fields.each do |field| %>
-        <div class="col-sm-6 my-3 mx-auto card-body border shadow-sm">
-          <div class="text-dark text-center"><%= link_to "#{field.id}: #{field.text_theme}", fields_now_field_path %></div>
-          <div class="text-danger text-center small"><%= "ステータス: #{field.status}" %></div>
-          <div class="small mt-2 table-secondary">
-            <div class="text-center text-dark"><%= "投票者" %></div>
-            <div class="table-secondary p-2">
-              <% field.oogiris.each do |oogiri| %>
-                <%= oogiri.user.name %><%= " ," %>
-              <% end %>
-              <hr class="my-1">
-              <div class="text-center"><%= "#{field.oogiris.length}/#{@limit_num}" %></div>
-            </div>
-          </div>
-          <div class="text-center my-2">
-            <%= link_to "切替", field_path(id: field.id), class: "w-25 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
-          </div>
+      <div class="my-3 col-sm-6 mx-auto">
+        <div class="table-danger card-body mb-3">
+          <div class="text-center mb-2">切替順序</div>
+          1. 投票中を切替(投票->結果)<br>
+          2. 投稿中を切替(投稿->投票)<br>
+          3. お題を生成
         </div>
-      <% end %>
+        <div class="mb-5 card-body shadow-lg">
+          <div class="mb-2 text-center">投票</div>
+          <% @voting_fields.each do |field| %>
+            <div class="mb-3 card-body border">
+              <div class="mt-2 text-dark text-center p-2"><%= field.text_theme %></div>
+              <div class="text-center my-2">
+                <%= link_to "切替", field_path(id: field.id), class: "w-25 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="mb-5 card-body shadow-lg">
+          <div class="mb-2 text-center">投稿</div>
+          <% @posting_fields.each do |field| %>
+            <div class="mb-3 card-body border">
+              <div class="mt-2 text-dark text-center p-2"><%= field.text_theme %></div>
+              <div class="small mt-2 table-secondary">
+                <div class="text-center text-dark"><%= "投稿者" %></div>
+                <div class="table-secondary p-2">
+                  <% field.oogiris.each do |oogiri| %>
+                    <%= oogiri.user.name %><%= " ," %>
+                  <% end %>
+                  <hr class="my-1">
+                  <div class="text-center"><%= "#{field.oogiris.length}/#{@limit_num}" %></div>
+                </div>
+              </div>
+              <div class="text-center my-2">
+                <%= link_to "切替", field_path(id: field.id), class: "w-25 mb-2 btn btn-sm bg-danger text-white", method: :patch %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="mb-5 card-body shadow-lg table-secondary">
+          <div class="mb-2 text-center">結果</div>
+          <% @finished_fields.each do |field| %>
+            <div class="mb-3 card-body border">
+              <div class="mt-2 text-dark text-center p-2"><%= field.text_theme %></div>
+              <div class="text-center my-2">
+                <%= link_to "切替", field_path(id: field.id), class: "w-25 mb-2 btn btn-sm bg-secondary text-white", method: :patch %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
+
     <div id="first_oogiris" class="tab-pane">
       <div class="col-sm-6 my-3 mx-auto">
         <div class="small table-responsive">
@@ -77,6 +110,7 @@
         </div>
       </div>
     </div>
+
     <div id="minus_oogiris" class="tab-pane">
       <div class="col-sm-6 my-3 mx-auto">
         <div class="small table-responsive">
@@ -103,6 +137,7 @@
         </div>
       </div>
     </div>
+
     <div id="user_list" class="tab-pane">
       <div class="col-sm-6 my-3 mx-auto">
       </div>
