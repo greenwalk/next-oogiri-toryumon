@@ -46,24 +46,27 @@
 </div>
 <hr class="mb-0">
 <div class="card-body py-2">
-  <div class="small"><%= "コメント一覧" %></div>
+  <div class="small mb-2"><%= "コメント一覧" %></div>
   <% @comments.each do |comment| %>
     <% if @field.status_finished? || comment.user == current_user %>
-      <div class="d-flex small mb-1">
-        <div class="align-items-center text-nowrap">
+      <div class="small mb-2">
+        <div class="align-items-center text-nowrap small">
           <%= link_to(user_path(comment.user), class: "text-muted") do %>
             <div class="d-flex">
               <div><%= comment.user.rate_class.html_safe if comment.user.rate >= 1550 %></div>
-              <div><%= "#{comment.user.name}:" %></div>
+              <div><%= "#{comment.user.name}" %></div>
             </div>
           <% end %>
         </div>
-        <div class="px-1"><%= comment.content %></div>
-        <% if comment.user == current_user %>
-          <%= link_to(field_oogiri_comment_path(@field, @oogiri, comment), method: :delete, class: "ml-auto") do %>
-            <div><i class="fa-solid fa-trash text-danger"></i></div>
+        <div class="d-flex align-items-center px-1">
+          <div class="px-1"><%= comment.content %></div>
+          <% if comment.user == current_user %>
+            <%= link_to(field_oogiri_comment_path(@field, @oogiri, comment), method: :delete, class: "ml-auto") do %>
+              <div><i class="fa-solid fa-trash text-danger"></i></div>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
+        <hr class="mt-2 mb-0">
       </div>
     <% end %>
   <% end %>
