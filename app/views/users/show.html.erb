@@ -41,20 +41,49 @@
           <th nowrap class="p-2 text-center"><%= @user.oogiri_start.strftime('%Y年') %></th>
         </tr>
       </table>
-      <table class="table table-bordered table-striped">
-        <tr>
-          <th nowrap class="p-2 text-center w-50">投稿回数（率）</th>
-          <th nowrap class="p-2 text-center"><%= "#{@user_oogiris.length}回 (#{(@user_oogiris.length.to_f / @fields_num.to_f * 100).round(1)}%)" %></th>
+      <table class="table table-bordered table-striped mb-1">
+        <tr class="">
+          <th nowrap class="p-2 text-center w-50">
+            投稿回数（率<span class="small text-muted">*1</span>）
+          </th>
+          <th nowrap class="p-2 text-center align-middle">
+            <% if @fields_num == 0 %>
+              <%= "#{@user_oogiris.length}回 (-%)" %>
+            <% else %>
+              <%= "#{@user_oogiris.length}回 (#{(@user_oogiris.length.to_f / @fields_num.to_f * 100).round(1)}%)" %>
+            <% end %>
+          </th>
         </tr>
         <tr>
-          <th nowrap class="text-center w-50">投票回数（率）</th>
-          <th nowrap class="text-center"><%= "#{@user_votes_num}回 (#{(@user_votes_num.to_f / @fields_num.to_f * 100).round(1)}%)" %></th>
+          <th nowrap class="text-center w-50">
+            投票回数（率<span class="small text-muted">*2</span>）
+          </th>
+          <th nowrap class="text-center align-middle">
+            <% if @fields_num == 0 %>
+              <%= "#{@user_votes_num}回 (-%)" %>
+            <% else %>
+              <%= "#{@user_votes_num}回 (#{(@user_votes_num.to_f / @fields_num.to_f * 100).round(1)}%)" %>
+            <% end %>
+          </th>
         </tr>
         <tr>
-          <th nowrap class="text-center w-50">コメント回数（率）</th>
-          <th nowrap class="text-center"><%= "#{@user.comments.length}回 (#{(@user.comments.length.to_f / @fields_num.to_f * 100).round(1)}%)" %></th>
+          <th nowrap class="text-center w-50">
+            コメント回数（率<span class="small text-muted">*3</span>）
+          </th>
+          <th nowrap class="text-center align-middle">
+            <% if @user_minus_votes_num == 0 %>
+              <%= "#{@user_comments.length}回 (-%)" %>
+            <% else %>
+              <%= "#{@user_comments.length}回 (#{(@user_comments.length.to_f / @user_minus_votes_num.to_f * 100).round(1)}%)" %>
+            <% end %>
+          </th>
         </tr>
       </table>
+      <div>
+        <span class="small text-muted">*1 投稿回数／登録後に結果が出たお題の数</span><br>
+        <span class="small text-muted">*2 投票回数／登録後に結果が出たお題の数</span><br>
+        <span class="small text-muted">*3 投稿回数／マイナス点の投票回数</span>
+      </div>
     </div>
   </div>
   <ul class="nav nav-tabs justify-content-around" role="tablist">
