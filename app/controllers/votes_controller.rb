@@ -1,19 +1,16 @@
 class VotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_field
-  before_action :set_oogiris, only: [:new, :thanks]
+  before_action :set_oogiris, only: [:new, :create, :thanks]
   before_action :dont_vote, only: [:new, :thanks]
 
   def new
-    session[:ids] = @oogiris.pluck(:id)
     @form = Form::VoteCollection.new(current_user, @oogiris, @field, {})
     @votes = Vote&.where(field_id: @field.id)&.select(:user_id).distinct
   end
 
   def create
-    # newでランダムに並び替えた@oogirisをその順番のまま取得する
-    ids = session[:ids]
-    @oogiris = Oogiri.where(id: ids).order("FIELD(id, #{ids.join(',')})")
+    cookies.delete(@cookie_name)
     # 投票がなかったらエラー
     if params[:form_vote_collection].nil?
       @form = Form::VoteCollection.new(current_user, @oogiris, @field, {})
@@ -49,11 +46,17 @@ class VotesController < ApplicationController
   end
 
   def set_oogiris
-    @oogiris = @field.oogiris.shuffle
+    oogiris = @field.oogiris.shuffle
+    if cookies[@cookie_name].blank?
+      cookies[@cookie_name] = JSON.generate(oogiris.pluck(:id))
+    end
+    ids = JSON.parse(cookies[@cookie_name])
+    @oogiris = Oogiri.where(id: ids).order("FIELD(id, #{ids.join(',')})")
   end
 
   def set_field
     @field = Field.find(params[:field_id])
+    @cookie_name = @field.id.to_s
   end
 
   def dont_vote
