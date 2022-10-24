@@ -21,14 +21,32 @@
   <div class="tab-content">
     <div id="create_field" class="tab-pane active">
       <div class="col-sm-6 my-3 mx-auto">
-        <%= form_with model: @field, url: fields_path, local: true do |f| %>
-          <%= render 'shared/error_messages', model: f.object %>
-          <div class="form-group">
-            <%= f.text_area :text_theme, autofocus: true, required: true, class: "px-1 col-sm-12", rows: 3 %>
-          </div>
-          <div class="actions text-center">
-            <%= f.submit "生成", class: "btn btn-sm bg-dark text-white" %>
-          </div>
+        <% @permitted_fields.each_with_index do |field, i| %>
+          <%= link_to(field_oogiris_path(field), class: "") do %>
+            <div class="card-body shadow-sm border mb-3">
+              <div class="text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
+              <div class="text-center my-2">
+                <%= link_to "出題", field_path(id: field.id), class: "w-25 mb-2 btn btn-sm bg-success text-white", method: :patch %>
+              </div>
+              <div class="text-center my-2">
+                <%= link_to "削除", field_path(id: field.id), class: "w-25 btn btn-sm btn-danger text-nowrap", method: :delete %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <hr class="mt-2 mb-4">
+        <% @waiting_fields.each_with_index do |field, i| %>
+          <%= link_to(field_oogiris_path(field), class: "") do %>
+            <div class="card-body shadow-sm border mb-3">
+              <div class="text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
+              <div class="text-center my-2">
+                <%= link_to "候補にする", field_path(id: field.id), class: "mb-2 btn btn-sm bg-secondary text-white text-nowrap", method: :patch %>
+              </div>
+              <div class="text-center my-2">
+                <%= link_to "削除", field_path(id: field.id), class: "w-25 btn btn-sm btn-danger text-nowrap", method: :delete %>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
