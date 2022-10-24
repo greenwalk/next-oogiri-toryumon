@@ -1,6 +1,6 @@
 class FieldsController < ApplicationController
-  before_action :authenticate_user!, only: [:now_field_index, :create, :update]
-  before_action :set_field, only: [:update]
+  before_action :authenticate_user!, only: [:now_field_index, :update, :destroy]
+  before_action :set_field, only: [:update, :destroy]
   helper_method :posted_another_field?
   helper_method :already_voted?
   helper_method :check_oogiris_num
@@ -19,12 +19,17 @@ class FieldsController < ApplicationController
     @deadline = date.strftime("%m/%d(#{dw[date.wday]}) 22:00")
   end
 
+  def new
+    @field = Field.new
+  end
+
   def create
     @field = Field.new(field_params)
+    @field.status = "waiting"
     if @field.save
-      redirect_to admin_top_path
+      redirect_to new_field_path
     else
-      render "admin/admins/top"
+      render :new
     end
   end
 
@@ -33,6 +38,10 @@ class FieldsController < ApplicationController
       next_status = "voting"
     elsif @field.status_voting?
       next_status = "finished"
+    elsif @field.status_waiting?
+      next_status = "permitted"
+    elsif @field.status_permitted?
+      next_status = "posting"
     else
       next_status = "posting"
     end
@@ -44,6 +53,14 @@ class FieldsController < ApplicationController
         update_rate(@field.oogiris)
         update_rate_class(@field.oogiris)
       end
+      redirect_to admin_top_path
+    else
+      render "admin/admins/top"
+    end
+  end
+
+  def destroy
+    if @field.destroy
       redirect_to admin_top_path
     else
       render "admin/admins/top"
