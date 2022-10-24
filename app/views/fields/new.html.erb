@@ -1,0 +1,21 @@
+<div class="col-sm-6 mx-auto">
+  <div class="my-3 card-body">
+    <div class="text-center">お題箱</div>
+    <hr class="mt-1 mb-0 w-25">
+    <div class="mt-3 border mb-4">
+      <div class="text-dark table-danger p-2 small">
+        穴埋めお題は採用しません。<br>
+        面白いお題をお待ちしております。
+      </div>
+    </div>
+    <%= form_with model: @field, url: fields_path, local: true do |f| %>
+      <%= render 'shared/error_messages', model: f.object %>
+      <div class="form-group">
+        <%= f.text_area :text_theme, autofocus: true, required: true, class: "px-1 col-sm-12", rows: 3 %>
+      </div>
+      <div class="actions text-center">
+        <%= f.submit "投稿", class: "w-25 btn btn-sm bg-dark text-white" %>
+      </div>
+    <% end %>
+  </div>
+</div>

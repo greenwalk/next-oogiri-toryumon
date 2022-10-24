@@ -3,7 +3,8 @@ class Admin::AdminsController < ApplicationController
 
   def top
     # お題作成用
-    @field = Field.new
+    @permitted_fields = Field.status_permitted.order(updated_at: :desc)
+    @waiting_fields = Field.status_waiting.order(updated_at: :desc)
     # 過去のお題用
     @first_oogiris = Oogiri.includes(:field).where(get_rank: 1)
     @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0)

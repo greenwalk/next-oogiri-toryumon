@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'top_pages#top_page'
   resources :users, only: :show
-  resources :fields, only:[:index, :create, :update] do
+  resources :fields, only:[:index, :new, :create, :update, :destroy] do
     resources :votes, only:[:new, :create]
     get 'vote/thanks', to: 'votes#thanks'
     resources :oogiris, only:[:index, :new, :create, :edit, :update, :show, :destroy] do
