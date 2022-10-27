@@ -5,19 +5,23 @@
     <table class="table table-bordered table-striped small shadow-sm">
       <tr>
         <th nowrap class="text-center w-25">お題</th>
-        <th class="ext-center"><%= link_to comment.oogiri.field.text_theme, field_oogiris_path(comment.oogiri.field), class: "text-dark" %></th>
+        <th class="text-center"><%= link_to comment.oogiri.field.text_theme, field_oogiris_path(comment.oogiri.field), class: "text-dark" %></th>
       </tr>
       <tr>
         <th nowrap class="text-center w-25">回答</th>
         <th class=""><%= link_to comment.oogiri.content, field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark" %></th>
       </tr>
       <tr>
-        <th nowrap class="w-25">
+        <th class="w-25">
           <span><%= comment.user.rate_class.html_safe %></span><%= link_to comment.user.name, user_path(comment.user), class: "text-dark" %>
           <div class="my-1">↓</div>
           <span><%= comment.oogiri.user.rate_class.html_safe %></span><%= link_to comment.oogiri.user.name, user_path(comment.oogiri.user), class: "text-dark" %>
         </th>
-        <th class=""><%= link_to comment.content, field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark" %></th>
+        <th class="">
+          <%= link_to(field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark") do %>
+            <div class=""><%= simple_format(comment.content) %></div>
+          <% end %>
+        </th>
       </tr>
     </table>
   <% end %>
