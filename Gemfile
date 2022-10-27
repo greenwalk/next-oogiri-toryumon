@@ -57,10 +57,6 @@ gem 'devise'
 gem 'rails-i18n'
 gem 'mini_magick'
 gem 'rubyzip'
-gem 'uglifier'
 gem 'jquery-rails'
+# gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
-
-group :production, :staging do
-  gem 'unicorn'
-end
