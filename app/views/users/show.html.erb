@@ -149,11 +149,15 @@
           </tr>
           <tr>
             <th nowrap class="text-center w-25">回答</th>
-            <th class="text-center"><%= comment.oogiri.content %></th>
+            <th class=""><%= comment.oogiri.content %></th>
           </tr>
           <tr>
             <th nowrap class="text-center w-25">コメント</th>
-            <th class="text-center"><%= link_to comment.content, field_oogiri_path(comment.oogiri.field, comment.oogiri) %></th>
+            <th class="">
+              <%= link_to(field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark") do %>
+                <div class=""><%= simple_format(comment.content) %></div>
+              <% end %>
+            </th>
           </tr>
         </table>
       <% end %>
@@ -171,7 +175,11 @@
           </tr>
           <tr>
             <th class="text-center w-25"><span><%= comment.user.rate_class.html_safe %></span><%= link_to comment.user.name, user_path(comment.user), class: "text-dark" %></th>
-            <th class=""><%= link_to comment.content, field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark" %></th>
+            <th class="">
+              <%= link_to(field_oogiri_path(comment.oogiri.field, comment.oogiri), class: "text-dark") do %>
+                <div><%= simple_format(comment.content) %></div>
+              <% end %>
+            </th>
           </tr>
         </table>
       <% end %>
