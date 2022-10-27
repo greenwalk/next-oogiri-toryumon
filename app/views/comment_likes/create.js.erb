@@ -1,0 +1,2 @@
+<%# コメント一覧いいね差し替え %>
+$("#index_like_<%= @comment.id %>").html("<%= j(render partial: 'comment_likes/like', locals: { comment: @comment}) %>");
