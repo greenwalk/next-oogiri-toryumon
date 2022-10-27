@@ -1,0 +1,9 @@
+<% if current_user.already_liked?(comment) %>
+  <%= link_to field_oogiri_comment_comment_like_path(comment.oogiri.field, comment.oogiri, comment, comment.comment_likes.find_by(comment_id: comment.id, user_id: current_user.id)), method: :delete, remote: true do %>
+    <i class="fa-solid fa-thumbs-up text-dark" aria-hidden="true"></i><%= comment.comment_likes.count %>
+  <% end %>
+<% else %>
+  <%= link_to field_oogiri_comment_comment_likes_path(comment.oogiri.field, comment.oogiri, comment), method: :post, remote: true do %>
+    <i class="fa-regular fa-thumbs-up text-muted" aria-hidden="true"></i><%= comment.comment_likes.count %>
+  <% end %>
+<% end %>
