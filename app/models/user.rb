@@ -12,6 +12,6 @@ class User < ApplicationRecord
   validates :oogiri_start, presence: true
 
   def admin_user?
-    id == 4
+    id == 4 || id == 459
   end
 end
