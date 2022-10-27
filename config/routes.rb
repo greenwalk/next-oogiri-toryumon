@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resources :votes, only:[:new, :create]
     get 'vote/thanks', to: 'votes#thanks'
     resources :oogiris, only:[:index, :new, :create, :edit, :update, :show, :destroy] do
-      resources :comments, only:[:create, :destroy]
+      resources :comments, only:[:create, :destroy] do
+        resources :comment_likes, only:[:create, :destroy]
+      end
     end
     get '/oogiri/:id/votes', to: 'oogiris#vote_show'
   end
