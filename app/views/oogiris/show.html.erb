@@ -50,13 +50,16 @@
   <% @comments.each_with_index do |comment, i| %>
     <% if @field.status_finished? || comment.user == current_user %>
       <div class="small mb-2">
-        <div class="align-items-center text-nowrap small">
+        <div class="align-items-center text-nowrap d-flex mb-1">
           <%= link_to(user_path(comment.user), class: "text-muted") do %>
-            <div class="d-flex">
+            <div class="d-flex mr-1">
               <div><%= comment.user.rate_class.html_safe if comment.user.rate >= 1550 %></div>
               <div><%= "#{comment.user.name}" %></div>
             </div>
           <% end %>
+          <div class="text-right" id="index_like_<%= comment.id %>">
+            <%= render 'comment_likes/like', comment: comment %>
+          </div>
         </div>
         <div class="d-flex align-items-center px-1">
           <div class="px-1"><%= comment.content %></div>
@@ -66,11 +69,6 @@
             <% end %>
           <% end %>
         </div>
-        <% unless comment.user == current_user %>
-          <div id="index_like_<%= comment.id %>">
-            <%= render 'comment_likes/like', comment: comment %>
-          </div>
-        <% end %>
         <% unless i == @comments.length - 1 %>
           <hr class="mt-2 mb-0">
         <% end %>
