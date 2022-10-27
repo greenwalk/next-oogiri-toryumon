@@ -7,11 +7,16 @@ class User < ApplicationRecord
   has_many :oogiris
   has_many :votes
   has_many :comments
+  has_many :comment_likes
 
   validates :name, presence: true
   validates :oogiri_start, presence: true
 
   def admin_user?
     id == 4
+  end
+
+  def already_liked?(comment)
+    self.comment_likes.exists?(comment_id: comment.id)
   end
 end
