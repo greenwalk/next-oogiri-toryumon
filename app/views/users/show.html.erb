@@ -147,7 +147,7 @@
           </div>
         </div>
       <% end %>
-      <%= paginate @user_oogiris %>
+      <%= paginate @user_oogiris, window: 3 %>
     </div>
     <div id="user_comments" class="tab-pane">
       <% @user_comments.each do |comment| %>
@@ -170,7 +170,7 @@
           </tr>
         </table>
       <% end %>
-      <%= paginate @user_comments %>
+      <%= paginate @user_comments, window: 3 %>
     </div>
     <div id="received_comments" class="tab-pane">
       <% @received_comments.each do |comment| %>
@@ -193,7 +193,7 @@
           </tr>
         </table>
       <% end %>
-      <%= paginate @received_comments %>
+      <%= paginate @received_comments, window: 3 %>
     </div>
   </div>
 </div>
