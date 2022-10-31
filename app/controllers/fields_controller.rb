@@ -46,6 +46,9 @@ class FieldsController < ApplicationController
       next_status = "posting"
     end
     if @field.update(status: next_status)
+      if @field.status_posting?
+        @field.update(created_at: Time.zone.now)
+      end
       if @field.status_finished?
         update_point(@field.oogiris)
         update_score(@field.oogiris)

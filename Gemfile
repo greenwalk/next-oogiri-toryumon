@@ -60,6 +60,7 @@ gem 'rubyzip'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
+gem 'kaminari'
 
 group :production, :staging do
   gem 'unicorn'

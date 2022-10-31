@@ -51,7 +51,7 @@ class VotesController < ApplicationController
       cookies[@cookie_name] = JSON.generate(oogiris.pluck(:id))
     end
     ids = JSON.parse(cookies[@cookie_name])
-    @oogiris = Oogiri.where(id: ids).order("FIELD(id, #{ids.join(',')})")
+    @oogiris = Oogiri.where(id: ids).order([Arel.sql('FIELD(id, ?)'), ids])
   end
 
   def set_field

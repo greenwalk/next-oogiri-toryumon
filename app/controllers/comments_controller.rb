@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :set_field, only: [:create, :destroy]
 
   def index
-    @comments = Comment.includes(:user, oogiri: :field).where(oogiris: {fields: {status: :finished}}).order(created_at: :desc)
+    @comments = Comment.includes(:user, oogiri: :field).where(oogiris: {fields: {status: :finished}}).order(created_at: :desc).page(params[:page]).per(20)
   end
   def create
     @comment = Comment.new(comment_params)

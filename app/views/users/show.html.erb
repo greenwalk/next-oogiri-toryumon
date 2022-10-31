@@ -78,6 +78,14 @@
             <% end %>
           </th>
         </tr>
+        <tr>
+          <th nowrap class="text-center w-50">
+            <i class="fa-solid fa-thumbs-up text-dark"></i>
+          </th>
+          <th nowrap class="text-center align-middle">
+            <%= "#{@user_good_num}個" %>
+          </th>
+        </tr>
       </table>
       <div>
         <span class="small text-muted">*1 投稿回数／登録後に結果が出たお題の数</span><br>
@@ -139,6 +147,7 @@
           </div>
         </div>
       <% end %>
+      <%= paginate @user_oogiris %>
     </div>
     <div id="user_comments" class="tab-pane">
       <% @user_comments.each do |comment| %>
@@ -161,6 +170,7 @@
           </tr>
         </table>
       <% end %>
+      <%= paginate @user_comments %>
     </div>
     <div id="received_comments" class="tab-pane">
       <% @received_comments.each do |comment| %>
@@ -183,6 +193,7 @@
           </tr>
         </table>
       <% end %>
+      <%= paginate @received_comments %>
     </div>
   </div>
 </div>
