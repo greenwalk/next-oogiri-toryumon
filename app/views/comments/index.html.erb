@@ -1,6 +1,7 @@
 <div class="mt-3 col-sm-6 mx-auto">
   <div class="text-center mb-2 text-dark">過去のコメント</div>
   <hr class="mt-2 mb-4 w-25">
+  <%= paginate @comments %>
   <% @comments.each do |comment| %>
     <table class="table table-bordered table-striped small shadow-sm">
       <tr>
@@ -25,4 +26,5 @@
       </tr>
     </table>
   <% end %>
+  <%= paginate @comments %>
 </div>
