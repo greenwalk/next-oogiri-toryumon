@@ -14,16 +14,23 @@ class UsersController < ApplicationController
     @fields_num = @fields.length
     # ユーザーの大喜利を取得
     @oogiris = Oogiri.includes(:field).where(fields: {status: "finished"}).order(created_at: :desc)
-    @user_oogiris = @oogiris.where(user_id: @user.id)
+    @user_oogiris = @oogiris.where(user_id: @user.id).page(params[:page]).per(7)
     @first_oogiris = Oogiri.includes(:field).where(get_rank: 1, user_id: @user.id)
     @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0, user_id: @user.id)
     # ユーザーの投票を取得
     @votes = Vote.includes(:user, :field).where(fields: {status: :finished}).group(:user_id, :field_id)
     user_votes = @votes.where(user_id: @user.id)
     @user_votes_num = user_votes.length
-    @user_minus_votes_num = user_votes.where(vote_point: -2).length
+    @user_minus_votes_num = Vote.where(user_id: @user.id, vote_point: -2).length
     # ユーザーのコメントを取得
-    @user_comments = Comment.includes(oogiri: [:field, :user]).where(oogiris: {fields: {status: :finished}}).where(user_id: @user.id).order(created_at: :desc)
-    @received_comments = Comment.includes(oogiri: [:user, :field]).where(oogiris: {fields: {status: :finished}}).where.not(user_id: @user.id).where(oogiris: {user_id: @user.id}).order(created_at: :desc)
+    @user_comments = Comment.includes(oogiri: [:field, :user]).where(oogiris: {fields: {status: :finished}})
+                                                              .where(user_id: @user.id).order(created_at: :desc)
+                                                              .page(params[:page]).per(7)
+    @received_comments = Comment.includes(oogiri: [:user, :field]).where(oogiris: {fields: {status: :finished}})
+                                                                  .where.not(user_id: @user.id)
+                                                                  .where(oogiris: {user_id: @user.id})
+                                                                  .order(created_at: :desc).page(params[:page]).per(7)
+    # コメントのgood数
+    @user_good_num = CommentLike.includes(:comment).where(comments: {id: @user_comments.pluck(:id)}).length
   end
 end
