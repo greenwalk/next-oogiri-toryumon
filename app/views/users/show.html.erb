@@ -48,9 +48,9 @@
           </th>
           <th nowrap class="p-2 text-center align-middle">
             <% if @fields_num == 0 %>
-              <%= "#{@user_oogiris.length}回 (-%)" %>
+              <%= "#{@user_oogiris_num}回 (-%)" %>
             <% else %>
-              <%= "#{@user_oogiris.length}回 (#{(@user_oogiris.length.to_f / @fields_num.to_f * 100).round(1)}%)" %>
+              <%= "#{@user_oogiris_num}回 (#{(@user_oogiris_num.to_f / @fields_num.to_f * 100).round(1)}%)" %>
             <% end %>
           </th>
         </tr>
@@ -74,7 +74,7 @@
             <% if @user_minus_votes_num == 0 %>
               <%= "#{@user_comments.length}回 (-%)" %>
             <% else %>
-              <%= "#{@user_comments.length}回 (#{(@user_comments.length.to_f / @user_minus_votes_num.to_f * 100).round(1)}%)" %>
+              <%= "#{@user_comments_num}回 (#{(@user_comments_num.to_f / @user_minus_votes_num.to_f * 100).round(1)}%)" %>
             <% end %>
           </th>
         </tr>
@@ -147,7 +147,7 @@
           </div>
         </div>
       <% end %>
-      <%= paginate @user_oogiris, window: 3 %>
+      <%= paginate @user_oogiris, window: 2 %>
     </div>
     <div id="user_comments" class="tab-pane">
       <% @user_comments.each do |comment| %>
@@ -170,7 +170,7 @@
           </tr>
         </table>
       <% end %>
-      <%= paginate @user_comments, window: 3 %>
+      <%= paginate @user_comments, window: 2 %>
     </div>
     <div id="received_comments" class="tab-pane">
       <% @received_comments.each do |comment| %>
@@ -193,7 +193,7 @@
           </tr>
         </table>
       <% end %>
-      <%= paginate @received_comments, window: 3 %>
+      <%= paginate @received_comments, window: 2 %>
     </div>
   </div>
 </div>
