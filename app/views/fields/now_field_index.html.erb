@@ -6,6 +6,26 @@
 
 <div class="my-3 col-sm-6 mx-auto">
   <div class="mb-5 card-body shadow-lg">
+    <div class="mb-2 text-center">投票中のお題</div>
+    <% @voting_fields.each do |field| %>
+      <div class="mb-3 card-body border">
+        <div class="mb-2 small d-flex justify-content-between">
+          <% if already_voted?(field) %>
+            <div class="">投票: 済</div>
+          <% else %>
+            <div class="">投票: <span class="text-muted">未済</span></div>
+          <% end %>
+          <div class=""><%= "コメント: #{field.comments.length}件" %></div>
+        </div>
+        <div class="mt-2 text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
+        <div class="text-center">
+          <%= link_to "投票会場", new_field_vote_path(field), class: "py-1 mt-3 btn btn-outline-dark text-nowrap" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card-body shadow-lg">
     <div class="mb-2 text-center">投稿中のお題</div>
     <div class="border mb-4">
       <div class="text-dark table-danger p-2 small">
@@ -27,25 +47,6 @@
           <% else %>
             <%= link_to "締め切り", new_field_oogiri_path(field_id: field.id), class: "py-1 disabled mt-3 btn btn-outline-dark text-nowrap" %>
           <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="card-body shadow-lg">
-    <div class="mb-2 text-center">投票中のお題</div>
-    <% @voting_fields.each do |field| %>
-      <div class="mb-3 card-body border">
-        <div class="mb-2 small d-flex justify-content-between">
-          <% if already_voted?(field) %>
-            <div class="">投票: 済</div>
-          <% else %>
-            <div class="">投票: <span class="text-muted">未済</span></div>
-          <% end %>
-        </div>
-        <div class="mt-2 text-dark text-center table-secondary p-2"><%= field.text_theme %></div>
-        <div class="text-center">
-          <%= link_to "投票会場", new_field_vote_path(field), class: "py-1 mt-3 btn btn-outline-dark text-nowrap" %>
         </div>
       </div>
     <% end %>

@@ -1,6 +1,7 @@
 class Field < ApplicationRecord
   has_many :oogiris
   has_many :votes
+  has_many :comments, through: :oogiris
 
   validates :status, presence: true
   validates :text_theme, presence: true
