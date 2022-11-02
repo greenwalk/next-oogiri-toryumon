@@ -66,19 +66,19 @@
       <% if already_voted?(@field) %>
         <% if cant_chage_votes %>
           <div class="text-center">
-            <button type="button" class="py-1 btn btn-cv bg-primary text-white mb-2" disabled>再投票済み</button>
+            <button type="button" class="py-1 btn btn-cv bg-primary text-white mb-2 text-nowrap" disabled>再投票済み</button>
           </div>
         <% else %>
           <div class="text-center">
-            <%= form.submit "再投票", class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
+            <%= form.submit "再投票", class: "py-1 btn btn-cv bg-primary text-white mb-2 text-nowrap" %>
           </div>
         <% end %>
         <div class="ml-3 text-center">
-          <%= link_to "投票確認", field_vote_thanks_path(@field.id), class: "py-1 btn btn-outline-dark mb-2" %>
+          <%= link_to "投票確認", field_vote_thanks_path(@field.id), class: "py-1 btn btn-outline-dark mb-2 text-nowrap" %>
         </div>
       <% else %>
         <div class="text-center">
-          <%= form.submit "投票確定", class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
+          <%= form.submit "投票確定", class: "py-1 btn btn-cv bg-primary text-white mb-2 text-nowrap" %>
         </div>
       <% end %>
     </div>
@@ -126,6 +126,6 @@
 </div>
 <hr class="mt-0">
 <div class="justify-content-center d-flex text-center mb-3">
-  <%= link_to "現在のお題", fields_now_field_path, class: "border w-40 mt-2 btn btn-sm btn-light" %>
-  <%= link_to "TOPページ", root_path, class: "border ml-3 w-40 mt-2 btn btn-sm btn-light" %>
+  <%= link_to "現在のお題", fields_now_field_path, class: "border w-40 mt-2 btn btn-sm btn-light text-nowrap" %>
+  <%= link_to "TOPページ", root_path, class: "border ml-3 w-40 mt-2 btn btn-sm btn-light text-nowrap" %>
 </div>
