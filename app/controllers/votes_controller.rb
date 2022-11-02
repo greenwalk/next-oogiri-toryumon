@@ -3,6 +3,8 @@ class VotesController < ApplicationController
   before_action :set_field
   before_action :set_oogiris, only: [:new, :create, :thanks]
   before_action :dont_vote, only: [:new, :thanks]
+  helper_method :already_voted?
+  helper_method :cant_chage_votes
 
   def new
     @form = Form::VoteCollection.new(current_user, @oogiris, @field, {})
@@ -10,27 +12,11 @@ class VotesController < ApplicationController
   end
 
   def create
-    cookies.delete(@cookie_name)
-    # 投票がなかったらエラー
-    if params[:form_vote_collection].nil?
-      @form = Form::VoteCollection.new(current_user, @oogiris, @field, {})
-      @form.errors.add("全ての", "回答に投票してください")
-      render :new and return
+    params[:form_vote_collection][:votes_attributes].each do |vote|
+      @vote = Vote.find_or_create_by(user_id: current_user.id, oogiri_id: vote[1][:oogiri_id].to_i, field_id: @field.id)
+      @vote.update_attributes({vote_point: vote[1][:vote_point].to_i, change_num: @vote.change_num + 1})
     end
-    @form = Form::VoteCollection.new(current_user, @oogiris, @field, vote_collection_params)
-    # 全部投票してなかったらエラー
-    unless @form.votes.first.vote_point
-      render :new and return
-    end
-    if already_voted?(@field)
-      @form.errors.add("既に", "投票済みです")
-      render :new and return
-    end
-    if @form.save
-      redirect_to field_vote_thanks_path(@field.id)
-    else
-      render :new
-    end
+    redirect_to field_vote_thanks_path(@field.id)
   end
 
   def thanks
@@ -46,17 +32,11 @@ class VotesController < ApplicationController
   end
 
   def set_oogiris
-    oogiris = @field.oogiris.shuffle
-    if cookies[@cookie_name].blank?
-      cookies[@cookie_name] = JSON.generate(oogiris.pluck(:id))
-    end
-    ids = JSON.parse(cookies[@cookie_name])
-    @oogiris = Oogiri.where(id: ids).order([Arel.sql('FIELD(id, ?)'), ids])
+    @oogiris = @field.oogiris
   end
 
   def set_field
     @field = Field.find(params[:field_id])
-    @cookie_name = @field.id.to_s
   end
 
   def dont_vote
@@ -65,5 +45,9 @@ class VotesController < ApplicationController
 
   def already_voted?(field)
     field.votes.pluck(:user_id).include?(current_user&.id)
+  end
+
+  def cant_chage_votes
+    Vote.where(user_id: current_user.id, field_id: @field.id, change_num: 2..10).present?
   end
 end

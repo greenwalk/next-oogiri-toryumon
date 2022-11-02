@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_27_142647) do
+ActiveRecord::Schema.define(version: 2022_11_02_134435) do
 
   create_table "comment_likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2022_10_27_142647) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "field_id", null: false
+    t.integer "change_num", default: 0, null: false
     t.index ["field_id"], name: "index_votes_on_field_id"
     t.index ["oogiri_id"], name: "index_votes_on_oogiri_id"
     t.index ["user_id"], name: "index_votes_on_user_id"

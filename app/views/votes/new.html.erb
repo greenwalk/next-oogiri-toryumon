@@ -8,7 +8,7 @@
   <div class="text-center mb-2 text-dark"><%= "回答一覧" %></div>
   <%= form_with model:@form, url: field_votes_path(@field.id), method: :post, local: true do |form| %>
     <%= render 'shared/error_messages', model: form.object %>
-    <%= form.fields_for :votes do |f| %>
+    <%= form.fields_for :votes, form.object.votes.shuffle do |f| %>
       <div class="card-body p-2 shadow-sm border my-3">
         <div class="form-group text-muted d-flex small mb-2">
           <% if f.object.oogiri.user == current_user %>
@@ -54,6 +54,7 @@
               <%= f.radio_button :vote_point, 3, class: "form-check-input" %>
             </div>
           <% end %>
+          <%= f.hidden_field :oogiri_id, :value => f.object.oogiri.id %>
         </div>
         <hr class="my-0">
         <%= link_to(field_oogiri_path(f.object.oogiri.field, f.object.oogiri), target: :_blank, rel: "noopener noreferrer") do %>
@@ -61,15 +62,27 @@
         <% end %>
       </div>
     <% end %>
-    <% if @field.votes.pluck(:user_id).include?(current_user&.id) %>
-      <div class="text-center">
-        <%= link_to "投票確認", field_vote_thanks_path(@field.id), class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
-      </div>
-    <% else %>
-      <div class="text-center">
-        <%= form.submit "投票確定", class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
-      </div>
-    <% end %>
+    <div class="d-flex justify-content-center">
+      <% if already_voted?(@field) %>
+        <% if cant_chage_votes %>
+          <div class="text-center">
+            <button type="button" class="py-1 btn btn-cv bg-primary text-white mb-2" disabled>再投票済み</button>
+          </div>
+        <% else %>
+          <div class="text-center">
+            <%= form.submit "再投票", class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
+          </div>
+        <% end %>
+        <div class="ml-3 text-center">
+          <%= link_to "投票確認", field_vote_thanks_path(@field.id), class: "py-1 btn btn-outline-dark mb-2" %>
+        </div>
+      <% else %>
+        <div class="text-center">
+          <%= form.submit "投票確定", class: "py-1 btn btn-cv bg-primary text-white mb-2" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="text-center small text-muted"><%= "※再投票は一度だけしかできません" %></div>
   <% end %>
 </div>
 
