@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @votes = Vote.includes(:user, :field).where(fields: {status: :finished}).group(:user_id, :field_id)
     user_votes = @votes.where(user_id: @user.id)
     @user_votes_num = user_votes.length
-    @user_minus_votes_num = Vote.where(user_id: @user.id, vote_point: -2).length
+    @user_minus_votes_num = Vote.includes(:user, :field).where(fields: {status: :finished}).where(user_id: @user.id, vote_point: -2).length
     # ユーザーのコメントを取得
     user_comments = Comment.includes(oogiri: [:field, :user]).where(oogiris: {fields: {status: :finished}}).where(user_id: @user.id).order(created_at: :desc)
     @user_comments = user_comments.page(params[:page]).per(7)
