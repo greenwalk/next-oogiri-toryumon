@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def set_now_field
     @voting_fields = Field.status_voting
     @posting_fields = Field.status_posting
-    @finished_fields = Field.status_finished.order(created_at: :desc).limit(2)
+    @finished_fields = Field.status_finished.order(updated_at: :desc).limit(2)
   end
 
   def field_status_check
