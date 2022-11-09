@@ -70,7 +70,7 @@
           </div>
         <% else %>
           <div class="text-center">
-            <%= form.submit "再投票", class: "py-1 btn btn-cv bg-primary text-white mb-2 text-nowrap" %>
+            <%= form.submit "再投票", class: "py-1 btn btn-cv bg-primary text-white mb-2 text-nowrap", data: {confirm: "投票を変更しますか？"} %>
           </div>
         <% end %>
         <div class="ml-3 text-center">
@@ -78,7 +78,7 @@
         </div>
       <% else %>
         <div class="text-center">
-          <%= form.submit "投票確定", class: "py-1 btn btn-cv bg-primary text-white mb-2 text-nowrap" %>
+          <%= form.submit "投票確定", class: "py-1 btn btn-cv bg-primary text-white mb-2 text-nowrap", data: {confirm: "投票を確定しますか？"} %>
         </div>
       <% end %>
     </div>
@@ -113,10 +113,8 @@
       <tr>
         <% if i < 3 %>
           <td nowrap class="text-center text-danger"><%= i + 1 %></td>
-<!--          <td nowrap class="text-center text-danger"><%#= @field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
         <% else %>
           <td nowrap class="text-center"><%= i + 1 %></td>
-<!--          <td nowrap class="text-center"><%#= @field.votes.where(oogiri_id: oogiri.id).sum(:vote_point) %></td>-->
         <% end %>
         <td nowrap class="text-center"><%= oogiri.user.name %></td>
       </tr>
