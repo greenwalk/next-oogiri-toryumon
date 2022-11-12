@@ -145,7 +145,7 @@ namespace :change_fields_status do
         end
       end
     rescue => e
-      logger.error(e.message)
+      Rails.logger.error(e.message)
     end
   end
 end
