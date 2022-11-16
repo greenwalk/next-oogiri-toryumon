@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_16_142031) do
+ActiveRecord::Schema.define(version: 2022_11_16_142955) do
 
   create_table "basin_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status", default: 0, comment: "お題ステータス"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "basin_likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "basin_oogiri_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["basin_oogiri_id"], name: "index_basin_likes_on_basin_oogiri_id"
+    t.index ["user_id"], name: "index_basin_likes_on_user_id"
   end
 
   create_table "basin_oogiris", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -109,6 +118,8 @@ ActiveRecord::Schema.define(version: 2022_11_16_142031) do
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
+  add_foreign_key "basin_likes", "basin_oogiris"
+  add_foreign_key "basin_likes", "users"
   add_foreign_key "basin_oogiris", "basin_fields"
   add_foreign_key "basin_oogiris", "users"
   add_foreign_key "comment_likes", "comments"
