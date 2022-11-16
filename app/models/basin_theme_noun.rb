@@ -1,0 +1,2 @@
+class BasinThemeNoun < ApplicationRecord
+end

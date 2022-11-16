@@ -1,0 +1,2 @@
+class BasinThemeAdjective < ApplicationRecord
+end
