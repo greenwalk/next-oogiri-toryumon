@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_02_134435) do
+ActiveRecord::Schema.define(version: 2022_11_16_135312) do
+
+  create_table "basin_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "status", default: 0, comment: "お題ステータス"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "basin_theme_adjectives", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "adjective_word", default: "", null: false, comment: "形容詞"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "basin_theme_nouns", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "noun_word", default: "", null: false, comment: "名詞"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "comment_likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -59,7 +77,7 @@ ActiveRecord::Schema.define(version: 2022_11_02_134435) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.integer "rate", default: 1500, null: false
     t.integer "max_rate", default: 1500, null: false
     t.string "rate_class", default: "<i class='fa-solid fa-seedling' style='color: #66CC00;'></i>", null: false
