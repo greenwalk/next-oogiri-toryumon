@@ -1,0 +1,2 @@
+class BasinField < ApplicationRecord
+end
