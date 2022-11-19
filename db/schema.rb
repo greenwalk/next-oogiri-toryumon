@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_024235) do
+ActiveRecord::Schema.define(version: 2022_11_19_051548) do
 
   create_table "basin_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme", default: "", null: false
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2022_11_19_024235) do
 
   create_table "basin_oogiris", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content", limit: 30, default: "", null: false, comment: "回答"
+    t.integer "point", default: 0, null: false
+    t.integer "rank", default: 0, null: false
     t.bigint "user_id", null: false
     t.bigint "basin_field_id", null: false
     t.datetime "created_at", precision: 6, null: false
