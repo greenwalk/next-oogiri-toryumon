@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_023655) do
+ActiveRecord::Schema.define(version: 2022_11_19_024235) do
 
   create_table "basin_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme", default: "", null: false
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2022_11_19_023655) do
     t.bigint "basin_oogiri_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "basin_field_id", null: false
+    t.index ["basin_field_id"], name: "index_basin_likes_on_basin_field_id"
     t.index ["basin_oogiri_id"], name: "index_basin_likes_on_basin_oogiri_id"
     t.index ["user_id"], name: "index_basin_likes_on_user_id"
   end
