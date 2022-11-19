@@ -4,9 +4,10 @@ class BasinOogirisController < ApplicationController
   before_action :set_oogiri, only: [:destroy]
   before_action :dont_look_result, only: [:index]
   before_action :dont_create_oogiri, only: [:new]
+  before_action :dont_vote, only: [:vote]
 
   def index
-    @oogiris = @field.basin_oogiris.order(rank: :asc)
+    @oogiris = @field.basin_oogiris.includes(:basin_likes).order(rank: :asc)
   end
 
   def new
@@ -29,6 +30,10 @@ class BasinOogirisController < ApplicationController
     redirect_to new_basin_field_basin_oogiri_path(basin_field_id: @field.id)
   end
 
+  def vote
+    @oogiris = @field.basin_oogiris.shuffle
+  end
+
   private
   def oogiri_params
     params.require(:basin_oogiri).permit(:content, :point, :rank).merge(user_id: current_user.id, basin_field_id: @field.id)
@@ -47,10 +52,14 @@ class BasinOogirisController < ApplicationController
   end
 
   def dont_look_result
-    redirect_to root_path unless @field.status_finished?
+    redirect_to_newest_basin_field_page unless @field.status_finished?
   end
 
   def dont_create_oogiri
-    redirect_to root_path unless @field.status_posting?
+    redirect_to_newest_basin_field_page unless @field.status_posting?
+  end
+
+  def dont_vote
+    redirect_to_newest_basin_field_page unless @field.status_voting?
   end
 end
