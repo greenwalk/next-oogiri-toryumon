@@ -1,5 +1,6 @@
 <div class="position-sticky mb-2 card col-sm-6 mx-auto" style="position: sticky; top: 56px; z-index: 100;">
   <div class="card-body">
+    <div class="justify-content-center d-flex align-items-center border border-primary rounded-circle" style="width: 45px; height: 45px;"><span class="" id="result"></span></div>
     <div class="text-center mb-2 text-dark"><%= "お題" %></div>
     <div class="text-dark text-center table-primary p-2"><%= @field.theme %></div>
   </div>
@@ -40,3 +41,21 @@
 <div class="justify-content-center d-flex text-center mb-3">
   <%= link_to "TOPページ", root_path, class: "border w-40 mt-2 btn btn-sm btn-light" %>
 </div>
+
+<script>
+    function showClock1() {
+        var count = 60;
+        var nowTime = new Date(); //  現在日時を得る
+        var nowSec = nowTime.getSeconds(); // 秒を抜き出す
+        var msg = count - nowSec;
+        document.getElementById("result").innerHTML = msg;
+        if(nowSec === 1){
+            <% if Rails.env.production?%>
+              location.href = "http://oogiri-trm.com/basin_fields/now_basin_field";
+            <% else %>
+              location.reload();
+            <% end %>
+        }
+    }
+    setInterval('showClock1()',1000);
+</script>
