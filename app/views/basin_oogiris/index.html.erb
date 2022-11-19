@@ -1,0 +1,56 @@
+<div class="mb-2 card col-sm-6 mx-auto">
+  <div class="card-body small">
+    <div class="justify-content-center d-flex align-items-center border border-primary rounded-circle" style="width: 45px; height: 45px;"><span class="" id="result"></span></div>
+    <div class="text-center mb-2 text-dark"><%= "お題" %></div>
+    <div class="text-dark text-center table-secondary p-2"><%= @field.theme %></div>
+  </div>
+</div>
+
+<div class="col-sm-6 mx-auto">
+  <% @oogiris.each do |oogiri| %>
+    <div class="p-1 shadow-sm border my-2 <%= oogiri.user == current_user ? 'table-danger border-danger' : '' %> <%= oogiri.basin_likes.pluck(:user_id).include?(current_user.id) ? 'table-primary border-primary' : '' %>">
+      <div class="d-flex align-items-center">
+        <div class="d-flex text-nowrap align-items-center">
+          <div class="mr-2 "><%= "#{oogiri.rank}位" %></div>
+          <div><%= "#{oogiri.point}票" %></div>
+        </div>
+        <div class="ml-3 container-fluid">
+          <div class="small row align-items-center">
+            <%= link_to(user_path(oogiri.user), class: "text-left small text-secondary") do %>
+              <div class="d-flex">
+                <div><%= oogiri.user.rate_class.html_safe if oogiri.user.rate >= 1550 %></div>
+                <div><%= oogiri.user.name %></div>
+              </div>
+            <% end %>
+          </div>
+          <hr class="my-1 row">
+          <div class="p-1 my-0 row text-dark"><%= oogiri.content %></div>
+        </div>
+      </div>
+      <hr class="my-1 <%= oogiri.basin_likes&.present? ? '' : 'mb-4' %>">
+      <div class="small">
+        <% oogiri.basin_likes.each do |like| %>
+          <%= link_to "#{like.user.name}", user_path(like.user), class: "text-muted small" %><% unless oogiri.basin_likes.last == like %><span class="text-muted"> , </span><% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+    function showClock1() {
+        var count = 60;
+        var nowTime = new Date(); //  現在日時を得る
+        var nowSec = nowTime.getSeconds(); // 秒を抜き出す
+        var msg = count - nowSec;
+        document.getElementById("result").innerHTML = msg;
+        if(nowSec === 1){
+            <% if Rails.env.production?%>
+              location.href = "http://oogiri-trm.com/basin_fields/now_basin_field";
+            <% else %>
+              location.reload();
+            <% end %>
+        }
+    }
+    setInterval('showClock1()',1000);
+</script>
