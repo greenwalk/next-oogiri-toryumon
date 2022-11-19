@@ -1,0 +1,2 @@
+class BasinThemeAdjectivesController < ApplicationController
+end

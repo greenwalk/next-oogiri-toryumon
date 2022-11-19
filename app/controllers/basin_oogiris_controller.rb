@@ -1,0 +1,2 @@
+class BasinOogirisController < ApplicationController
+end

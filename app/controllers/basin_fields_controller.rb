@@ -1,0 +1,2 @@
+class BasinFieldsController < ApplicationController
+end

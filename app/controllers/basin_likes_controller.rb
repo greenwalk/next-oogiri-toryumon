@@ -1,0 +1,2 @@
+class BasinLikesController < ApplicationController
+end
