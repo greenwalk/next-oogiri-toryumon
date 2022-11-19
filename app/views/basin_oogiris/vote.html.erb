@@ -1,0 +1,33 @@
+<div class="mb-2 card col-sm-6 mx-auto">
+  <div class="card-body">
+    <div class="justify-content-center d-flex align-items-center border border-primary rounded-circle" style="width: 45px; height: 45px;"><span class="" id="result"></span></div>
+    <div class="text-center mb-2 text-dark"><%= "投票" %></div>
+    <div class="text-dark text-center table-secondary p-2"><%= @field.theme %></div>
+  </div>
+</div>
+
+<div class="col-sm-6 mx-auto">
+  <% @oogiris.each do |oogiri| %>
+    <div id="index_like_<%= oogiri.id %>">
+      <%= render 'basin_likes/like', oogiri: oogiri %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+    function showClock1() {
+        var count = 60;
+        var nowTime = new Date(); //  現在日時を得る
+        var nowSec = nowTime.getSeconds(); // 秒を抜き出す
+        var msg = count - nowSec;
+        document.getElementById("result").innerHTML = msg;
+        if(nowSec === 1){
+            <% if Rails.env.production?%>
+              location.href = "http://oogiri-trm.com/basin_fields/now_basin_field";
+            <% else %>
+              location.reload();
+            <% end %>
+        }
+    }
+    setInterval('showClock1()',1000);
+</script>

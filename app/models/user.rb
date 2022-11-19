@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :votes
   has_many :comments
   has_many :comment_likes
+  has_many :basin_oogiris
+  has_many :basin_likes
 
   validates :name, presence: true
   validates :oogiri_start, presence: true
@@ -18,5 +20,9 @@ class User < ApplicationRecord
 
   def already_liked?(comment)
     self.comment_likes.exists?(comment_id: comment.id)
+  end
+
+  def already_basin_liked?(oogiri)
+    self.basin_likes.exists?(basin_oogiri_id: oogiri.id)
   end
 end

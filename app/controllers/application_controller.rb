@@ -27,4 +27,15 @@ class ApplicationController < ActionController::Base
   def set_participating_limit
     @limit_num = 25
   end
+
+  def redirect_to_newest_basin_field_page
+    field = BasinField.order(updated_at: :desc).first
+    if field.status_posting?
+      redirect_to new_basin_field_basin_oogiri_path(field)
+    elsif field.status_voting?
+      redirect_to basin_field_basin_votes_path(field)
+    elsif field.status_finished?
+      redirect_to basin_field_basin_oogiris_path(field)
+    end
+  end
 end
