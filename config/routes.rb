@@ -12,6 +12,14 @@ Rails.application.routes.draw do
     end
     get '/oogiri/:id/votes', to: 'oogiris#vote_show'
   end
+
+  # 滝壺
+  resources :basin_fields, only:[:index] do
+    resources :basin_oogiris, only:[:index, :new, :create, :destroy] do
+      resources :basin_likes, only:[:create, :destroy]
+    end
+  end
+
   resources :comments, only:[:index]
   get 'fields/now_field', to: 'fields#now_field_index'
   get '/admin/top', to: 'admin/admins#top'
