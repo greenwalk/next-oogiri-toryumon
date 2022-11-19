@@ -1,0 +1,2 @@
+class BasinOogiri < ApplicationRecord
+end
