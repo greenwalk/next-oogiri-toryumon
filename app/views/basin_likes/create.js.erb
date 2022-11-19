@@ -1,0 +1,2 @@
+<%# 投票した回答の表示切り替え %>
+$("#index_like_<%= @oogiri.id %>").html("<%= j(render partial: 'basin_likes/like', locals: { oogiri: @oogiri}) %>");
