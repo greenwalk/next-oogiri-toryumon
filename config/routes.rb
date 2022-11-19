@@ -15,10 +15,12 @@ Rails.application.routes.draw do
 
   # 滝壺
   resources :basin_fields, only:[:index] do
+    get '/basin_votes', to: 'basin_oogiris#vote'
     resources :basin_oogiris, only:[:index, :new, :create, :destroy] do
       resources :basin_likes, only:[:create, :destroy]
     end
   end
+  get 'basin_fields/now_basin_field', to: 'basin_fields#now_basin_field'
 
   resources :comments, only:[:index]
   get 'fields/now_field', to: 'fields#now_field_index'
