@@ -219,6 +219,9 @@ ja:
       vote: 投票
       comment: コメント
       form_vote_collection: 投票
+      basin_field: お題
+      basin_oogiri: 回答
+      basin_like: 投票
     attributes:
       vote:
         votes: 投票
@@ -229,3 +232,5 @@ ja:
         content: 回答
       comment:
         content: コメント
+      basin_oogiri:
+        content: 回答
