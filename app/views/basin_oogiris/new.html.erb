@@ -47,10 +47,13 @@
         var count = 60;
         var nowTime = new Date(); //  現在日時を得る
         var nowSec = nowTime.getSeconds(); // 秒を抜き出す
-        var msg = count - nowSec;
+        var msg = count - nowSec + 3;
+        if(msg >= 60){
+            msg = msg - 60;
+        }
         document.getElementById("result").innerHTML = msg;
-        if(nowSec === 1){
-            <% if Rails.env.production?%>
+        if(nowSec === 3){
+            <% if Rails.env.production? %>
               location.href = "http://oogiri-trm.com/basin_fields/now_basin_field";
             <% else %>
               location.reload();
