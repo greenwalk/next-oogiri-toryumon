@@ -21,6 +21,11 @@
   <div class="tab-content">
     <div id="create_field" class="tab-pane active">
       <div class="col-sm-6 my-3 mx-auto">
+        <div class="text-center">
+          <%= link_to "形容詞 upload", basin_theme_adjectives_upload_path, class: "btn btn-outline-secondary rounded-pill mr-2" %>
+          <%= link_to "名詞 upload", basin_theme_nouns_upload_path, class: "btn btn-outline-secondary rounded-pill" %>
+        </div>
+        <hr class="my-2">
         <% @permitted_fields.each_with_index do |field, i| %>
           <%= link_to(field_oogiris_path(field), class: "") do %>
             <div class="card-body shadow-sm border mb-3">
