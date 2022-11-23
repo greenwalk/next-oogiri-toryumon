@@ -15,6 +15,8 @@ namespace :basin_task do
         #最新お題のステータスによって処理を分岐
         if field.status_posting?
           # 投稿->投票
+          bot_oogiri_content = BasinOogiri.where(rank: 1..5).where('id >= ?', rand(BasinOogiri.first.id..BasinOogiri.last.id)).first.content
+          BasinOogiri.create!(content: bot_oogiri_content, user_id: 529, basin_field_id: field.id)
           field.status_voting!
         elsif  field.status_voting?
           # 投票->結果 + oogiriにデータ保存
