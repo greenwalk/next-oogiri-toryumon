@@ -15,7 +15,7 @@
 
 <div class="col-sm-6 mx-auto">
   <% @oogiris.each do |oogiri| %>
-    <div class="p-1 shadow-sm border my-2 <%= oogiri.user == current_user ? 'table-danger border-danger' : '' %> <%= oogiri.basin_likes.pluck(:user_id).include?(current_user.id) ? 'table-primary border-primary' : '' %>">
+    <div class="p-1 shadow-sm border my-2 <%= oogiri.user == current_user && oogiri.user_id != 529 ? 'table-danger border-danger' : '' %> <%= oogiri.basin_likes.pluck(:user_id).include?(current_user.id) ? 'table-primary border-primary' : '' %> <%= oogiri.user_id == 529 ? 'table-warning border-warning' : '' %>">
       <div class="d-flex align-items-center">
         <div class="d-flex text-nowrap align-items-center">
           <div class="mr-2 "><%= "#{oogiri.rank}位" %></div>
