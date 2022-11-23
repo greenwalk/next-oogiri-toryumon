@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'top_pages#top_page'
   resources :users, only: :show
+
+  get 'fields/now_field', to: 'fields#now_field_index'
   resources :fields, only:[:index, :new, :create, :update, :destroy] do
     resources :votes, only:[:new, :create]
     get 'vote/thanks', to: 'votes#thanks'
@@ -14,16 +16,21 @@ Rails.application.routes.draw do
   end
 
   # 滝壺
+  get 'basin_fields/now_basin_field', to: 'basin_fields#now_basin_field'
   resources :basin_fields, only:[:index] do
     get '/basin_votes', to: 'basin_oogiris#vote'
     resources :basin_oogiris, only:[:index, :new, :create, :destroy] do
       resources :basin_likes, only:[:create, :destroy]
     end
   end
-  get 'basin_fields/now_basin_field', to: 'basin_fields#now_basin_field'
+
+  get 'basin_theme_adjectives/upload', to: 'basin_theme_adjectives#upload'
+  post 'basin_theme_adjectives/import', to: 'basin_theme_adjectives#import'
+  get 'basin_theme_nouns/upload', to: 'basin_theme_nouns#upload'
+  post 'basin_theme_nouns/import', to: 'basin_theme_nouns#import'
 
   resources :comments, only:[:index]
-  get 'fields/now_field', to: 'fields#now_field_index'
+
   get '/admin/top', to: 'admin/admins#top'
   get '/ranking', to: 'top_pages#ranking'
   get '/privacy_policy', to: 'top_pages#privacy_policy'
