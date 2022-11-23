@@ -1,5 +1,5 @@
 class BasinOogirisController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
   before_action :set_field
   before_action :set_oogiri, only: [:destroy]
   before_action :dont_look_result, only: [:index]
