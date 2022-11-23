@@ -1,0 +1,21 @@
+<div class="col-sm-6 mx-auto">
+  <div class="my-3 card-body">
+    <div class="text-center">形容詞Import</div>
+    <hr class="mt-1 mb-0 w-25 mb-4">
+    <div class="card-body shadow-sm border small">
+      <%= form_tag({controller: "basin_theme_adjectives", action: :import, method: "post"}, {multipart: true}) do %>
+        <div class="mb-3">
+          <%= file_field_tag :file, accept: ".json, text/json" %>
+        </div>
+
+        <div class="actions">
+          <%= submit_tag "Import", class: "btn btn-outline-primary rounded-pill"%>
+        </div>
+      <% end %>
+    </div>
+    <hr class="my-2">
+    <div class="text-center">
+      <%= link_to "戻る", admin_top_path, class: "btn btn-outline-dark" %>
+    </div>
+  </div>
+</div>
