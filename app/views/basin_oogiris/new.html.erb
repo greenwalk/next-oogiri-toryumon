@@ -1,6 +1,13 @@
 <div class="position-sticky mb-2 card col-sm-6 mx-auto" style="position: sticky; top: 56px; z-index: 100;">
   <div class="card-body">
-    <div class="justify-content-center d-flex align-items-center border border-primary rounded-circle" style="width: 45px; height: 45px;"><span class="" id="result"></span></div>
+    <div class="d-flex justify-content-between  align-items-center">
+      <div class="justify-content-center d-flex align-items-center border border-primary rounded-circle" style="width: 45px; height: 45px;"><span class="" id="result"></span></div>
+      <%= link_to(basin_fields_now_basin_field_path) do %>
+        <div class="justify-content-center d-flex align-items-center border border-success rounded-circle" style="width: 45px; height: 45px;">
+          <i class="fa-solid fa-arrows-rotate text-success"></i>
+        </div>
+      <% end %>
+    </div>
     <div class="text-center mb-2 text-dark"><%= "投稿" %></div>
     <div class="text-dark text-center table-primary p-2"><%= @field.theme %></div>
   </div>
