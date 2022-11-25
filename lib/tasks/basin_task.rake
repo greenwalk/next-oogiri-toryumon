@@ -15,7 +15,12 @@ namespace :basin_task do
         #最新お題のステータスによって処理を分岐
         if field.status_posting?
           # 投稿->投票
-          not_bot_oogiris = BasinOogiri.includes(:basin_field).where(basin_field: {status: :finished}).where.not(user_id: 529)
+          point = ToryuSetting.first.point
+          rank = ToryuSetting.first.rank
+          not_bot_oogiris = BasinOogiri.includes(:basin_field)
+                                       .where('point > ?', point)
+                                       .where('rank < ?', rank)
+                                       .where(basin_fields: {status: :finished}).where.not(user_id: 529)
           bot_oogiri_content = not_bot_oogiris.offset( rand(not_bot_oogiris.count) ).first.content
           BasinOogiri.create!(content: bot_oogiri_content, user_id: 529, basin_field_id: field.id)
           field.status_voting!
