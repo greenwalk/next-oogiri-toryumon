@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :comments, only:[:index]
 
   get '/admin/top', to: 'admin/admins#top'
+  post '/admin/update_toryu_setting', to: 'admin/admins#update_toryu_setting'
   get '/ranking', to: 'top_pages#ranking'
   get '/privacy_policy', to: 'top_pages#privacy_policy'
   get '/minus_oogiris/', to: 'top_pages#minus_oogiris'
