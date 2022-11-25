@@ -2,6 +2,7 @@ class BasinOogirisController < ApplicationController
   before_action :authenticate_user!
   before_action :set_field
   before_action :set_oogiri, only: [:destroy]
+  before_action :set_top_ten, only: [:index, :new, :vote]
   before_action :dont_look_result, only: [:index]
   before_action :dont_create_oogiri, only: [:new]
   before_action :dont_vote, only: [:vote]
@@ -61,5 +62,10 @@ class BasinOogirisController < ApplicationController
 
   def dont_vote
     redirect_to_newest_basin_field_page unless @field.status_voting?
+  end
+
+  def set_top_ten
+    fields_ids = BasinField.status_finished.order(created_at: :desc).limit(10).pluck(:id)
+    @top_ten = BasinOogiri.includes(:basin_field).where(basin_fields: {id: fields_ids}).order('sum_point desc').group(:user_id).sum(:point).to_a
   end
 end

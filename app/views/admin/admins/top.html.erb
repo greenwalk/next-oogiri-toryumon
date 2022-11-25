@@ -16,15 +16,14 @@
     <li class="nav-item" role="presentation">
       <a href="#user_list" class="nav-link" data-toggle="tab" aria-selected="false">登録者</a>
     </li>
+    <li class="nav-item" role="presentation">
+      <a href="#toryu_setting" class="nav-link" data-toggle="tab" aria-selected="false">とうりゅう君</a>
+    </li>
   </ul>
 
   <div class="tab-content">
     <div id="create_field" class="tab-pane active">
       <div class="col-sm-6 my-3 mx-auto">
-        <div class="text-center">
-          <%= link_to "形容詞 upload", basin_theme_adjectives_upload_path, class: "btn btn-outline-secondary rounded-pill mr-2" %>
-          <%= link_to "名詞 upload", basin_theme_nouns_upload_path, class: "btn btn-outline-secondary rounded-pill" %>
-        </div>
         <hr class="my-2">
         <% @permitted_fields.each_with_index do |field, i| %>
           <%= link_to(field_oogiris_path(field), class: "") do %>
@@ -185,6 +184,36 @@
           <% end %>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <div id="toryu_setting" class="tab-pane">
+      <div class="col-sm-6 my-3 mx-auto">
+      </div>
+      <div class="col-sm-6 mx-auto small table-responsive">
+        <div class="text-center">
+          <%= link_to "形容詞 upload", basin_theme_adjectives_upload_path, class: "btn btn-outline-secondary rounded-pill mr-2" %>
+          <%= link_to "名詞 upload", basin_theme_nouns_upload_path, class: "btn btn-outline-secondary rounded-pill" %>
+        </div>
+        <div class="my-3 card-body">
+          <div class="text-center mb-3">
+            <%= "現在の最低得点: #{ToryuSetting.first.point}" %><br>
+            <%= "現在の最低順位: #{ToryuSetting.first.rank}" %>
+          </div>
+          <%= form_with model: @setting, url: admin_update_toryu_setting_path, local: true do |f| %>
+            <div class="form-group">
+              最低得点(以上)
+              <%= f.text_field :point, autofocus: true, required: true, class: "px-1 col-sm-12" %>
+            </div>
+            <div class="form-group">
+              最低順位(以上)
+              <%= f.text_field :rank, required: true, class: "px-1 col-sm-12" %>
+            </div>
+            <div class="actions text-center">
+              <%= f.submit "設定", class: "w-25 btn btn-sm bg-dark text-white" %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

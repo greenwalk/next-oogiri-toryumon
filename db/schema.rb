@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_051548) do
+ActiveRecord::Schema.define(version: 2022_11_25_144424) do
 
   create_table "basin_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme", default: "", null: false
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 2022_11_19_051548) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["field_id"], name: "index_oogiris_on_field_id"
     t.index ["user_id"], name: "index_oogiris_on_user_id"
+  end
+
+  create_table "toryu_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "point", default: 0, null: false
+    t.integer "rank", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

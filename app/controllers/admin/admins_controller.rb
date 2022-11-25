@@ -10,6 +10,15 @@ class Admin::AdminsController < ApplicationController
     @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0)
     # ユーザー一覧用
     @users = User.order(created_at: :desc)
+
+    # とうりゅう君設定用
+    @setting = ToryuSetting.new
+  end
+
+  def update_toryu_setting
+    @setting = ToryuSetting.find_or_initialize_by(id: 1)
+    @setting.update_attributes(params.require(:toryu_setting).permit(:point, :rank))
+    redirect_to admin_top_path
   end
 
   private
