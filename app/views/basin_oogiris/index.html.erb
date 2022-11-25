@@ -2,7 +2,8 @@
   <div class="card-body">
     <div class="d-flex justify-content-between  align-items-center">
       <div class="justify-content-center d-flex align-items-center border border-primary rounded-circle" style="width: 45px; height: 45px;"><span class="" id="result"></span></div>
-      <%= link_to(basin_fields_now_basin_field_path) do %>
+      <%= render partial: "basin_ranking" %>
+      <%= link_to(basin_fields_now_basin_field_path, class: "text-decoration-none") do %>
         <div class="justify-content-center d-flex align-items-center border border-success rounded-circle" style="width: 45px; height: 45px;">
           <i class="fa-solid fa-arrows-rotate text-success"></i>
         </div>
