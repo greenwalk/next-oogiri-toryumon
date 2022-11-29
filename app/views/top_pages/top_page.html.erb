@@ -1,6 +1,17 @@
 <%= image_tag "dark_main_img.jpg", class: "w-100 shadow-sm" %>
 <div class="my-3 col-sm-6 mx-auto">
   <div class="card-body shadow bg-white mb-4">
+    <div class="text-center mb-2 text-dark small">アンケート</div>
+    <hr class="mt-2 mb-4 w-25">
+    <div class="text-dark table-secondary p-2 small">
+      大喜利登竜門のサイト品質向上のためのアンケートです。<br>
+      完全匿名ですので、ご気軽に回答してくださるとありがたいです。<br>
+    </div>
+    <div class="text-center mt-3">
+      <%= link_to "大喜利登竜門ユーザーアンケート", "https://forms.gle/K37P89gef6RuY8Am7", class: "px-4 btn btn-outline-primary rounded-pill shadow-sm", target: "_blank", rel: "noopener noreferrer" %>
+    </div>
+  </div>
+  <div class="card-body shadow bg-white mb-4">
     <div class="text-center mb-2 text-dark small">最新の結果</div>
     <hr class="mt-2 mb-4 w-25">
     <% @finished_fields.each do |field| %>
