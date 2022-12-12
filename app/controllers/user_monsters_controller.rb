@@ -1,0 +1,2 @@
+class UserMonstersController < ApplicationController
+end
