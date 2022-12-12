@@ -1,0 +1,2 @@
+class UserMonster < ApplicationRecord
+end
