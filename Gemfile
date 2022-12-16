@@ -61,6 +61,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'kaminari'
+gem "aws-sdk-s3", require: false
 
 group :production, :staging do
   gem 'unicorn'

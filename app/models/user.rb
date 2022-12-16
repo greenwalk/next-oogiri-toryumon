@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :comment_likes
   has_many :basin_oogiris
   has_many :basin_likes
+  has_many :user_monsters
+  has_many :monsters, through: :user_monsters
 
   validates :name, presence: true
   validates :oogiri_start, presence: true

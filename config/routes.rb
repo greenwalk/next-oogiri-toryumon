@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'top_pages#top_page'
   resources :users, only: :show
+  resources :user_monsters, only: :create
+  post 'user_monsters/update', to: 'user_monsters#update'
 
   get 'fields/now_field', to: 'fields#now_field_index'
   resources :fields, only:[:index, :new, :create, :update, :destroy] do

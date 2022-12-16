@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :set_now_field
   before_action :set_participating_limit
 
+  add_flash_types :success, :info, :warning, :danger
+
   private
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :oogiri_start])

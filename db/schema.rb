@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_25_144424) do
+ActiveRecord::Schema.define(version: 2022_12_12_141635) do
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "basin_fields", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme", default: "", null: false
@@ -80,6 +101,16 @@ ActiveRecord::Schema.define(version: 2022_11_25_144424) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "monsters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "status", default: 0, null: false
+    t.string "image", default: "", null: false
+    t.integer "level", default: 0, null: false
+    t.integer "species", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "oogiris", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content", limit: 200, null: false, comment: "回答"
     t.integer "point", default: 0, null: false, comment: "得点"
@@ -100,6 +131,16 @@ ActiveRecord::Schema.define(version: 2022_11_25_144424) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_monsters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "monster_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["monster_id"], name: "index_user_monsters_on_monster_id"
+    t.index ["user_id"], name: "index_user_monsters_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -113,6 +154,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_144424) do
     t.integer "max_rate", default: 1500, null: false
     t.string "rate_class", default: "<i class='fa-solid fa-seedling' style='color: #66CC00;'></i>", null: false
     t.date "oogiri_start", null: false
+    t.integer "monster_charge", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -130,6 +172,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_144424) do
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "basin_likes", "basin_oogiris"
   add_foreign_key "basin_likes", "users"
   add_foreign_key "basin_oogiris", "basin_fields"
@@ -140,6 +183,8 @@ ActiveRecord::Schema.define(version: 2022_11_25_144424) do
   add_foreign_key "comments", "users"
   add_foreign_key "oogiris", "fields"
   add_foreign_key "oogiris", "users"
+  add_foreign_key "user_monsters", "monsters"
+  add_foreign_key "user_monsters", "users"
   add_foreign_key "votes", "oogiris"
   add_foreign_key "votes", "users"
 end
