@@ -3,6 +3,32 @@ class UsersController < ApplicationController
     # 対象のユーザーを取得
     @users = User.eager_load(:oogiris).where.not(oogiris: {id: nil}).order(rate: :desc)
     @user = User.includes(:oogiris, :votes, :comments).find(params[:id])
+    # ユーザーモンスター生成のためのインスタンス
+    @user_monster = UserMonster.new
+    # 現在のモンスターを取得
+    @now_monster = @user.user_monsters&.status_now&.first&.monster
+    # 一番最初のモンスターを引くとき
+    if @now_monster.nil?
+      # レベル0の未使用モンスターをランダムに指定
+      first_monster = Monster.status_unused.where(level: 0)
+      @monster = first_monster.offset( rand(first_monster.count) ).first
+    end
+    # 二回目以降にモンスターを引くとき（条件: monster_chargeが4以上溜まっていること）
+    if @now_monster.present? && @user.monster_charge >= 4
+      # 現在のモンスターのレベルを取得
+      now_level = @now_monster.level
+      # 現在のモンスターのレベル + 1を取得
+      next_level = now_level + 1
+      # 現在のモンスターの種族を取得
+      now_species = @now_monster.species
+      # 50%の確率でレベルアップ、50%の確率でレベルステイしたモンスターをランダムで取得する
+      if rand(2) == 0
+        monster = Monster.status_unused.where(level: now_level, species: now_species)
+      else
+        monster = Monster.status_unused.where(level: next_level, species: now_species)
+      end
+      @monster = monster.offset( rand(monster.count) ).first
+    end
     # ユーザーのrate順位(=ランク)
     @user_rank = if @users.index(@user).present?
                    @users.index(@user) + 1
@@ -34,5 +60,7 @@ class UsersController < ApplicationController
                                                                   .order(created_at: :desc).page(params[:page]).per(7)
     # コメントのgood数
     @user_good_num = CommentLike.includes(:comment).where(comments: {id: user_comments.pluck(:id)}).length
+    # ガチャの条件
+    @gacha_conditions = @user.monster_charge >= 4 && (@user_comments_num.to_f / @user_votes_num.to_f * 100).round(1) >= 200
   end
 end
