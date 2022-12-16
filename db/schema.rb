@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_11_100040) do
+ActiveRecord::Schema.define(version: 2022_12_12_141635) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -131,6 +131,16 @@ ActiveRecord::Schema.define(version: 2022_12_11_100040) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_monsters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "monster_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["monster_id"], name: "index_user_monsters_on_monster_id"
+    t.index ["user_id"], name: "index_user_monsters_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -144,6 +154,7 @@ ActiveRecord::Schema.define(version: 2022_12_11_100040) do
     t.integer "max_rate", default: 1500, null: false
     t.string "rate_class", default: "<i class='fa-solid fa-seedling' style='color: #66CC00;'></i>", null: false
     t.date "oogiri_start", null: false
+    t.integer "monster_charge", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -172,6 +183,8 @@ ActiveRecord::Schema.define(version: 2022_12_11_100040) do
   add_foreign_key "comments", "users"
   add_foreign_key "oogiris", "fields"
   add_foreign_key "oogiris", "users"
+  add_foreign_key "user_monsters", "monsters"
+  add_foreign_key "user_monsters", "users"
   add_foreign_key "votes", "oogiris"
   add_foreign_key "votes", "users"
 end
