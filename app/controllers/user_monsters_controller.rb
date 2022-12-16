@@ -28,6 +28,8 @@ class UserMonstersController < ApplicationController
         user.update!(monster_charge: user.monster_charge - 4)
         if now_user_monster.monster.level == user_monster.monster.level
           flash[:danger] = "残念！レベルアップに失敗しました"
+        elsif user_monster.monster.level == 0
+          flash[:success] = "新しいモンスターの生成に成功しました！"
         else
           flash[:success] = "おめでとう！レベルアップに成功しました！"
         end

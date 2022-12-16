@@ -18,14 +18,30 @@ class UsersController < ApplicationController
       # 現在のモンスターのレベルを取得
       now_level = @now_monster.level
       # 現在のモンスターのレベル + 1を取得
-      next_level = now_level + 1
+      if now_level == 4
+        next_level = 0
+      else
+        next_level = now_level + 1
+      end
       # 現在のモンスターの種族を取得
       now_species = @now_monster.species
       # 50%の確率でレベルアップ、50%の確率でレベルステイしたモンスターをランダムで取得する
-      if rand(2) == 0
-        monster = Monster.status_unused.where(level: now_level, species: now_species)
+      stay_monster = Monster.status_unused.where(level: now_level, species: now_species)
+      level_up_monster = Monster.status_unused.where(level: next_level, species: now_species)
+      if now_level == 3
+        if rand(10) >= 7
+          monster = stay_monster
+        else
+          monster = level_up_monster
+        end
+      elsif now_level == 4
+        monster = level_up_monster
       else
-        monster = Monster.status_unused.where(level: next_level, species: now_species)
+        if rand(2) == 0
+          monster = stay_monster
+        else
+          monster = level_up_monster
+        end
       end
       @monster = monster.offset( rand(monster.count) ).first
     end
@@ -61,6 +77,6 @@ class UsersController < ApplicationController
     # コメントのgood数
     @user_good_num = CommentLike.includes(:comment).where(comments: {id: user_comments.pluck(:id)}).length
     # ガチャの条件
-    @gacha_conditions = @user.monster_charge >= 4 && (@user_comments_num.to_f / @user_votes_num.to_f * 100).round(1) >= 200
+    @gacha_conditions = @user.monster_charge >= 4 && (@user_votes_num.to_f / @fields_num.to_f * 100).round(1) >= 60 && (@user_comments_num.to_f / @user_votes_num.to_f * 100).round(1) >= 200
   end
 end

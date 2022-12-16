@@ -18,7 +18,11 @@
           <%= f.hidden_field :monster_id, :value => @monster&.id %>
           <div class="actions text-center mt-1">
             <% if @gacha_conditions %>
-              <%= f.submit "レベルアップに挑戦", class: "btn bg-success text-white" %>
+              <% if @now_monster.level == 4 %>
+                <%= f.submit "新しいモンスターを生成する", class: "btn bg-success text-white", data: { confirm: "投稿チャージを4消費して、新しいモンスターを生成しますか？現在のモンスターには戻れません。"} %>
+              <% else %>
+                <%= f.submit "レベルアップに挑戦", class: "btn bg-success text-white", data: { confirm: "投稿チャージを4消費して、レベルアップに挑戦しますか？現在のモンスターには戻れません。"} %>
+              <% end %>
             <% else %>
               <%= f.submit "レベルアップに挑戦", class: "btn bg-secondary text-white", disabled: true %>
             <% end %>
@@ -54,7 +58,7 @@
           <%= f.hidden_field :user_id, :value => @user.id %>
           <%= f.hidden_field :monster_id, :value => @monster.id %>
           <div class="actions text-center">
-            <%= f.submit "モンスターを生成する", class: "btn bg-success text-white" %>
+            <%= f.submit "モンスターを生成する", class: "btn bg-success text-white", data: { confirm: "モンスターを生成しますか？"}  %>
           </div>
         <% end %>
       <% end %>
