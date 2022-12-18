@@ -1,9 +1,9 @@
 <div class="card-body col-sm-6 mx-auto">
-  <div class="text-center mb-2 text-dark¥">ツイッター登録</div>
+  <div class="text-center mb-2 text-dark¥">Twitter登録</div>
   <hr class="my-2 w-25">
   <div class="card-body shadow-sm border">
     <p class="mt-1 p-1 table-secondary small">
-      大変お手数ではございますが、覆面アカウント対策のため、<%= "#{@user.name} 様" %>のTwitterプロフィールページのURLを登録してください。<br>
+      大変お手数ではございますが、<span class="text-danger">覆面アカウント対策</span>のため、<%= "#{@user.name} 様" %>のTwitterプロフィールページのURLを登録してください。<br>
 
       例: https://twitter.com/oogiri_trm
     </p>
@@ -17,7 +17,7 @@
       </div>
 
       <div class="actions text-center">
-        <%= f.submit "ツイッターを登録", class: "btn bg-dark text-white"  %>
+        <%= f.submit "ツイッターを登録", class: "btn bg-primary text-white"  %>
       </div>
     <% end %>
   </div>

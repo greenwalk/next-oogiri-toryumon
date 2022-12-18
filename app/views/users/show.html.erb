@@ -107,9 +107,13 @@
           <th nowrap class="p-2 text-center w-50">Twitter</th>
           <th nowrap class="p-2 text-center">
             <% if @user.twitter_user_name.present? %>
-              <%= link_to "@#{@user.twitter_user_name}", "https://twitter.com/#{@user.twitter_user_name}", target: :_blank, rel: "noopener noreferrer" %>
+               <%= link_to "@#{@user.twitter_user_name}", "https://twitter.com/#{@user.twitter_user_name}", target: :_blank, rel: "noopener noreferrer" %>
             <% else %>
-              <%= "未設定" %>
+              <% if @user == current_user %>
+                <%= link_to "登録する", registration_twitter_user_path(current_user.id), class: "btn btn-sm btn-primary h-100" %>
+              <% else %>
+                <%= "未設定" %>
+              <% end %>
             <% end %>
           </th>
         </tr>
