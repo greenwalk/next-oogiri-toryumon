@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'top_pages#top_page'
-  resources :users, only: :show
+  resources :users, only: [:index, :show] do
+    member do
+      get :registration_twitter, to: 'users#registration_twitter_edit'
+      patch :registration_twitter, to: 'users#registration_twitter_update'
+    end
+  end
   resources :user_monsters, only: :create
   post 'user_monsters/update', to: 'user_monsters#update'
 
