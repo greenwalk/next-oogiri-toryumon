@@ -55,8 +55,12 @@
               <i class="fa-solid fa-ranking-star text-white mr-1"></i>
               <%= link_to 'ランキング', ranking_path, class: "text-white" %>
             </li>
+            <li class="nav-item mb-1 mr-2 align-items-center">
+              <i class="fa-solid fa-user-group text-white mr-1"></i>
+              <%= link_to 'プレイヤー図鑑', users_path, class: "text-white" %>
+            </li>
             <li class="d-flex nav-item mb-1 mr-2 align-items-center">
-              <i class="fa-solid fa-user text-white mr-2"></i>
+              <i class="fa-solid fa-address-card text-white mr-2"></i>
               <%= link_to current_user.name, user_path(current_user), class: "text-white" %>
             </li>
             <li class="d-flex nav-item mb-1 mr-2 align-items-center">
@@ -81,6 +85,10 @@
             <li class="nav-item mb-1 mr-2 align-items-center">
               <i class="fa-solid fa-ranking-star text-white mr-1"></i>
               <%= link_to 'ランキング', ranking_path, class: "text-white" %>
+            </li>
+            <li class="nav-item mb-1 mr-2 align-items-center">
+              <i class="fa-solid fa-user-group text-white mr-1"></i>
+              <%= link_to 'プレイヤー図鑑', users_path, class: "text-white" %>
             </li>
             <li class="d-flex nav-item mb-1 mr-2 align-items-center">
               <i class="fa-solid fa-box-open text-white mr-2"></i>
