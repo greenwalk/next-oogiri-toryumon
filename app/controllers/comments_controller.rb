@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :redirect_to_registration_twitter_page
   before_action :set_oogiri, only: [:create, :destroy]
   before_action :set_field, only: [:create, :destroy]
 
@@ -33,5 +34,9 @@ class CommentsController < ApplicationController
 
   def set_field
     @field = Field.find(params[:field_id])
+  end
+
+  def redirect_to_registration_twitter_page
+    redirect_to registration_twitter_user_path(current_user.id) unless current_user&.twitter_url&.present?
   end
 end

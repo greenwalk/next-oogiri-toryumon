@@ -1,5 +1,6 @@
 class FieldsController < ApplicationController
   before_action :authenticate_user!, only: [:now_field_index, :update, :destroy]
+  before_action :redirect_to_registration_twitter_page, only: [:now_field_index, :update, :destroy]
   before_action :set_field, only: [:update, :destroy]
   helper_method :posted_another_field?
   helper_method :already_voted?
@@ -187,6 +188,9 @@ class FieldsController < ApplicationController
         user.update!(rate_class: "<i class='fa-solid fa-poop' style='color: #996633;'></i>")
       end
     end
+  end
 
+  def redirect_to_registration_twitter_page
+    redirect_to registration_twitter_user_path(current_user.id) unless current_user&.twitter_url&.present?
   end
 end
