@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  before_action :redirect_to_root, only: [:registration_twitter_edit, :registration_twitter_update]
+
+  def index
+    @users = User.order(created_at: :asc)
+  end
   def show
     # 対象のユーザーを取得
     @users = User.eager_load(:oogiris).where.not(oogiris: {id: nil}).order(rate: :desc)
@@ -85,5 +90,25 @@ class UsersController < ApplicationController
     @vote_10_rate = @user_votes_10_num.to_f / @fields_10_num.to_f rescue 0
     @comment_10_rate = @user_comments_10_num.to_f / @user_votes_10_num.to_f rescue 0
     @gacha_conditions = @user.monster_charge >= 4 && (@vote_10_rate * 100).round(1) >= 60 && ( @comment_rate * 100).round(1) >= 200
+  end
+
+  def registration_twitter_edit
+    @user = current_user
+  end
+
+  def registration_twitter_update
+    user = User.find(params[:id])
+    if user.update(twitter_url: params[:user][:twitter_url])
+      flash[:info] = 'Twitterを登録しました'
+      redirect_to user_path and return
+    else
+      @user = current_user
+      render :registration_twitter_edit
+    end
+  end
+
+  private
+  def redirect_to_root
+    redirect_to root_path if !user_signed_in? || current_user&.twitter_url&.present?
   end
 end
