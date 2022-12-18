@@ -39,14 +39,14 @@
                 </tr>
                 <tr>
                   <th nowrap class="text-left w-50 py-1">コメント率<span class="small text-muted">*3</span>:</th>
-                  <th nowrap class="text-left py-1"><span class="<%= (@comment_rate * 100).round(1) >= 200 ? 'text-success' : 'text-danger' %>"><%= (@comment_rate * 100).round(1) %></span> / 200.0 ％</th>
+                  <th nowrap class="text-left py-1"><span class="<%= (@comment_10_rate * 100).round(1) >= 200 ? 'text-success' : 'text-danger' %>"><%= (@comment_10_rate * 100).round(1) %></span> / 200.0 ％</th>
                 </tr>
               </table>
               <div class="small text-left">
                 <hr class="my-0">
                 <span class="small text-muted">*1 投稿で+1、レベルアップに挑戦すると-4されます</span><br>
                 <span class="small text-muted">*2 投票回数／直近10回のお題の数 で算出されます</span><br>
-                <span class="small text-muted">*3 コメント回数／投票回数 で算出されます</span>
+                <span class="small text-muted">*3 コメント回数／直近10回お題での投票回数 で算出されます</span>
               </div>
             </div>
           </div>

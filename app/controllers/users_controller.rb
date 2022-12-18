@@ -79,10 +79,11 @@ class UsersController < ApplicationController
     # ガチャの条件
     fields_10 = @fields.order(created_at: :desc).limit(10)
     fields_10_ids = fields_10.ids
+    @user_comments_10_num = user_comments.where(oogiris: {fields: {id: fields_10_ids}}).length
     @fields_10_num = fields_10.length
     @user_votes_10_num = user_votes.where(field_id: fields_10_ids).length
     @vote_10_rate = @user_votes_10_num.to_f / @fields_10_num.to_f rescue 0
-    @comment_rate = @user_comments_num.to_f / @user_votes_num.to_f rescue 0
+    @comment_10_rate = @user_comments_10_num.to_f / @user_votes_10_num.to_f rescue 0
     @gacha_conditions = @user.monster_charge >= 4 && (@vote_10_rate * 100).round(1) >= 60 && ( @comment_rate * 100).round(1) >= 200
   end
 end
