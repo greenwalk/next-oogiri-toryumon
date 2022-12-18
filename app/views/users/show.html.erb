@@ -103,6 +103,16 @@
           <th nowrap class="p-2 text-center w-50">大喜利を始めた年</th>
           <th nowrap class="p-2 text-center"><%= @user.oogiri_start.strftime('%Y年') %></th>
         </tr>
+        <tr>
+          <th nowrap class="p-2 text-center w-50">Twitter</th>
+          <th nowrap class="p-2 text-center">
+            <% if @user.twitter_user_name.present? %>
+              <%= link_to "@#{@user.twitter_user_name}", "https://twitter.com/#{@user.twitter_user_name}", target: :_blank, rel: "noopener noreferrer" %>
+            <% else %>
+              <%= "未設定" %>
+            <% end %>
+          </th>
+        </tr>
       </table>
       <table class="table table-bordered table-striped mb-1">
         <tr class="">
