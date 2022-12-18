@@ -1,5 +1,6 @@
 class OogirisController < ApplicationController
   before_action :authenticate_user!, except: [:index, :vote_show]
+  before_action :redirect_to_registration_twitter_page, except: [:index, :vote_show]
   before_action :set_field, only: [:index, :new, :create, :edit, :update, :show, :vote_show, :destroy]
   before_action :set_oogiri, only: [:edit, :update, :show, :vote_show, :destroy]
   before_action :dont_look_result, only: [:index, :vote_show]
@@ -83,5 +84,9 @@ class OogirisController < ApplicationController
 
   def dont_look_oogiri
     redirect_to new_field_oogiri_path(@field) if @field.status_posting?
+  end
+
+  def redirect_to_registration_twitter_page
+    redirect_to registration_twitter_user_path(current_user.id) unless current_user&.twitter_url&.present?
   end
 end

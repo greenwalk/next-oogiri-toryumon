@@ -1,4 +1,5 @@
 class UserMonstersController < ApplicationController
+  before_action :redirect_to_registration_twitter_page
   def create
     user = User.find(params[:user_monster][:user_id])
     if user == current_user
@@ -40,5 +41,10 @@ class UserMonstersController < ApplicationController
       flash[:danger] = "自分のモンスターの生成してください。"
     end
     redirect_to user_path(user)
+  end
+
+  private
+  def redirect_to_registration_twitter_page
+    redirect_to registration_twitter_user_path(current_user.id) unless current_user&.twitter_url&.present?
   end
 end

@@ -1,5 +1,6 @@
 class BasinOogirisController < ApplicationController
   before_action :authenticate_user!
+  before_action :redirect_to_registration_twitter_page
   before_action :set_field
   before_action :set_oogiri, only: [:destroy]
   before_action :set_top_ten, only: [:index, :new, :vote]
@@ -67,5 +68,9 @@ class BasinOogirisController < ApplicationController
   def set_top_ten
     fields_ids = BasinField.status_finished.order(created_at: :desc).limit(10).pluck(:id)
     @top_ten = BasinOogiri.includes(:basin_field).where(basin_fields: {id: fields_ids}).order('sum_point desc').group(:user_id).sum(:point).to_a
+  end
+
+  def redirect_to_registration_twitter_page
+    redirect_to registration_twitter_user_path(current_user.id) unless current_user&.twitter_url&.present?
   end
 end

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   private
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :oogiri_start])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :oogiri_start, :twitter_url])
   end
   def set_now_field
     @voting_fields = Field.status_voting

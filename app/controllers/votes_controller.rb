@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
   before_action :authenticate_user!
+  before_action :redirect_to_registration_twitter_page
   before_action :set_field
   before_action :set_oogiris, only: [:new, :create, :thanks]
   before_action :dont_vote, only: [:new, :thanks]
@@ -49,5 +50,9 @@ class VotesController < ApplicationController
 
   def cant_chage_votes
     Vote.where(user_id: current_user.id, field_id: @field.id, change_num: 2..10).present?
+  end
+
+  def redirect_to_registration_twitter_page
+    redirect_to registration_twitter_user_path(current_user.id) unless current_user&.twitter_url&.present?
   end
 end

@@ -1,0 +1,38 @@
+<div class="card-body text-center mt-1">
+  <div class="text-center mb-2 text-dark small">プレイヤー図鑑</div>
+  <hr class="mt-2 mb-0 w-25">
+</div>
+<div class="col-sm-6 mx-auto small table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th nowrap class="text-center"></th>
+      <th nowrap class="text-center">名前</th>
+      <th nowrap class="text-center">Twitter</th>
+      <th nowrap class="text-center">モンスター名</th>
+      <th nowrap class="text-center">大喜利開始年</th>
+      <th nowrap class="text-center">登録日</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each_with_index do |user, i| %>
+      <tr>
+        <td nowrap class="text-center"><%= i + 1 %></td>
+        <td nowrap class="text-center"><%= link_to user.name, user_path(user) %></td>
+        <td nowrap class="text-center">
+          <% if user.twitter_user_name.present? %>
+            <%= link_to "@#{user.twitter_user_name}", "https://twitter.com/#{user.twitter_user_name}", target: :_blank, rel: "noopener noreferrer" %>
+          <% else %>
+            <%= "未設定" %>
+          <% end %>
+        </td>
+        <td nowrap class="text-center">
+          <%= user.now_monster&.name&.presence || "未設定" %>
+        </td>
+        <td nowrap class="text-center"><%= user.oogiri_start.strftime('%Y年') %></td>
+        <td nowrap class="text-center"><%= user.created_at.strftime('%Y年%m月%d日') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
