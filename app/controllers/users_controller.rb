@@ -97,12 +97,11 @@ class UsersController < ApplicationController
   end
 
   def registration_twitter_update
-    user = User.find(params[:id])
-    if user.update(twitter_url: params[:user][:twitter_url])
+    @user = User.find(params[:id])
+    if @user.update(twitter_url: params[:user][:twitter_url])
       flash[:info] = 'Twitterを登録しました'
       redirect_to user_path and return
     else
-      @user = current_user
       render :registration_twitter_edit
     end
   end
