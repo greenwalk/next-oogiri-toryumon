@@ -135,11 +135,11 @@ namespace :change_fields_status do
           # お題が出題された時、created_atをその時の時刻にする
           field.update(created_at: Time.zone.now) if field.status_posting?
           # お題が投票中になったら、そのお題に回答した人のmonster_chageを+1する
-          if field.status_voting?
-            field.oogiris.each do |oogiri|
-              oogiri.user.update!(monster_charge: oogiri.user.monster_charge + 1)
-            end
-          end
+          # if field.status_voting?
+          #   field.oogiris.each do |oogiri|
+          #     oogiri.user.update!(monster_charge: oogiri.user.monster_charge + 1)
+          #   end
+          # end
           # お題が結果発表された時、各パラメータを保存・更新する
           if field.status_finished?
             update_point(field.oogiris)
