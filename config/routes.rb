@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get '/admin/top', to: 'admin/admins#top'
   post '/admin/update_toryu_setting', to: 'admin/admins#update_toryu_setting'
   get '/ranking', to: 'top_pages#ranking'
+  get '/ban', to: 'top_pages#ban'
   get '/privacy_policy', to: 'top_pages#privacy_policy'
   get '/minus_oogiris/', to: 'top_pages#minus_oogiris'
 end
