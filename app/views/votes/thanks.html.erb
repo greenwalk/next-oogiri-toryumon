@@ -6,7 +6,7 @@
       <div class="text-center table-dark"><%= "#{point}点" %></div>
       <% if @votes.where(vote_point: point).present? %>
         <% @votes.where(vote_point: point).each do |vote| %>
-          <div class="text-muted my-1"><%= link_to vote.oogiri.content, field_oogiri_path(vote.field, vote.oogiri), class: "text-muted" %></div>
+          <div class="text-muted my-1"><%= link_to vote.oogiri.content, field_oogiri_path(vote.field, vote.oogiri), class: "text-muted", target: :_blank, rel: "noopener noreferrer" %></div>
           <hr class="mt-0 mb-1">
         <% end %>
       <% else %>
