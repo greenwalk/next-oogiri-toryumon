@@ -45,7 +45,8 @@ class OogirisController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = Comment.where(oogiri_id: @oogiri.id)
+    @comments = Comment.where(oogiri_id: @oogiri.id, created_at: "1900-01-01"..@field.updated_at)
+    @late_comments = Comment.where(oogiri_id: @oogiri.id, created_at: @field.updated_at...)
   end
 
   def vote_show
