@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ban_user
   before_action :field_status_check
   before_action :set_now_field
   before_action :set_participating_limit
@@ -39,5 +40,10 @@ class ApplicationController < ActionController::Base
     elsif field.status_finished?
       redirect_to basin_field_basin_oogiris_path(field)
     end
+  end
+
+  def ban_user
+    users = [556, 644, 645, 646]
+    redirect_to ban_path if users.include?(current_user&.id) && action_name != 'ban'
   end
 end

@@ -12,4 +12,7 @@ class TopPagesController < ApplicationController
   def minus_oogiris
     @minus_oogiris = Oogiri.includes(:field).where(point: -10000...0).order(point: :asc).page(params[:page]).per(10)
   end
+
+  def ban
+  end
 end

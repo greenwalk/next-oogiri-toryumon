@@ -1,0 +1,16 @@
+<div class="my-3 col-sm-6 mx-auto">
+  <div class="card-body shadow bg-white mb-4">
+    <div class="text-center mb-2 text-dark small">ご連絡</div>
+    <hr class="mt-2 mb-4 w-25">
+    <div class="text-dark table-secondary p-2 small">
+      平素より大喜利登竜門をご利用いただきありがとうございます。<br>
+      <%= current_user&.name %>様のTwitterアカウントが適切なものに設定されていないと判断したため、一時的にサービスの利用を制限させていただいております。<br><br>
+
+      大喜利登竜門はコメントを重要視したサイトですので、その性質上「誰からのコメントなのか分からない」という状況をできる限りなくそうと努力しております。<br>
+      その対策として、<span class="text-danger">全てのユーザー様</span>に普段使用しているユーザー名や、誰なのかが分かるTwitterを紐づけていただくようご協力いただいております。<br>
+      どうぞご理解のほど、よろしくお願いいたします。<br><br>
+
+      適切なユーザー名やTwitterへのご変更にご協力いただけるのであれば、<%= link_to "大喜利登竜門のTwitterアカウント", "https://twitter.com/tokedai_sub", class: "text-primary", target: :_blank, rel: "noopener noreferrer" %>にDMお願いします。
+    </div>
+  </div>
+</div>
