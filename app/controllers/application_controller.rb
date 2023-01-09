@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ban_user
-    users = [556, 644, 645, 646]
+    users = [556, 644, 645, 646, 654]
     redirect_to ban_path if users.include?(current_user&.id) && action_name != 'ban'
   end
 end
